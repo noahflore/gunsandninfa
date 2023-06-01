@@ -1,5 +1,4 @@
 #include <allegro.h>
-#include "classe.h"
 #include "funcao.cpp"
 
 /* o personagem pode se mexer no cenario fechado 
@@ -23,8 +22,14 @@ int main(){
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	
 	while(!fecha){
-		
+		atualiza_tecla();
 		perso();
+		
+		
+		
+		
+		
+		
 		rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 		draw_sprite(screen,buffer,0,0);
 		clear(buffer);

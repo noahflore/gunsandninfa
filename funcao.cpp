@@ -1,5 +1,65 @@
+#include "h/funcao.h"
 
-#include "funcao.h"
+void atualiza_tecla(){
+	
+	
+	for (int i=0;i<=KEY_MAX;i++){
+		
+		tecla_ante[i]=key[i];
+		
+		
+	}
+	poll_keyboard();
+	
+	
+}
+
+bool aperta(int tecla){
+	
+	if ((!key[tecla])&&(tecla_ante[tecla])){
+		
+		return true;
+		
+	}else{
+		
+		return false;
+	}
+	
+	
+}
+bool segura(int tecla){
+	
+	if ((key[tecla])&&(tecla_ante[tecla])){
+		
+		return true;
+		
+	}else{
+		
+		return false;
+	}
+	
+	
+	
+	
+}
+bool solta(int tecla){
+	
+	if ((key[tecla])&&(!tecla_ante[tecla])){
+		
+		return true;
+		
+	}else{
+		
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
+}
 void perso(){
 	
 	

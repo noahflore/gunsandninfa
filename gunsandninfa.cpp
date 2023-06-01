@@ -1,4 +1,6 @@
 #include <allegro.h>
+#include "classe.h"
+#include "funcao.cpp"
 
 /* o personagem pode se mexer no cenario fechado 
 	mulheres engravida e recruta soldado
@@ -6,21 +8,19 @@
 	*/
 
 volatile bool fecha= false;
-int x=1,y=1,p=1,p2=1,p3=1,p4=1;
+
 
 void fechajanela();
 void allegro_start(char *title,int height,int width);
-void perso();
-
 
 int main(){
-	allegro_start("guns and women",1200,800);
+	allegro_start("guns and ninfa",1200,800);
 	LOCK_VARIABLE(fecha);
 	LOCK_FUNCTION(fechajanela);
 	set_close_button_callback(fechajanela);
 	
 	
-	BITMAP* buffer= create_bitmap(1200,800);
+	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	
 	while(!fecha){
 		
@@ -39,56 +39,6 @@ int main(){
 
 END_OF_MAIN();
 
-void perso(){
-	
-	if ((key[KEY_D]) || (p>=0)){
-		
-		if ((p<=8) && (key[KEY_D])){
-			p++;
-			x+=p;
-			
-		}else{
-			
-			p--;
-			x+=p;
-		}
-	}else if((key[KEY_A]) || (p2<=0)){
-		
-		if ((p2>=-8) && (key[KEY_A])){
-			p2--;
-			x+=p2;
-			
-		}else{
-			
-			p2++;
-			x+=p2;
-		}
-	}else if((key[KEY_W]) || (p3<=0)){
-		
-		if ((p3>=-8) && (key[KEY_W])){
-			p3--;
-			y+=p3;
-			
-		}else{
-			
-			p3++;
-			y+=p3;
-		}
-		
-	}else if((key[KEY_S]) || (p4>=0)){
-		
-		if ((p4<=8) && (key[KEY_S])){
-			p4++;
-			y+=p4;
-			
-		}else{
-			
-			p4--;
-			y+=p4;
-		}
-	}
-	
-}
 
 
 void allegro_start(char *title,int height,int width){

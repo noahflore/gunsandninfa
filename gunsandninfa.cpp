@@ -18,9 +18,11 @@ int main(){
 	LOCK_FUNCTION(fechajanela);
 	set_close_button_callback(fechajanela);
 	
-	
+	//MIDI* musica= load_midi("music/musica.midi");
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	
+	
+//	play_midi(musica,TRUE);
 	while(!fecha){
 		atualiza_tecla();
 		perso();
@@ -36,7 +38,7 @@ int main(){
 		
 	}
 	
-	
+//	destroy_midi(musica);
 	destroy_bitmap(buffer);
 	allegro_exit();
 	return 0;	
@@ -54,6 +56,7 @@ void allegro_start(char *title,int height,int width){
 	set_gfx_mode(GFX_AUTODETECT_WINDOWED,height,width,0,0);
 	set_window_title(title);
 	
+//	install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL);
 	install_keyboard();
 	install_timer();
 	

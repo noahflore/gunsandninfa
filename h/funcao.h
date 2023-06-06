@@ -1,7 +1,8 @@
 #ifndef _FUNCAO_H_
 #define _FUNCAO_H_
 #include <allegro.h>
-int x=1,y=1,p=1,p2=1,p3=1,p4=1;
+float x=0,y=0,velx=0,vely=0,ace=0.10;
+bool p=false,pp=false;
 int tecla_ante[KEY_MAX];
 void atualiza_tecla();
 bool aperta(int tecla);

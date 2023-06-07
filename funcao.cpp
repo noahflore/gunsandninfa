@@ -11,9 +11,10 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			velx+=ace;
 			x-=velx;
 			p=true;
+			stopf=2;
 			
 			frame=(mile /150) % 4;
-			masked_blit(player,buffer,frame * frame_w,2 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 			
 		}else if (segura(KEY_D)){
@@ -22,7 +23,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			
 			frame=(mile /150) % 4;
 			
-			masked_blit(player,buffer,frame * frame_w,2 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	
@@ -31,15 +32,16 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			velx+=ace;
 			x+=velx;
 			p=false;
+			stopf=3;
 			
 			frame=(mile /300) % 4;
-			masked_blit(player,buffer,frame * frame_w,3 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 		}else if (segura(KEY_A)){
 			
 			x+=velx;
 			
 			frame=(mile /300) % 4;
-			masked_blit(player,buffer,frame * frame_w,3 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	
@@ -47,13 +49,21 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	if((vely<=8) && (segura(KEY_W))){
 		
 			vely+=ace;
-			y-=vely;
-			pp=false;
+			y+=vely;
+			pp=true;
+			stopf=1;
 		
+		
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}else if (segura(KEY_W)){
 			
-			y-=vely;
+			y+=vely;
+		
+			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 		
@@ -63,15 +73,22 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 
 		if ((vely<=8) && (segura(KEY_S))){
 			vely+=ace;
-			y+=vely;
+			y-=vely;
+			stopf=0;
+			pp=false;
 			
-			pp=true;
+			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}else if (segura(KEY_S)){
 			
 		
-			y+=vely;
+			y-=vely;
 			
+			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 		
@@ -80,12 +97,25 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			if(p){x-=velx;}else{x+=velx;}
 			
 			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			
 		}
 	
 		if ((vely>=0) && (!key[KEY_S]) && (!key[KEY_W])){
 			vely-=ace;
 			if(pp){y+=vely;}else{y-=vely;}
 			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+		}
+	
+		if ((!key[KEY_A]) && (!key[KEY_D]) && (!key[KEY_W]) && (!key[KEY_S])){
+			
+			
+			
+			
+			masked_blit(player,buffer,0 * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	

@@ -6,7 +6,7 @@
 
 float x=0,y=0,velx=0,vely=0,ace=0.10;
 bool p=false,pp=false;
-int tecla_ante[KEY_MAX],frame=0;
+int tecla_ante[KEY_MAX],frame=0,stopf=0;
 void atualiza_tecla();
 bool aperta(int tecla);
 bool segura(int tecla);

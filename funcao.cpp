@@ -2,33 +2,44 @@
 #include "h/classe.h"
 
 
-void perso(){
+void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
 	
 		
 		if ((velx<=8) && (segura(KEY_D))){
 			
 			velx+=ace;
-			x+=velx;
-			p=false;
+			x-=velx;
+			p=true;
+			
+			frame=(mile /150) % 4;
+			masked_blit(player,buffer,frame * frame_w,2 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 			
 		}else if (segura(KEY_D)){
 			
-			x+=velx;
+			x-=velx;
+			
+			frame=(mile /150) % 4;
+			
+			masked_blit(player,buffer,frame * frame_w,2 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	
 		
 		if ((velx<=8) && (segura(KEY_A))){
 			velx+=ace;
-			x-=velx;
-			p=true;
+			x+=velx;
+			p=false;
 			
-			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,3 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 		}else if (segura(KEY_A)){
 			
-			x-=velx;
+			x+=velx;
+			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,3 * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	

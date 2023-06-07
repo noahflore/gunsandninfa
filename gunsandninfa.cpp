@@ -7,12 +7,17 @@
 	*/
 
 volatile bool fecha= false;
-volatile int fps= 0;
+volatile int fps= 0,mile;
+
+	
 
 
 void fechajanela();
 void allegro_start(char *title,int height,int width);
 void tempo_do_sistema();
+void ani();
+
+
 
 int main(){
 	allegro_start("guns and ninfa",1200,800);
@@ -20,13 +25,23 @@ int main(){
 	LOCK_FUNCTION(fechajanela);
 	LOCK_VARIABLE(fps);
 	LOCK_FUNCTION(tempo_do_sistema);
+	LOCK_VARIABLE(mile);
+	LOCK_FUNCTION(ani);
 	
 	install_int_ex(tempo_do_sistema,BPS_TO_TIMER(60));
+	install_int_ex(ani,MSEC_TO_TIMER(1));
 	set_close_button_callback(fechajanela);
 	
-	//MIDI* musica= load_midi("music/musica.midi");
+	
+	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	
+	//MIDI* musica= load_midi("music/musica.midi");
+	
+	
+	
+	int frame_w=259/4;
+	int frame_h=305/4;
 	
 //	play_midi(musica,TRUE);
 	while(!fecha){
@@ -34,7 +49,7 @@ int main(){
 		while (fps>=1){
 			
 			atualiza_tecla();
-			perso();
+			perso(player,buffer,frame_w,frame_h,mile);
 
 
 
@@ -49,6 +64,7 @@ int main(){
 	}
 	
 //	destroy_midi(musica);
+	destroy_bitmap(player);
 	destroy_bitmap(buffer);
 	allegro_exit();
 	return 0;	
@@ -85,3 +101,6 @@ void fechajanela(){
 	fecha=true;
 }
 END_OF_FUNCTION(fechajanela);
+
+void ani(){mile++;}
+END_OF_FUNCTION(ani);

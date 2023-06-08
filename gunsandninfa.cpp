@@ -50,7 +50,7 @@ int main(){
 			
 			atualiza_tecla();
 			perso(player,buffer,frame_w,frame_h,mile);
-			fadia(player,buffer);
+			fadia(player,buffer,mile);
 
 
 

@@ -2,7 +2,7 @@
 #include "h/classe.h"
 
 
-void fadia(BITMAP *player,BITMAP *buffer){
+void fadia(BITMAP *player,BITMAP *buffer,int mile){
 	
 	
 	//lado horizontal da fada
@@ -10,26 +10,30 @@ void fadia(BITMAP *player,BITMAP *buffer){
 	
 	if (fadia_x == SCREEN_W/2-100){
 		
-		srand(time(NULL));
+		srand(mile);
 		esq= rand() % 2;
+		
+		limx=rand() % 100 ;
 		
 	}
 
 	
 	
-		if ((esq) && (fadia_x <= SCREEN_W/2+300)){
+		if ((esq) && (fadia_x <= SCREEN_W/2+200)){
 		
 		fadia_x++;
 		
-	}else if ((!esq) && (fadia_x >= SCREEN_W/2-300)){
+	}else if ((!esq) && (fadia_x >= SCREEN_W/2-200)){
 		
 		fadia_x--;
 		
 		
-	}else if (fadia_x >= SCREEN_W/2+300){
+	}
+	
+	if (fadia_x >= SCREEN_W/2+limx){
 		
 		esq=false;
-	}else if (fadia_x <= SCREEN_W/2-300){
+	}else if (fadia_x <= SCREEN_W/2-limx-100){
 		
 		
 		esq=true;
@@ -42,24 +46,27 @@ void fadia(BITMAP *player,BITMAP *buffer){
 		
 		srand(time(NULL));
 		cima= rand() % 2;
+		limy=rand() % 100 ;
 		
 	}
 
 	
 	
-	if ((cima) && (fadia_y <= SCREEN_H/2+40)){
+	if ((cima) && (fadia_y <= SCREEN_H/2+200)){
 		
 		fadia_y++;
 		
-	}else if ((!cima) && (fadia_y >= SCREEN_H/2-210)){
+	}else if ((!cima) && (fadia_y >= SCREEN_H/2-200)){
 		
 		fadia_y--;
 		
 		
-	}else if (fadia_y >= SCREEN_H/2+40){
+	}
+	
+	if (fadia_y >= SCREEN_H/2+limy){
 		
 		cima=false;
-	}else if (fadia_y <= SCREEN_H/2-210){
+	}else if (fadia_y <= SCREEN_H/2-limy-100){
 		
 		
 		cima=true;

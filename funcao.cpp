@@ -2,6 +2,72 @@
 #include "h/classe.h"
 
 
+void fadia(BITMAP *player,BITMAP *buffer){
+	
+	
+	//lado horizontal da fada
+	
+	
+	if (fadia_x == SCREEN_W/2-100){
+		
+		srand(time(NULL));
+		esq= rand() % 2;
+		
+	}
+
+	
+	
+		if ((esq) && (fadia_x <= SCREEN_W/2+300)){
+		
+		fadia_x++;
+		
+	}else if ((!esq) && (fadia_x >= SCREEN_W/2-300)){
+		
+		fadia_x--;
+		
+		
+	}else if (fadia_x >= SCREEN_W/2+300){
+		
+		esq=false;
+	}else if (fadia_x <= SCREEN_W/2-300){
+		
+		
+		esq=true;
+	}
+	
+	//lado vertical da fada
+	
+	
+	if (fadia_y == SCREEN_H/2-100){
+		
+		srand(time(NULL));
+		cima= rand() % 2;
+		
+	}
+
+	
+	
+	if ((cima) && (fadia_y <= SCREEN_H/2+40)){
+		
+		fadia_y++;
+		
+	}else if ((!cima) && (fadia_y >= SCREEN_H/2-210)){
+		
+		fadia_y--;
+		
+		
+	}else if (fadia_y >= SCREEN_H/2+40){
+		
+		cima=false;
+	}else if (fadia_y <= SCREEN_H/2-210){
+		
+		
+		cima=true;
+	}
+	
+		masked_blit(player,buffer,262,471,fadia_x,fadia_y,fadia_w,fadia_h);
+}
+
 void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
 	

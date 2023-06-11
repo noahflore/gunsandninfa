@@ -7,7 +7,7 @@
 	*/
 
 volatile bool fecha= false;
-volatile int fps= 0,mile;
+volatile int fps= 0,mile=0;
 
 	
 
@@ -32,7 +32,9 @@ int main(){
 	install_int_ex(ani,MSEC_TO_TIMER(1));
 	set_close_button_callback(fechajanela);
 	
-	
+	int linha,coluna;
+	int ** mapa=carrega_mapa("mapa.txt",&linha,&coluna);
+	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	
@@ -49,14 +51,15 @@ int main(){
 		while (fps>=1){
 			
 			atualiza_tecla();
+			
+
+
+
+
+
+			desenha_mapa(m,buffer,mapa,linha,coluna);
 			perso(player,buffer,frame_w,frame_h,mile);
 			fadia(player,buffer,mile);
-
-
-
-
-
-
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -65,6 +68,8 @@ int main(){
 	}
 	
 //	destroy_midi(musica);
+	fecha_mapa(mapa,linha);
+	destroy_bitmap(m);
 	destroy_bitmap(player);
 	destroy_bitmap(buffer);
 	allegro_exit();

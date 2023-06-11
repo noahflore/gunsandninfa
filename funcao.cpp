@@ -2,8 +2,133 @@
 #include "h/classe.h"
 
 
-void fadia(BITMAP *player,BITMAP *buffer,int mile){
+
+int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
 	
+	FILE *f=fopen(arquivo,"r");
+	int **matriz;
+	
+	if (f !=NULL){
+		
+		fscanf(f, "%d %d",linha,coluna);
+		
+		matriz= (int**) malloc ((*linha) * sizeof(int*));
+		for (int i=0; i< *linha; i++)
+			matriz[i]= (int*) malloc((*coluna) * sizeof(int));
+		
+		for (int i=0; i< *linha; i++){
+			for(int j=0;j< *coluna; j++){
+				
+				fscanf(f,"%d",&matriz[i][j]);
+				
+			}
+			
+			
+			
+		}
+		
+		fclose(f);
+	}
+	
+	return matriz;
+	
+	
+}
+void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
+	
+	int m_w=569/5;
+	int m_h=411/4;
+	for (int i=0; i< linha; i++){
+		for (int j=0;j< coluna; j++){
+			
+			if ((mapa[i][j]== grama) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,0 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if ((mapa[i][j]== concreto) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,1 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if ((mapa[i][j]== agua) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
+					
+					y-=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)) {
+					
+					y+=vely;
+					x+=velx;
+					
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){
+					
+					y-=vely;
+					x+=velx;
+				}else if ((j * 80+x +m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)){
+					
+					y+=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x+=velx;
+				}else if ((j * 80+x + m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x+=velx;
+					
+				}
+					
+					
+				masked_blit(m,buffer,2 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+			}
+			
+		}
+		
+		
+		
+	}
+	
+	
+}
+void fecha_mapa(int **m,int linha){
+	
+	for (int i=0; i< linha; i++){
+		
+		free(m[i]);
+	}
+	free(m);
+}
+
+
+void fadia(BITMAP *player,BITMAP *buffer,int mile){
+	static int macador= mile;
 	
 	//lado horizontal da fada
 	
@@ -72,7 +197,23 @@ void fadia(BITMAP *player,BITMAP *buffer,int mile){
 		cima=true;
 	}
 	
-		masked_blit(player,buffer,262,471,fadia_x,fadia_y,fadia_w,fadia_h);
+	if (mile - macador >= 200){
+		
+		if (fadia_eixox == 262){
+			
+			fadia_eixox=299;
+			
+		}else{
+			
+			
+			fadia_eixox=262;
+		}
+		
+		macador=mile;
+		
+	}
+	
+		masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
 }
 
 void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){

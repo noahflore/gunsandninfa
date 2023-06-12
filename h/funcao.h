@@ -20,6 +20,9 @@ enum{
 	grama=0,
 	concreto=1,
 	agua=2,
+	titula=100,
+	mena=101,
+	gama=103
 	
 	
 	

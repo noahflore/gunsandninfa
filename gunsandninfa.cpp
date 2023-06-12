@@ -8,7 +8,7 @@
 
 volatile bool fecha= false;
 volatile int fps= 0,mile=0;
-
+int estado_screen=titula;
 	
 
 
@@ -16,6 +16,9 @@ void fechajanela();
 void allegro_start(char *title,int height,int width);
 void tempo_do_sistema();
 void ani();
+void titulo();
+void menu();
+void game();
 
 
 
@@ -32,26 +35,116 @@ int main(){
 	install_int_ex(ani,MSEC_TO_TIMER(1));
 	set_close_button_callback(fechajanela);
 	
-	int linha,coluna;
-	int ** mapa=carrega_mapa("mapa.txt",&linha,&coluna);
-	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
-	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
-	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	
 	
 	//MIDI* musica= load_midi("music/musica.midi");
 	
 	
 	
-	int frame_w=259/4;
-	int frame_h=305/4;
+	
 	
 //	play_midi(musica,TRUE);
 	while(!fecha){
 		
 		while (fps>=1){
 			
+			
+			if (estado_screen==mena){
+				
+				menu();
+				
+			}else if (estado_screen==titula){
+				
+				titulo();
+				
+			}else if (estado_screen==gama){
+				
+				game();
+			}
+		
+		}
+	}
+	
+	allegro_exit();
+	return 0;	
+}
+
+END_OF_MAIN();
+
+void titulo(){
+	
+	bool ti=false;
+	
+	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	
+	while ((!fecha) && (!ti)){
+		
+		while(fps>=1){
 			atualiza_tecla();
 			
+			if (aperta(KEY_ENTER)){
+				
+				ti=true;
+				estado_screen=gama;
+				
+			}
+			textout_centre_ex(buffer,font,"titulo inicial",SCREEN_W/2,SCREEN_H/2,makecol(255,255,255),-1);
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			
+			fps--;
+		}
+		
+		
+		
+		
+	}
+	destroy_bitmap(buffer);
+	
+	
+	
+}
+void menu(){
+	
+	bool me=false;
+	
+	while ((!fecha) && (!me)){
+		
+		while (fps>=1){
+			
+			atualiza_tecla();
+			if (aperta(KEY_ESC)){me=true;estado_screen=gama;}
+			
+			
+			
+			fps--;
+		}
+		
+		
+		
+	}
+	
+	
+}
+
+void game(){
+	
+	bool ga=false;
+	int linha,coluna;
+	int ** mapa=carrega_mapa("mapa.txt",&linha,&coluna);
+	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
+	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
+	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	
+	int frame_w=259/4;
+	int frame_h=305/4;
+	
+		while((!fecha) && (!ga)){
+		
+		while (fps>=1){
+			
+			atualiza_tecla();
+			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
 
 
 
@@ -72,12 +165,13 @@ int main(){
 	destroy_bitmap(m);
 	destroy_bitmap(player);
 	destroy_bitmap(buffer);
-	allegro_exit();
-	return 0;	
+
 }
 
-END_OF_MAIN();
-
+	
+	
+	
+	
 
 void tempo_do_sistema(){fps++;}
 END_OF_FUNCTION(tempo_do_sistema);

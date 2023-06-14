@@ -143,9 +143,11 @@ void game(){
 	
 	
 	Fadia *f1= new Fadia();
+	Compara *com= new Compara();
 	
 	//	if ( ini == NULL)
-			Pai *ini[20];
+			//Pai *ini[20];
+		//	tam=0;
 			
 		while((!fecha) && (!ga)){
 		
@@ -153,13 +155,15 @@ void game(){
 			
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
-			span(x,y,mile,qtd);
+			span(x,y,mile,qtd);// spana inimigo
 			
 
 
 
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			atua(inimi, buffer);
+			atua(inimi, buffer);//atualiza inimigos
+			for (int t=0;t<tam;t++)
+			com->colisao(player,buffer,&ini[t],f1,tam,x,y);
 			
 			perso(player,buffer,frame_w,frame_h,mile);
 			f1->espera(player,buffer,mile);
@@ -172,7 +176,8 @@ void game(){
 	
 //	destroy_midi(musica);
 	for (int i=0;i<tam;i++)
-	free(ini[i]);
+	if (fecha){free(ini[i]);}
+	free(f1);
 	fecha_mapa(mapa,linha);
 	destroy_bitmap(inimi);
 	destroy_bitmap(m);

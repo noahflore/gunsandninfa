@@ -386,10 +386,13 @@ int tam=0;
 void span(int x,int y,int mile,int qtd){
 	static int i=0;
 	static	int macadora=mile;
+	static bool tempo;
 	
+				if (mile - macadora >= 5000)
+					tempo=true;
 			
 			
-				if (( mile - macadora >= 500) &&   (tam <qtd)){
+				if (( mile - macadora >= 500) &&   (tam <qtd) && (tempo)){
 				
 					ini[tam]= new Pai(x,y,mile);
 

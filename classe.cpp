@@ -1,4 +1,4 @@
-
+#include <allegro.h>
 class Pai{
 	
 	public:
@@ -17,20 +17,81 @@ class Pai{
 class Fadia{
 	
 	public:
-	bool esq,cima;
+	bool esq,cima,espe;
 	int limx,limy;
 	int fadia_w,fadia_h,fadia_x,fadia_y;
 	int fadia_eixox;
 	void espera(BITMAP *player,BITMAP *buffer,int mile);
+	void ataca(BITMAP* player,BITMAP* buffer);
 	Fadia();
 	
 	
 };
 
+class Compara{
+	
+	public:
+	Compara();
+	bool teste;
+	void colisao(BITMAP* player,BITMAP* buffer,Pai* inimi[20],Fadia* f1,int tam,int x,int  y);
+	
+	
+	
+	
+};
+
+ Compara::Compara(){
+	 
+	 teste=true;
+	 
+	 
+ }
+
+	void Compara::colisao(BITMAP* player,BITMAP* buffer,Pai* inimi[20],Fadia* f1,int tam,int x,int y){
+		
+		if (this->teste){
+			
+			for (int i=0;i<tam;i++){
+				
+				if ((inimi[i]->pos_x + x >= f1->fadia_x-2000) && 
+					(inimi[i]->pos_x + x <= f1->fadia_x +f1->fadia_w+2000) &&
+					(inimi[i]->pos_y + y >= f1->fadia_y-2000) &&
+					(inimi[i]->pos_y + y <= f1->fadia_y +f1->fadia_h+2000)){
+					
+					teste=false;
+					f1->espe=true;
+					
+				}else if ((inimi[i]->pos_x + x >= f1->fadia_x) && 
+					(inimi[i]->pos_x + x <= f1->fadia_x +f1->fadia_w) &&
+					(inimi[i]->pos_y + y >= f1->fadia_y) &&
+					(inimi[i]->pos_y + y <= f1->fadia_y +f1->fadia_h)){
+					
+					
+					
+				}
+				
+				
+				
+			}
+			
+			
+			
+			
+		}else{
+			
+			
+			f1->ataca(player,buffer);
+		}
+		
+		
+		
+	}
+
 	Fadia::Fadia(){
 		
 		esq=true;
 		cima=true;
+		espe=false;
 	 fadia_w=291-262;
 	 fadia_h=20;
 	 fadia_x=300;
@@ -41,11 +102,19 @@ class Fadia{
 		
 	}
 
+void Fadia::ataca(BITMAP* player,BITMAP* buffer){
+
+
+			masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
+
+
+}
+
 void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 	static int macador= mile;
 	
 	//lado horizontal da fada
-	
+	if (!this->espe){
 	
 	if (fadia_x == SCREEN_W/2-100){
 		
@@ -128,6 +197,8 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 	}
 	
 		masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
+	}
+		
 }
 
 	Pai::Pai(int x, int y,int mile){

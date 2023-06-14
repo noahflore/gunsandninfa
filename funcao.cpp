@@ -1,6 +1,6 @@
-#include "h/funcao.h"
 #include "h/classe.h"
-
+#include "classe.cpp"
+#include "h/funcao.h"
 
 
 int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
@@ -127,94 +127,7 @@ void fecha_mapa(int **m,int linha){
 }
 
 
-void fadia(BITMAP *player,BITMAP *buffer,int mile){
-	static int macador= mile;
-	
-	//lado horizontal da fada
-	
-	
-	if (fadia_x == SCREEN_W/2-100){
-		
-		srand(mile);
-		esq= rand() % 2;
-		
-		limx=rand() % 100 ;
-		
-	}
 
-	
-	
-		if ((esq) && (fadia_x <= SCREEN_W/2+200)){
-		
-		fadia_x++;
-		
-	}else if ((!esq) && (fadia_x >= SCREEN_W/2-200)){
-		
-		fadia_x--;
-		
-		
-	}
-	
-	if (fadia_x >= SCREEN_W/2+limx){
-		
-		esq=false;
-	}else if (fadia_x <= SCREEN_W/2-limx-100){
-		
-		
-		esq=true;
-	}
-	
-	//lado vertical da fada
-	
-	
-	if (fadia_y == SCREEN_H/2-100){
-		
-		srand(time(NULL));
-		cima= rand() % 2;
-		limy=rand() % 100 ;
-		
-	}
-
-	
-	
-	if ((cima) && (fadia_y <= SCREEN_H/2+200)){
-		
-		fadia_y++;
-		
-	}else if ((!cima) && (fadia_y >= SCREEN_H/2-200)){
-		
-		fadia_y--;
-		
-		
-	}
-	
-	if (fadia_y >= SCREEN_H/2+limy){
-		
-		cima=false;
-	}else if (fadia_y <= SCREEN_H/2-limy-100){
-		
-		
-		cima=true;
-	}
-	
-	if (mile - macador >= 200){
-		
-		if (fadia_eixox == 262){
-			
-			fadia_eixox=299;
-			
-		}else{
-			
-			
-			fadia_eixox=262;
-		}
-		
-		macador=mile;
-		
-	}
-	
-		masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
-}
 
 void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
@@ -467,4 +380,33 @@ bool solta(int tecla){
 	
 	
 }
+Pai *ini[20];
+int tam=0;
 
+void span(int x,int y,int mile,int qtd){
+	static int i=0;
+	static	int macadora=mile;
+	
+			
+			
+				if (( mile - macadora >= 500) &&   (tam <qtd)){
+				
+					ini[tam]= new Pai(x,y,mile);
+
+					macadora=mile;
+					tam++;
+					
+				}
+			
+	
+}
+
+void atua(BITMAP* inimi,BITMAP* buffer){
+	
+	for (int i=0;i<tam;i++)
+				
+				ini[i]->update(inimi,buffer,x,y);
+	
+	
+	
+}

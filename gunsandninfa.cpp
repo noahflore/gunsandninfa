@@ -1,6 +1,7 @@
 #include <allegro.h>
 #include "funcao.cpp"
 
+
 /* o personagem pode se mexer no cenario fechado 
 	mulheres engravida e recruta soldado
 	
@@ -135,24 +136,33 @@ void game(){
 	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	BITMAP* inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
 	
 	int frame_w=259/4;
-	int frame_h=305/4;
+	int frame_h=305/4,i=0;
 	
+	
+	Fadia *f1= new Fadia();
+	
+	//	if ( ini == NULL)
+			Pai *ini[20];
+			
 		while((!fecha) && (!ga)){
 		
 		while (fps>=1){
 			
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
-
-
+			span(x,y,mile,qtd);
+			
 
 
 
 			desenha_mapa(m,buffer,mapa,linha,coluna);
+			atua(inimi, buffer);
+			
 			perso(player,buffer,frame_w,frame_h,mile);
-			fadia(player,buffer,mile);
+			f1->espera(player,buffer,mile);
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -161,7 +171,10 @@ void game(){
 	}
 	
 //	destroy_midi(musica);
+	for (int i=0;i<tam;i++)
+	free(ini[i]);
 	fecha_mapa(mapa,linha);
+	destroy_bitmap(inimi);
 	destroy_bitmap(m);
 	destroy_bitmap(player);
 	destroy_bitmap(buffer);

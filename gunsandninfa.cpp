@@ -1,5 +1,8 @@
 #include <allegro.h>
+#include "h/classe.h"
+#include "h/funcao.h"
 #include "funcao.cpp"
+
 
 
 /* o personagem pode se mexer no cenario fechado 
@@ -144,26 +147,25 @@ void game(){
 	
 	Fadia *f1= new Fadia();
 	Compara *com= new Compara();
+	Lista_inimi *l= create_lista_inimi();
 	
-	//	if ( ini == NULL)
-			//Pai *ini[20];
-		//	tam=0;
-			
+	
 		while((!fecha) && (!ga)){
 		
 		while (fps>=1){
 			
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
-			span(x,y,mile,qtd);// spana inimigo
+			span(l,x, y, mile,qtd);
+		
 			
 
 
 
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			atua(inimi, buffer);//atualiza inimigos
-			for (int t=0;t<tam;t++)
-			com->colisao(player,buffer,&ini[t],f1,tam,x,y);
+			update_lista(l,com,player,inimi,buffer,f1,tam,x,y,mile,qtd);// spana inimigo
+		//	atua(inimi, buffer);//atualiza inimigos
+			//com->colisao(player,buffer,ini,f1,tam,x,y);
 			
 			perso(player,buffer,frame_w,frame_h,mile);
 			f1->espera(player,buffer,mile);
@@ -175,8 +177,8 @@ void game(){
 	}
 	
 //	destroy_midi(musica);
-	for (int i=0;i<tam;i++)
-	if (fecha){free(ini[i]);}
+	if ((fecha) || (l->inicio !=NULL))
+	destroy_lista(l);
 	free(f1);
 	fecha_mapa(mapa,linha);
 	destroy_bitmap(inimi);

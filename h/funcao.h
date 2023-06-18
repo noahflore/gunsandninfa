@@ -5,17 +5,17 @@
 
 
 
-float x=0,y=0,velx=0,vely=0,ace=0.10;
+float x=-2000,y=-2000,velx=0,vely=0,ace=0.10;
 bool p=false,pp=false;
 int tecla_ante[KEY_MAX],frame=0,stopf=0;
-int qtd=20;
+int qtd=22;
 void atualiza_tecla();
 bool aperta(int tecla);
 bool segura(int tecla);
 bool solta(int tecla);
 void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile);
-void span(int x,int y,int mile,int qtd);
-void atua(BITMAP* inimi,BITMAP* buffer);
+void span(Lista_inimi *l,int x,int y,int mile,int qtd);
+void atua(BITMAP* inimi,BITMAP* buffer,Pai *p);
 
 enum{
 	

@@ -1,6 +1,7 @@
-#include "h/classe.h"
-#include "classe.cpp"
+//#include "classe.cpp"
 #include "h/funcao.h"
+#include "h/classe.h"
+
 
 
 int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
@@ -380,21 +381,100 @@ bool solta(int tecla){
 	
 	
 }
-Pai *ini[20];
 int tam=0;
 
-void span(int x,int y,int mile,int qtd){
+Lista_inimi *create_lista_inimi(){//cria a lista
+	
+	Lista_inimi* l= (Lista_inimi*) malloc(sizeof(Lista_inimi));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
+
+void destroy_inimi (Pai *i){//recebe o objeto
+	
+	free(i);
+	
+	
+}
+
+void destroy_lista(Lista_inimi *l){
+	
+	No_inimi *aux;
+	
+	while (l->inicio != NULL){
+		
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_inimi(aux->inimi);
+		free(aux);
+		
+	}
+	
+	
+}
+
+void update_lista(Lista_inimi *l,Compara *com,BITMAP *player,BITMAP* ini,BITMAP *buffer,Fadia *f1,int tam,int x,int y,int mile,int qtd){
+	
+	No_inimi *aux=l->inicio;
+	No_inimi *aux2=l->inicio;
+	
+	while (aux != NULL){//objeto ativo
+		
+		if (aux->inimi->ativo){
+			
+		//	span(l,x, y, mile,qtd);
+			
+			atua(ini,buffer,aux->inimi);
+			com->colisao(player,buffer,aux->inimi,f1,tam,x,y);
+			aux2=aux;
+			aux= aux->prox;
+			
+		}else{
+			
+			if (aux == aux2){//elemento igual no aux e aux2
+				
+				l->inicio=l->inicio->prox;
+				destroy_inimi(aux->inimi);
+				free(aux);
+				aux2=aux= l->inicio;
+				
+			}else{
+				
+				aux2->prox=aux->prox;
+				destroy_inimi(aux->inimi);
+				free(aux);
+				aux=aux2->prox;
+			}
+			
+		}
+		
+		
+	}
+	
+}
+
+void span(Lista_inimi *l,int x,int y,int mile,int qtd){
 	static int i=0;
 	static	int macadora=mile;
 	static bool tempo;
+	
+	
+	No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
+	
 	
 				if (mile - macadora >= 5000)
 					tempo=true;
 			
 			
-				if (( mile - macadora >= 500) &&   (tam <qtd) && (tempo)){
+				if (( mile - macadora >= 1000) &&   (tam <qtd) && (tempo)){
 				
-					ini[tam]= new Pai(x,y,mile);
+					novo->inimi= new Pai(x,y,mile);
+					novo->prox= l->inicio;
+					l->inicio=novo;
 
 					macadora=mile;
 					tam++;
@@ -404,11 +484,11 @@ void span(int x,int y,int mile,int qtd){
 	
 }
 
-void atua(BITMAP* inimi,BITMAP* buffer){
+void atua(BITMAP* inimi,BITMAP* buffer,Pai *p){
 	
-	for (int i=0;i<tam;i++)
+	
 				
-				ini[i]->update(inimi,buffer,x,y);
+				p->update(inimi,buffer,x,y);
 	
 	
 	

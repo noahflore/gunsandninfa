@@ -476,6 +476,8 @@ void span(Lista_inimi *l,int x,int y,int mile,int qtd){
 					novo->prox= l->inicio;
 					l->inicio=novo;
 
+					
+					começa=true;
 					macadora=mile;
 					tam++;
 					

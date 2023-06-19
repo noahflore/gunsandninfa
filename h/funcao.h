@@ -6,9 +6,9 @@
 
 
 float x=-2000,y=-2000,velx=0,vely=0,ace=0.10;
-bool p=false,pp=false;
+bool p=false,pp=false,começa=false;
 int tecla_ante[KEY_MAX],frame=0,stopf=0;
-int qtd=22;
+int qtd=5;
 void atualiza_tecla();
 bool aperta(int tecla);
 bool segura(int tecla);
@@ -24,7 +24,8 @@ enum{
 	agua=2,
 	titula=100,
 	mena=101,
-	gama=103
+	gama=103,
+	muda=104
 	
 	
 	

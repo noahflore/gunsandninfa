@@ -23,7 +23,7 @@ void ani();
 void titulo();
 void menu();
 void game();
-
+void carta();
 
 
 int main(){
@@ -64,6 +64,10 @@ int main(){
 			}else if (estado_screen==gama){
 				
 				game();
+			}else if (estado_screen==muda){
+				
+				carta();
+				
 			}
 		
 		}
@@ -172,6 +176,12 @@ void game(){
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
+			if ((l->inicio == NULL) && (começa)){
+				estado_screen=muda;
+				
+				
+				ga=true;
+			}
 			fps--;
 		}
 	}
@@ -189,7 +199,44 @@ void game(){
 }
 
 	
+void carta(){
 	
+	bool ca=false;
+	
+	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
+	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);
+	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
+	Botao *bot=create_botao(deck,h_deck,SCREEN_W/2,SCREEN_H/2);
+	
+	while ((!ca) && (!fecha)){
+		
+		while (fps>=1){
+			
+			botao_veri(bot);
+			
+			
+			botao_draw(bot,buffer);
+			show_mouse(buffer);
+		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			
+			fps--;
+			
+		}
+		
+		
+		
+		
+		
+	}
+	destroy_bitmap(h_deck);
+	destroy_botao(bot);
+	destroy_bitmap(buffer);
+	destroy_bitmap(deck);
+	
+	
+}
 	
 	
 
@@ -208,6 +255,7 @@ void allegro_start(char *title,int height,int width){
 //	install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL);
 	install_keyboard();
 	install_timer();
+	install_mouse();
 	
 	
 	

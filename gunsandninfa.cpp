@@ -206,16 +206,24 @@ void carta(){
 	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
 	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
-	Botao *bot=create_botao(deck,h_deck,SCREEN_W/2,SCREEN_H/2);
+	Botao *bot=create_botao(deck,h_deck,SCREEN_W/2-300,SCREEN_H/2-200,1);
+	Botao *bot2=create_botao(deck,h_deck,SCREEN_W/2-200,SCREEN_H/2-200,2);
+	Botao *bot3=create_botao(deck,h_deck,SCREEN_W/2-100,SCREEN_H/2-200,3);
+	
+	habilidade();
 	
 	while ((!ca) && (!fecha)){
 		
 		while (fps>=1){
 			
 			botao_veri(bot);
+			botao_veri(bot2);
+			botao_veri(bot3);
 			
 			
 			botao_draw(bot,buffer);
+			botao_draw(bot2,buffer);
+			botao_draw(bot3,buffer);
 			show_mouse(buffer);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);
 			draw_sprite(screen,buffer,0,0);
@@ -232,6 +240,8 @@ void carta(){
 	}
 	destroy_bitmap(h_deck);
 	destroy_botao(bot);
+	destroy_botao(bot2);
+	destroy_botao(bot3);
 	destroy_bitmap(buffer);
 	destroy_bitmap(deck);
 	

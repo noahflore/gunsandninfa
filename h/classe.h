@@ -12,6 +12,7 @@ typedef struct botao{
 	
 	bool highon;
 	bool ativado;
+	int index;
 	
 	
 }Botao;

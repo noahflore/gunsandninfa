@@ -2,6 +2,51 @@
 #include "h/funcao.h"
 #include "h/classe.h"
 
+void habilidade(){
+	int sel;
+	
+	srand(time(NULL));
+	
+	sel= rand() % 10;
+	
+	if (sel == 1){
+	no1= "fadia mais forte";
+		
+	}else if (sel == 2){
+		
+		no1= "homem masculo";
+	}else if (sel == 3){
+		
+		no1= "alpha";
+	}else{
+		
+		no1="fraco";
+	}
+	no2= "teste";
+	no3= "teste";
+	v1= rand() % 100;
+	v2= rand() % 100;
+	v3= rand() % 100;
+	d1= rand() % 100;
+	d2= rand() % 100;
+	d3= rand() % 100;
+	v4= rand() % 100;
+	v5= rand() % 100;
+	v6= rand() % 100;
+	d4= rand() % 100;
+	d5= rand() % 100;
+	d6= rand() % 100;
+	v7= rand() % 100;
+	v8= rand() % 100;
+	v9= rand() % 100;
+	d7= rand() % 100;
+	d8= rand() % 100;
+	d9= rand() % 100;
+	
+	
+	
+}
+
 
 
 int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
@@ -251,7 +296,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
 }
 
-Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y){
+Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 	
 	Botao *b= (Botao*) malloc(sizeof(Botao));
 	
@@ -259,6 +304,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y){
 	b->h_img=h_img;
 	b->pos_x=pos_x;
 	b->pos_y=pos_y;
+	b->index=index;
 	b->highon=false;
 	b->ativado=false;
 	
@@ -310,8 +356,14 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y){
 		
 		draw_sprite(buffer,b->img,b->pos_x,b->pos_y);
 		
-		if (b->highon){
-			
+		if ((b->highon) && (b->index==1)){
+			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s\n vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
+			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+		}else if ((b->highon) && (b->index==2)){
+			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \n vanta: %d %d %d \n desvan: %d %d %d",no2.c_str(),v4,v5,v6,d4,d5,d6);
+			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+		}else if ((b->highon) && (b->index==3)){
+			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \n vanta: %d %d %d \n desvan: %d %d %d",no3.c_str(),v7,v8,v9,d7,d8,d9);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 		}
 	}

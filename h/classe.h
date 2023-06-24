@@ -20,7 +20,7 @@ typedef struct botao{
 
 	Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y);
 	void botao_veri(Botao *b);
-	void botao_acao(Botao  *b);
+	bool botao_acao(Botao  *b, int mile,bool ca,BITMAP *buffer);
 	void botao_draw(Botao *b,BITMAP *buffer);
 	void destroy_botao(Botao *b);
 

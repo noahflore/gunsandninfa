@@ -149,7 +149,7 @@ void game(){
 	int frame_h=305/4,i=0;
 	
 	
-	Fadia *f1= new Fadia();
+	Fadia *f1= new Fadia(vx,vy,ht,es);
 	Compara *com= new Compara();
 	Lista_inimi *l= create_lista_inimi();
 	
@@ -161,22 +161,21 @@ void game(){
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
 			span(l,x, y, mile,qtd);
-		
+			
 			
 
 
 
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista(l,com,player,inimi,buffer,f1,tam,x,y,mile,qtd);// spana inimigo
-		//	atua(inimi, buffer);//atualiza inimigos
-			//com->colisao(player,buffer,ini,f1,tam,x,y);
+		
 			
 			perso(player,buffer,frame_w,frame_h,mile);
 			f1->espera(player,buffer,mile);
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
-			if ((l->inicio == NULL) && (começa)){
+			if ((l->inicio == NULL) && (comeca)){
 				estado_screen=muda;
 				
 				
@@ -190,6 +189,7 @@ void game(){
 	if ((fecha) || (l->inicio !=NULL))
 	destroy_lista(l);
 	free(f1);
+	free(com);
 	fecha_mapa(mapa,linha);
 	destroy_bitmap(inimi);
 	destroy_bitmap(m);
@@ -211,6 +211,8 @@ void carta(){
 	Botao *bot3=create_botao(deck,h_deck,SCREEN_W/2-100,SCREEN_H/2-200,3);
 	
 	habilidade();
+	estado_screen=gama;
+	comeca=false;
 	
 	while ((!ca) && (!fecha)){
 		
@@ -221,9 +223,11 @@ void carta(){
 			botao_veri(bot3);
 			
 			
+			
 			botao_draw(bot,buffer);
 			botao_draw(bot2,buffer);
 			botao_draw(bot3,buffer);
+			ca=botao_acao(bot,mile,ca,buffer);
 			show_mouse(buffer);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);
 			draw_sprite(screen,buffer,0,0);

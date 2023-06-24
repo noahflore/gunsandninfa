@@ -11,7 +11,7 @@ class Pai{
 	float ace;
 	int wid;
 	int hi;
-	bool ativo;
+	bool ativo,hit;
 	Pai(int x,int y,int mile);
 	void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
 	
@@ -39,13 +39,13 @@ class Fadia{
 	public:
 	bool esq,cima,espe;
 	int limx,limy;
-	int fadia_w,fadia_h,fadia_x,fadia_y;
+	int fadia_w,fadia_h,fadia_x,fadia_y,velx,vely,escudo,hit;
 	int fadia_eixox,quem;
 	bool teste,casa;
 	void volta(BITMAP *player,BITMAP *buffer);
 	void espera(BITMAP *player,BITMAP *buffer,int mile);
 	void ataca(BITMAP* player,BITMAP* buffer,Pai *inimi,int x,int y);
-	Fadia();
+	Fadia(int vx,int vy,int ht,int es);
 	
 	
 };
@@ -82,6 +82,7 @@ class Compara{
 					f1->teste=false;
 					f1->casa=false;
 					f1->espe=true;
+					l->hit=true;
 				//	f1->quem=i;
 					
 				}/*else if ((inimi[i]->pos_x + x >= f1->fadia_x) && 
@@ -117,13 +118,17 @@ class Compara{
 		
 	}
 
-	Fadia::Fadia(){
+	Fadia::Fadia(int vx,int vy,int ht,int es){
 		
 		esq=true;
 		cima=true;
 		espe=false;
 		teste=true;
 		casa=false;
+		velx=vx;
+		vely=vy;
+		hit=ht;
+		escudo=es;
 	 fadia_w=291-262;
 	 fadia_h=20;
 	 fadia_x=300;
@@ -136,22 +141,25 @@ class Compara{
 
 void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 
+	if (l->hit){
+		
+		
 			if (this->fadia_x >= l->pos_x+ x){
 				
-				this->fadia_x-=6;
+				this->fadia_x-=velx;
 			}else if (this->fadia_x <= l->pos_x+ x){
 				
-				this->fadia_x+=6;
+				this->fadia_x+=velx;
 				
 			}
 	
 	
 			if (this->fadia_y >= l->pos_y+ y){
 				
-				this->fadia_y-=6;
+				this->fadia_y-=vely;
 			}else if (this->fadia_y <= l->pos_y+ y){
 				
-				this->fadia_y+=6;
+				this->fadia_y+=vely;
 				
 			}
 	
@@ -171,6 +179,7 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 	
 			
 			masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
+	}
 
 
 }
@@ -327,6 +336,7 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		wid=416/4;
 		hi=618/8;
 		ativo=true;
+		hit=false;
 	}
 
 

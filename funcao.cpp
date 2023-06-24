@@ -3,7 +3,7 @@
 #include "h/classe.h"
 
 void habilidade(){
-	int sel;
+	
 	
 	srand(time(NULL));
 	
@@ -344,11 +344,57 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 	}
 		
 	}
-	void botao_acao(Botao  *b){
+	bool botao_acao(Botao  *b, int mile,bool ca,BITMAP *buffer){
+		static int a=mile,bb=mile;
+		static bool mudo=false;
 		
-		if (b->ativado){
+		if ((b->ativado) && (b->index==1)){
+			
+			if  (sel== 1){
+				
+				vx=v1;
+				vy=v1;
+				es=v2;
+				ht=v3;
+				
+			}else if  (sel== 2){
+				
+				
+			}else if  (sel== 3){
+				
+				
+			}
+			
+			if (mile - bb >= 5000){
+				
+				tam=0;
+				qtd*=2;
+				ca=true;
+				tempo=false;
+				
+				bb = mile;
+				return ca;
+			}else{
+				ca=false;
+				return ca;
+			}
+			
+			if (mile - a >= 1000){
+			
+				if (mudo){
+					mudo=false;
+				}else{
+					mudo=true;
+				}
+			
+				a=mile;
+			}
 			
 			
+			
+			
+			if (mudo)
+				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 		}
 		
 	}
@@ -433,7 +479,7 @@ bool solta(int tecla){
 	
 	
 }
-int tam=0;
+
 
 Lista_inimi *create_lista_inimi(){//cria a lista
 	
@@ -510,12 +556,10 @@ void update_lista(Lista_inimi *l,Compara *com,BITMAP *player,BITMAP* ini,BITMAP 
 }
 
 void span(Lista_inimi *l,int x,int y,int mile,int qtd){
-	static int i=0;
 	static	int macadora=mile;
-	static bool tempo;
+	 
 	
 	
-	No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
 	
 	
 				if (mile - macadora >= 5000)
@@ -523,13 +567,15 @@ void span(Lista_inimi *l,int x,int y,int mile,int qtd){
 			
 			
 				if (( mile - macadora >= 1000) &&   (tam <qtd) && (tempo)){
+					
+					No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
 				
 					novo->inimi= new Pai(x,y,mile);
 					novo->prox= l->inicio;
 					l->inicio=novo;
 
 					
-					começa=true;
+					comeca=true;
 					macadora=mile;
 					tam++;
 					

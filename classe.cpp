@@ -10,9 +10,10 @@ class Pai{
 	float vel_y;
 	float ace;
 	int wid;
-	int hi;
-	bool ativo,hit;
-	Pai(int x,int y,int mile);
+	int hi,hp;
+	bool ativo;
+	int hit;
+	Pai(int x,int y,int mile,int vida);
 	void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
 	
 };
@@ -37,18 +38,36 @@ typedef struct lista_inimi{
 class Fadia{
 	
 	public:
-	bool esq,cima,espe;
-	int limx,limy;
+	bool esq,cima,espe,ativo;
+	int limx,limy,me;
 	int fadia_w,fadia_h,fadia_x,fadia_y,velx,vely,escudo,hit;
 	int fadia_eixox,quem;
 	bool teste,casa;
 	void volta(BITMAP *player,BITMAP *buffer);
 	void espera(BITMAP *player,BITMAP *buffer,int mile);
 	void ataca(BITMAP* player,BITMAP* buffer,Pai *inimi,int x,int y);
-	Fadia(int vx,int vy,int ht,int es);
+	Fadia(int vx,int vy,int ht,int es,int index);
 	
 	
 };
+
+typedef struct no_fad{
+	
+	Fadia *fad;
+	struct no_fad *prox;
+	
+	
+}No_fad;
+
+
+typedef struct lista_fad{
+	
+	 No_fad* inicio;
+	
+	
+	
+}Lista_fad;
+
 
 class Compara{
 	
@@ -70,7 +89,7 @@ class Compara{
 
 	void Compara::colisao(BITMAP* player,BITMAP* buffer,Pai *l,Fadia* f1,int tam,int x,int y){
 		
-		if (f1->teste){
+		if ((f1->teste)  && (l->hit == NULL)){
 			
 		//	for (int i=0;i<tam;i++){
 				
@@ -82,7 +101,7 @@ class Compara{
 					f1->teste=false;
 					f1->casa=false;
 					f1->espe=true;
-					l->hit=true;
+					l->hit=f1->me;
 				//	f1->quem=i;
 					
 				}/*else if ((inimi[i]->pos_x + x >= f1->fadia_x) && 
@@ -118,21 +137,24 @@ class Compara{
 		
 	}
 
-	Fadia::Fadia(int vx,int vy,int ht,int es){
+	Fadia::Fadia(int vx,int vy,int ht,int es,int index){
 		
+		srand(time(NULL));
 		esq=true;
 		cima=true;
 		espe=false;
 		teste=true;
 		casa=false;
+		ativo=true;
 		velx=vx;
 		vely=vy;
 		hit=ht;
 		escudo=es;
+		me=index;
 	 fadia_w=291-262;
 	 fadia_h=20;
-	 fadia_x=300;
-	 fadia_y=400;
+	 fadia_x= rand() % 300;
+	 fadia_y= rand() % 400;
 	 limx=100;
 	 limy=100;
 	 fadia_eixox=262;
@@ -141,7 +163,7 @@ class Compara{
 
 void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 
-	if (l->hit){
+	if (l->hit == this->me){
 		
 		
 			if (this->fadia_x >= l->pos_x+ x){
@@ -169,6 +191,8 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 				    (this->fadia_y >= l->pos_y+ y)&&
 				    (this->fadia_y <= l->pos_y+ y +l->hi)){
 					
+					l->hp--;
+					if (l->hp <= 0)
 					l->ativo=false;
 					
 				
@@ -324,17 +348,18 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		
 }
 
-	Pai::Pai(int x, int y,int mile){
+	Pai::Pai(int x, int y,int mile,int vida){
 		
-		srand(time(NULL));
-		pos_x=   rand() % 2000;
+		srand(mile);
+		pos_x=   rand() % 10000;
 		srand(mile);
 		pos_y= rand() % 2000;
-		ace=0.10;
+		ace=0.01;
 		vel_x=ace;
 		vel_y=ace;
 		wid=416/4;
 		hi=618/8;
+		hp=vida;
 		ativo=true;
 		hit=false;
 	}
@@ -354,6 +379,8 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		
 		}else if (this->pos_x + x == SCREEN_W/2-100){this->vel_x=0;}
 		
+		masked_blit(inimi,buffer,0 * this->wid, 1 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
 	}else if (this->pos_x + x <= SCREEN_W/2-100){
 		
 		this->pos_x+=this->vel_x;
@@ -364,9 +391,11 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 							
 		}else if (this->pos_x + x == SCREEN_W/2-100){this->vel_x=0;}
 		
+		masked_blit(inimi,buffer,0 * this->wid, 2 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
 	}
 	
-	if (this->pos_y + y>= SCREEN_H/2-100){
+	if ((this->pos_y + y>= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100 + this->wid)){
 		
 		
 		this->pos_y-=this->vel_y;
@@ -378,7 +407,10 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 							
 		}else if (this->pos_y + y == SCREEN_H/2-100){this->vel_y=0;}
 		
-	}else if (this->pos_y + y <= SCREEN_H/2-100){
+		
+	masked_blit(inimi,buffer,0 * this->wid, 3 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
+	}else if ((this->pos_y + y <= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid)){
 		
 		this->pos_y+=this->vel_y;
 		
@@ -389,8 +421,10 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 							
 		}else if (this->pos_y + y == SCREEN_H/2-100){this->vel_y=0;}
 		
+		
+	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
 	}
 	
-	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 	
 }

@@ -4,6 +4,7 @@
 
 void habilidade(){
 	
+	vida*=2;
 	
 	srand(time(NULL));
 	
@@ -18,6 +19,12 @@ void habilidade(){
 	}else if (sel == 3){
 		
 		no1= "alpha";
+	}else if (sel == 4){
+		
+		
+		no1="mais fadia";
+		
+		
 	}else{
 		
 		no1="fraco";
@@ -363,6 +370,10 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			}else if  (sel== 3){
 				
 				
+			}else if (sel == 4){
+				
+				tamf++;
+				
 			}
 			
 			if (mile - bb >= 5000){
@@ -374,10 +385,9 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				bb = mile;
 				return ca;
-			}else{
-				ca=false;
-				return ca;
 			}
+				
+			
 			
 			if (mile - a >= 1000){
 			
@@ -396,6 +406,10 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			if (mudo)
 				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 		}
+		
+		
+				ca=false;
+				return ca;
 		
 	}
 	void botao_draw(Botao *b,BITMAP *buffer){
@@ -492,6 +506,18 @@ Lista_inimi *create_lista_inimi(){//cria a lista
 	
 }
 
+Lista_fad *create_lista_fad(){//cria a lista
+	
+	Lista_fad* l= (Lista_fad*) malloc(sizeof(Lista_fad));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
+
+
 void destroy_inimi (Pai *i){//recebe o objeto
 	
 	free(i);
@@ -515,38 +541,109 @@ void destroy_lista(Lista_inimi *l){
 	
 }
 
-void update_lista(Lista_inimi *l,Compara *com,BITMAP *player,BITMAP* ini,BITMAP *buffer,Fadia *f1,int tam,int x,int y,int mile,int qtd){
+void destroy_fad (Fadia *i){//recebe o objeto
 	
-	No_inimi *aux=l->inicio;
-	No_inimi *aux2=l->inicio;
+	free(i);
 	
-	while (aux != NULL){//objeto ativo
+	
+}
+
+void destroy_lista_f(Lista_fad *l){
+	
+	No_fad *aux;
+	
+	while (l->inicio != NULL){
 		
-		if (aux->inimi->ativo){
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_fad(aux->fad);
+		free(aux);
+		
+	}
+	
+	
+}
+
+void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *player,BITMAP* ini,BITMAP *buffer,int tam,int x,int y,int mile,int qtd){
+	
+	//No_inimi *aux=l->inicio;
+	//No_inimi *aux2=l->inicio;
+	No_fad *aux3=ll->inicio;
+	No_fad *aux4=ll->inicio;
+	
+	static int calma=mile;
+	
+	while (aux3 !=NULL){
+		
+		
+		No_inimi *aux=l->inicio;
+		No_inimi *aux2=l->inicio;
+		
+		aux3->fad->espera(player,buffer,mile);
+		if (aux3->fad->ativo){
 			
-		//	span(l,x, y, mile,qtd);
 			
-			atua(ini,buffer,aux->inimi);
-			com->colisao(player,buffer,aux->inimi,f1,tam,x,y);
-			aux2=aux;
-			aux= aux->prox;
-			
-		}else{
-			
-			if (aux == aux2){//elemento igual no aux e aux2
 				
-				l->inicio=l->inicio->prox;
-				destroy_inimi(aux->inimi);
-				free(aux);
-				aux2=aux= l->inicio;
+			
+			while (aux != NULL){//objeto ativo
 				
-			}else{
 				
-				aux2->prox=aux->prox;
-				destroy_inimi(aux->inimi);
-				free(aux);
-				aux=aux2->prox;
+
+				if (aux->inimi->ativo){
+
+				//	span(l,x, y, mile,qtd);
+					
+					atua(ini,buffer,aux->inimi);
+					com->colisao(player,buffer,aux->inimi,aux3->fad,tam,x,y);
+				//	com->colisao(player,buffer,aux2->inimi,aux4->fad,tam,x,y);
+					aux2=aux;
+					aux= aux->prox;
+					
+
+				}else{
+
+					if (aux == aux2){//elemento igual no aux e aux2
+
+						l->inicio=l->inicio->prox;
+						destroy_inimi(aux->inimi);
+						free(aux);
+						aux2=aux= l->inicio;
+
+					}else{
+
+						aux2->prox=aux->prox;
+						destroy_inimi(aux->inimi);
+						free(aux);
+						aux=aux2->prox;
+					}
+
+				}
+
+
 			}
+			
+			aux4=aux3;
+			aux3= aux3->prox;
+			
+		}else {
+			
+			if (aux3 == aux4){//elemento igual no aux e aux2
+
+						ll->inicio=ll->inicio->prox;
+						destroy_fad(aux3->fad);
+						free(aux3);
+						aux4=aux3= ll->inicio;
+
+					}else{
+
+						aux4->prox=aux3->prox;
+						destroy_fad(aux3->fad);
+						free(aux3);
+						aux3=aux4->prox;
+					}
+			
+			
+			
 			
 		}
 		
@@ -555,11 +652,23 @@ void update_lista(Lista_inimi *l,Compara *com,BITMAP *player,BITMAP* ini,BITMAP 
 	
 }
 
-void span(Lista_inimi *l,int x,int y,int mile,int qtd){
+void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida){
 	static	int macadora=mile;
-	 
+	 static int inde=0;
 	
 	
+	
+				if (ii < tamf){
+					
+					inde++;
+					
+					No_fad *novo2= (No_fad*) malloc(sizeof(No_fad));
+					novo2->fad= new Fadia(vx,vy,ht,es,inde);
+					novo2->prox=ll->inicio;
+					ll->inicio=novo2;
+					
+					ii++;
+				}
 	
 	
 				if (mile - macadora >= 5000)
@@ -570,7 +679,7 @@ void span(Lista_inimi *l,int x,int y,int mile,int qtd){
 					
 					No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
 				
-					novo->inimi= new Pai(x,y,mile);
+					novo->inimi= new Pai(x,y,mile,vida);
 					novo->prox= l->inicio;
 					l->inicio=novo;
 

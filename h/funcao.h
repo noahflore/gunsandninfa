@@ -8,17 +8,17 @@
 float x=-2000,y=-2000,velx=0,vely=0,ace=0.10;
 bool p=false,pp=false,comeca=false;
 bool tempo=false;;
-int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,vx=2,vy=2,ht,es,tam=0;
+int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,vx=2,vy=2,ht,es,tam=0,tamf=3,ii=0;
 int v1,v2,v3,v4,v5,v6,v7,v8,v9,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 std::string no1="t",no2="t",no3="t";
-int qtd=5;
+int qtd=5,vida=1;
 void atualiza_tecla();
 bool aperta(int tecla);
 bool segura(int tecla);
 bool solta(int tecla);
 void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile);
 void habilidade();
-void span(Lista_inimi *l,int x,int y,int mile,int qtd);
+void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd);
 void atua(BITMAP* inimi,BITMAP* buffer,Pai *p);
 
 enum{

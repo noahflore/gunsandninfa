@@ -149,9 +149,10 @@ void game(){
 	int frame_h=305/4,i=0;
 	
 	
-	Fadia *f1= new Fadia(vx,vy,ht,es);
+	//Fadia *f1= new Fadia(vx,vy,ht,es);
 	Compara *com= new Compara();
 	Lista_inimi *l= create_lista_inimi();
+	Lista_fad *ll= create_lista_fad();
 	
 	
 		while((!fecha) && (!ga)){
@@ -160,18 +161,18 @@ void game(){
 			
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
-			span(l,x, y, mile,qtd);
+			span(l,ll,x, y, mile,qtd,vida);
 			
 			
+			Compara *com= new Compara();
 
-
-
+			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			update_lista(l,com,player,inimi,buffer,f1,tam,x,y,mile,qtd);// spana inimigo
+			update_lista(l,ll,com,player,inimi,buffer,tam,x,y,mile,qtd);// spana inimigo
 		
 			
 			perso(player,buffer,frame_w,frame_h,mile);
-			f1->espera(player,buffer,mile);
+			//f1->espera(player,buffer,mile);
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -186,9 +187,10 @@ void game(){
 	}
 	
 //	destroy_midi(musica);
-	if ((fecha) || (l->inicio !=NULL))
+	if ((fecha) && (l->inicio !=NULL))
 	destroy_lista(l);
-	free(f1);
+	destroy_lista_f(ll);
+	//free(f1);
 	free(com);
 	fecha_mapa(mapa,linha);
 	destroy_bitmap(inimi);
@@ -202,9 +204,11 @@ void game(){
 void carta(){
 	
 	bool ca=false;
+	ii=0;
 	
 	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
 	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);
+	BITMAP *mouse=load_bitmap("sprite/mouse.bmp",NULL);
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	Botao *bot=create_botao(deck,h_deck,SCREEN_W/2-300,SCREEN_H/2-200,1);
 	Botao *bot2=create_botao(deck,h_deck,SCREEN_W/2-200,SCREEN_H/2-200,2);
@@ -228,7 +232,7 @@ void carta(){
 			botao_draw(bot2,buffer);
 			botao_draw(bot3,buffer);
 			ca=botao_acao(bot,mile,ca,buffer);
-			show_mouse(buffer);
+			draw_sprite(buffer,mouse,mouse_x,mouse_y-24);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -243,6 +247,7 @@ void carta(){
 		
 	}
 	destroy_bitmap(h_deck);
+	destroy_bitmap(mouse);
 	destroy_botao(bot);
 	destroy_botao(bot2);
 	destroy_botao(bot3);

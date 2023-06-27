@@ -9,7 +9,7 @@ class Pai{
 	float vel_x;
 	float vel_y;
 	float ace;
-	int wid;
+	int wid,dee,dess;
 	int hi,hp;
 	bool ativo;
 	int hit;
@@ -360,6 +360,8 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		wid=416/4;
 		hi=618/8;
 		hp=vida;
+		dee=0;
+		dess=0;
 		ativo=true;
 		hit=false;
 	}
@@ -369,62 +371,104 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	
 	
 	
-	if (this->pos_x + x >= SCREEN_W/2-100){
+	if ((this->pos_x + x >= SCREEN_W/2-100) && ((this->pos_x + x > SCREEN_W/2-100) || (this->pos_x + x >= SCREEN_W/2-100+ this->wid))){
 		
 		
 		this->pos_x-=this->vel_x;
-		if (this->vel_x <=6){
+		if ((this->vel_x <=2) && (!this->dess)){
 			
 			this->vel_x+=this->ace;
+							
+							
+		}else if (this->dess){
+			
+			if (this->vel_x >=0){
+			
+			this->vel_x-=this->ace;
+			
+			if (this->vel_x <=0)
+				this->dess=false;
+		}else if (this->pos_x + x == SCREEN_W/2-100){this->dess=true;}
 		
-		}else if (this->pos_x + x == SCREEN_W/2-100){this->vel_x=0;}
 		
+	}
 		masked_blit(inimi,buffer,0 * this->wid, 1 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
-	}else if (this->pos_x + x <= SCREEN_W/2-100){
+	}else if ((this->pos_x + x <= SCREEN_W/2-100) && ((this->pos_x + x <= SCREEN_W/2-110) || (this->pos_x + x >= SCREEN_W/2-100+ this->wid))){
 		
 		this->pos_x+=this->vel_x;
-		if (this->vel_x <=6){
+		if ((this->vel_x <=2) && (!this->dess)){
 			
 			this->vel_x+=this->ace;
 							
 							
-		}else if (this->pos_x + x == SCREEN_W/2-100){this->vel_x=0;}
+		}else if (this->dess){
+			
+			if (this->vel_x >=0){
+			
+			this->vel_x-=this->ace;
+			
+			if (this->vel_x <=0)
+				this->dess=false;
+		}else if (this->pos_x + x == SCREEN_W/2-100){this->dess=true;}
 		
+		
+	}
 		masked_blit(inimi,buffer,0 * this->wid, 2 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 	}
 	
-	if ((this->pos_y + y>= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100 + this->wid)){
+	if ((this->pos_y + y> SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100 + this->wid)){
 		
 		
 		this->pos_y-=this->vel_y;
-		
-		if (this->vel_y <=6){
+	
+		if ((this->vel_y <=2) && (!this->dee)){
 			
 			this->vel_y+=this->ace;
 							
 							
-		}else if (this->pos_y + y == SCREEN_H/2-100){this->vel_y=0;}
+		}else if (this->dee){
+			
+				if (this->vel_y >=0){
+
+				this->vel_y-=this->ace;
+
+				if (this->vel_y <=0)
+					this->dee=false;
+			}else if (this->pos_y + y == SCREEN_H/2-100){this->dee=true;}
 		
+		}
 		
+		if (this->pos_y + y> SCREEN_H/2-90)
 	masked_blit(inimi,buffer,0 * this->wid, 3 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
-		
-	}else if ((this->pos_y + y <= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid)){
-		
-		this->pos_y+=this->vel_y;
-		
-		if (this->vel_y <=6){
-			
-			this->vel_y+=this->ace;
-							
-							
-		}else if (this->pos_y + y == SCREEN_H/2-100){this->vel_y=0;}
-		
-		
-	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 	}
 	
+	if ((this->pos_y + y <= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid)){
+		
+		this->pos_y+=this->vel_y;
+		
+		if ((this->vel_y <=2) && (!this->dee)){
+			
+			this->vel_y+=this->ace;
+							
+							
+		}else if (this->dee){
+			
+			if (this->vel_y >=0){
+			
+			this->vel_y-=this->ace;
+			
+			if (this->vel_y <=0)
+				this->dee=false;
+		}else if (this->pos_y + y == SCREEN_H/2-100){this->dee=true;}
+		
+		}
+		
+	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
 	
+	
+	}	
 }

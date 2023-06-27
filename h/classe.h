@@ -1,7 +1,7 @@
 #ifndef _CLASSE_H_
 #define _CLASSE_H_
-#include <allegro.h>
-#include <stdlib.h>
+//#include <allegro.h>
+#include <cstdlib>
 #include "../classe.cpp"
 
 typedef struct botao{

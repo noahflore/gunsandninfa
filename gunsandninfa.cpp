@@ -140,6 +140,7 @@ void game(){
 	bool ga=false;
 	int linha,coluna;
 	int ** mapa=carrega_mapa("mapa.txt",&linha,&coluna);
+	FONT *asman=load_font("fonte/asman.pcx",NULL,NULL);
 	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
@@ -174,6 +175,7 @@ void game(){
 			perso(player,buffer,frame_w,frame_h,mile);
 			//f1->espera(player,buffer,mile);
 			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
+			textprintf_centre(buffer,asman,SCREEN_W/2,30,makecol(255,255,255),"ROUND: %d",round);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			if ((l->inicio == NULL) && (comeca)){
@@ -193,6 +195,7 @@ void game(){
 	//free(f1);
 	free(com);
 	fecha_mapa(mapa,linha);
+	destroy_font(asman);
 	destroy_bitmap(inimi);
 	destroy_bitmap(m);
 	destroy_bitmap(player);
@@ -205,6 +208,7 @@ void carta(){
 	
 	bool ca=false;
 	ii=0;
+	round++;
 	
 	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
 	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);

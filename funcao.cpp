@@ -8,10 +8,10 @@ void habilidade(){
 	
 	srand(time(NULL));
 	
-	sel= rand() % 10;
-	
+//	sel= rand() % 10;
+	sel=1;
 	if (sel == 1){
-	no1= "fadia mais forte";
+	no1= "fadia submissa";
 		
 	}else if (sel == 2){
 		
@@ -25,15 +25,35 @@ void habilidade(){
 		no1="mais fadia";
 		
 		
+	}else if(sel == 5){
+		
+		no1="deus grego";
+		
+	}else if(sel == 6){
+		
+		no1="a queda";
+		
+	}else if(sel == 7){
+		
+		no1="humilhação";
+		
+	}else if(sel == 8){
+		
+		no1="fadia rebeliao";
+		
+	}else if(sel == 9){
+		
+		no1="o beta";
+		
 	}else{
 		
 		no1="fraco";
 	}
 	no2= "teste";
 	no3= "teste";
-	v1= rand() % 100;
-	v2= rand() % 100;
-	v3= rand() % 100;
+	v1= rand() % 50;
+	v2= rand() % 50;
+	v3= rand() % 10;
 	d1= rand() % 100;
 	d2= rand() % 100;
 	d3= rand() % 100;
@@ -303,6 +323,42 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
 }
 
+bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){
+	static int temes=mile;
+	static bool conr=false;
+		
+	
+		if (mile  - temes >= tempopro){
+
+
+				temes=mile;
+
+				vpro=false;
+			}
+		
+	
+		draw_sprite(buffer,grande,60,10);
+		textprintf(buffer,font,60+55,10,makecol(255,255,255),"%d",cuv);
+
+		if ((vpro) && (cuv >0)){
+
+				if (!conr)
+				cuv--;
+				conr=true;
+			
+			circle(buffer,SCREEN_W/2-100,SCREEN_H/2-100,100,makecol(255,0,124));
+			return true;
+		}else{
+
+			conr=false;
+			return false;
+		}
+	
+		
+	
+}
+
+
 Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 	
 	Botao *b= (Botao*) malloc(sizeof(Botao));
@@ -357,22 +413,33 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		
 		if ((b->ativado) && (b->index==1)){
 			
-			if  (sel== 1){
+			if  (sel== 1){//aumenta atributos da fada
 				
 				vx=v1;
-				vy=v1;
-				es=v2;
-				ht=v3;
-				
-			}else if  (sel== 2){
+				vy=v2;
+				ht+=v3;
+				tempopro-=d1;
 				
 				
-			}else if  (sel== 3){
+			}else if  (sel== 2){//aumenta atributos do maleman
 				
+				if (myhp <3)
+					myhp=3;
+				myhp*=2;
 				
-			}else if (sel == 4){
+			}else if  (sel== 3){// aumenta a magia 
+				
+				tempopro+=v1;
+				
+			}else if ((sel == 4) && (!parou)){
 				
 				tamf++;
+				parou=true;
+				
+			}else if (sel == 5){//aumenta a conquista de ninfa
+				
+				
+				
 				
 			}
 			
@@ -407,7 +474,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 		}
 		
-		
+				
 				ca=false;
 				return ca;
 		
@@ -564,7 +631,7 @@ void destroy_lista_f(Lista_fad *l){
 	
 }
 
-void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *player,BITMAP* ini,BITMAP *buffer,int tam,int x,int y,int mile,int qtd){
+void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMAP* life,BITMAP *player,BITMAP* ini,BITMAP *buffer,bool vpro,int tam,int x,int y,int mile,int qtd){
 	
 	//No_inimi *aux=l->inicio;
 	//No_inimi *aux2=l->inicio;
@@ -572,7 +639,9 @@ void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *player,BITMA
 	No_fad *aux4=ll->inicio;
 	
 	static int calma=mile;
+	 
 	
+	pro=protege(grande,buffer,vpro,mile);
 	while (aux3 !=NULL){
 		
 		
@@ -595,6 +664,7 @@ void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *player,BITMA
 					
 					atua(ini,buffer,aux->inimi);
 					com->colisao(player,buffer,aux->inimi,aux3->fad,tam,x,y);
+					vid(life,buffer,aux->inimi,x,y,mile);
 				//	com->colisao(player,buffer,aux2->inimi,aux4->fad,tam,x,y);
 					aux2=aux;
 					aux= aux->prox;
@@ -700,5 +770,66 @@ void atua(BITMAP* inimi,BITMAP* buffer,Pai *p){
 				p->update(inimi,buffer,x,y);
 	
 	
+	
+}
+
+void vid(BITMAP *life,BITMAP *buffer,Pai *inimi,int x,int y,int mile){
+	static bool fato=false;
+	static int tem=mile;
+	
+	if ((mile - tem >=3000) && (fato)){
+		
+		fato=false;
+		tem=mile;
+	}
+	
+	if (!pro){
+	
+		if ((inimi->pos_x + x <= SCREEN_W/2) && (inimi->pos_x + x >= SCREEN_W/2-100) &&
+			(inimi->pos_y + y <= SCREEN_H/2) && (inimi->pos_y + y >= SCREEN_H/2-100) && (!fato)){
+
+			fato=true;
+			myhp--;
+
+
+		}
+
+		if ((inimi->pos_x + x + inimi->wid <= SCREEN_W/2) && (inimi->pos_x + x + inimi->wid >= SCREEN_W/2-100) &&
+			(inimi->pos_y + y <= SCREEN_H/2) && (inimi->pos_y + y >= SCREEN_H/2-100) && (!fato)){
+
+			fato=true;
+			myhp--;
+
+		}
+
+		if ((inimi->pos_x + x + inimi->wid <= SCREEN_W/2) && (inimi->pos_x + x + inimi->wid >= SCREEN_W/2-100) &&
+			(inimi->pos_y + y + inimi->hi <= SCREEN_H/2) && (inimi->pos_y + y + inimi->hi >= SCREEN_H/2-100) && (!fato)){
+
+			fato=true;
+			myhp--;
+
+		}
+
+		if ((inimi->pos_x + x <= SCREEN_W/2) && (inimi->pos_x + x  >= SCREEN_W/2-100) &&
+			(inimi->pos_y + y + inimi->hi <= SCREEN_H/2) && (inimi->pos_y + y + inimi->hi >= SCREEN_H/2-100) && (!fato)){
+
+			fato=true;
+			myhp--;
+
+	}
+		
+	}
+	
+		draw_sprite(buffer,life,5,10);
+		textprintf(buffer,font,55,10,makecol(255,255,255),"%d",myhp);
+		
+		
+		
+	
+	if (myhp<= 0){
+		estado_screen=over;
+		ga=true;
+		
+	}
 	
 }

@@ -27,7 +27,7 @@ typedef struct botao{
 
 
 
-void update_lista(Lista_inimi *l,Compara *com,BITMAP *player,BITMAP* ini,BITMAP *buffer,int tam,int x,int y,int mile,int qtd);
+void update_lista(Lista_inimi *l,Compara *com,BITMAP *grande,BITMAP* life,BITMAP *player,BITMAP* ini,BITMAP *buffer,bool vpro,int tam,int x,int y,int mile,int qtd);
 Lista_inimi *create_lista_inimi();
 Lista_fad *create_lista_fad();
 void destroy_inimi (Pai *i);

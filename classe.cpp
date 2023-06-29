@@ -161,6 +161,7 @@ class Compara{
 		
 	}
 
+
 void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 
 	if (l->hit == this->me){
@@ -191,7 +192,7 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 				    (this->fadia_y >= l->pos_y+ y)&&
 				    (this->fadia_y <= l->pos_y+ y +l->hi)){
 					
-					l->hp--;
+					l->hp-=this->hit;
 					if (l->hp <= 0)
 					l->ativo=false;
 					
@@ -418,7 +419,7 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		
 	}
 	
-	if ((this->pos_y + y> SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100 + this->wid)){
+	if (this->pos_y + y> SCREEN_H/2-100){
 		
 		
 		this->pos_y-=this->vel_y;
@@ -440,12 +441,12 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		
 		}
 		
-		if (this->pos_y + y> SCREEN_H/2-90)
+		if ((this->pos_y + y> SCREEN_H/2-90) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100 + this->wid))
 	masked_blit(inimi,buffer,0 * this->wid, 3 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 	}
 	
-	if ((this->pos_y + y <= SCREEN_H/2-100) && (this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid)){
+	if (this->pos_y + y <= SCREEN_H/2-100){
 		
 		this->pos_y+=this->vel_y;
 		
@@ -466,6 +467,7 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		
 		}
 		
+		if ((this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid))
 	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 	

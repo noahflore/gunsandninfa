@@ -1,4 +1,5 @@
 #include <allegro.h>
+#include <logg.h>
 #include "h/classe.h"
 #include "h/funcao.h"
 #include "funcao.cpp"
@@ -12,7 +13,7 @@
 
 volatile bool fecha= false;
 volatile int fps= 0,mile=0;
-int estado_screen=titula;
+
 	
 
 
@@ -24,6 +25,7 @@ void titulo();
 void menu();
 void game();
 void carta();
+void gameover();
 
 
 int main(){
@@ -41,13 +43,7 @@ int main(){
 	
 	
 	
-	//MIDI* musica= load_midi("music/musica.midi");
 	
-	
-	
-	
-	
-//	play_midi(musica,TRUE);
 	while(!fecha){
 		
 		while (fps>=1){
@@ -68,6 +64,9 @@ int main(){
 				
 				carta();
 				
+			}else if(estado_screen==over){
+				
+				gameover();
 			}
 		
 		}
@@ -78,6 +77,42 @@ int main(){
 }
 
 END_OF_MAIN();
+
+void gameover(){
+	
+	bool ov=false;
+	ga=false;
+	
+	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	
+	while ((!fecha) && (!ov)){
+		
+		while(fps>=1){
+			atualiza_tecla();
+			
+			if (aperta(KEY_ENTER)){
+				
+				ov=true;
+				estado_screen=gama;
+				
+			}
+			textout_centre_ex(buffer,font,"game over",SCREEN_W/2,SCREEN_H/2,makecol(255,255,255),-1);
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			
+			fps--;
+		}
+		
+		
+		
+		
+	}
+	destroy_bitmap(buffer);
+	
+	
+	
+}
+
 
 void titulo(){
 	
@@ -115,6 +150,7 @@ void titulo(){
 void menu(){
 	
 	bool me=false;
+	ga=false;
 	
 	while ((!fecha) && (!me)){
 		
@@ -137,17 +173,28 @@ void menu(){
 
 void game(){
 	
-	bool ga=false;
+	
+	parou=false;
 	int linha,coluna;
 	int ** mapa=carrega_mapa("mapa.txt",&linha,&coluna);
 	FONT *asman=load_font("fonte/asman.pcx",NULL,NULL);
 	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
+	BITMAP* grande= load_bitmap("sprite/escudo.bmp",NULL);
+	BITMAP* life= load_bitmap("sprite/life.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP* inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
+	SAMPLE* musica= logg_load("music/musica.ogg");//logg.h só serve para converter arquivo.ogg para .wav
+	LOCK_FUNCTION(logg_load);
+	lock_sample(musica);
 	
+	
+	
+	play_sample(musica,255,255,1000,TRUE);
+	LOCK_FUNCTION(play_sample);
 	int frame_w=259/4;
 	int frame_h=305/4,i=0;
+	
 	
 	
 	//Fadia *f1= new Fadia(vx,vy,ht,es);
@@ -162,6 +209,7 @@ void game(){
 			
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
+			if (aperta(KEY_F))pro=true;
 			span(l,ll,x, y, mile,qtd,vida);
 			
 			
@@ -169,7 +217,7 @@ void game(){
 
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			update_lista(l,ll,com,player,inimi,buffer,tam,x,y,mile,qtd);// spana inimigo
+			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);// spana inimigo
 		
 			
 			perso(player,buffer,frame_w,frame_h,mile);
@@ -188,7 +236,7 @@ void game(){
 		}
 	}
 	
-//	destroy_midi(musica);
+	destroy_sample(musica);
 	if ((fecha) && (l->inicio !=NULL))
 	destroy_lista(l);
 	destroy_lista_f(ll);
@@ -196,7 +244,9 @@ void game(){
 	free(com);
 	fecha_mapa(mapa,linha);
 	destroy_font(asman);
+	destroy_bitmap(grande);
 	destroy_bitmap(inimi);
+	destroy_bitmap(life);
 	destroy_bitmap(m);
 	destroy_bitmap(player);
 	destroy_bitmap(buffer);
@@ -207,6 +257,7 @@ void game(){
 void carta(){
 	
 	bool ca=false;
+	ga=false;
 	ii=0;
 	round++;
 	
@@ -236,7 +287,8 @@ void carta(){
 			botao_draw(bot2,buffer);
 			botao_draw(bot3,buffer);
 			ca=botao_acao(bot,mile,ca,buffer);
-			draw_sprite(buffer,mouse,mouse_x,mouse_y-24);
+			draw_sprite(buffer,mouse,mouse_x-16,mouse_y-18);
+			//show_mouse(buffer);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -275,9 +327,11 @@ void allegro_start(char *title,int height,int width){
 	set_gfx_mode(GFX_AUTODETECT_WINDOWED,height,width,0,0);
 	set_window_title(title);
 	
-//	install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL);
+	
 	install_keyboard();
 	install_timer();
+	//detect_digi_driver(0);
+	install_sound(DIGI_AUTODETECT,MIDI_NONE,NULL);
 	install_mouse();
 	
 	

@@ -13,7 +13,8 @@
 
 volatile bool fecha= false;
 volatile int fps= 0,mile=0;
-
+int frame_w=259/4;
+int frame_h=305/4;
 	
 
 
@@ -26,6 +27,7 @@ void menu();
 void game();
 void carta();
 void gameover();
+void cidade();
 
 
 int main(){
@@ -67,6 +69,11 @@ int main(){
 			}else if(estado_screen==over){
 				
 				gameover();
+			}else if (estado_screen==cida){
+				
+				
+				cidade();
+				
 			}
 		
 		}
@@ -77,6 +84,53 @@ int main(){
 }
 
 END_OF_MAIN();
+
+void cidade(){
+	
+	bool ci=false;
+	
+	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
+	BITMAP* player=load_bitmap("sprite/spritemaleman.bmp",NULL);
+	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
+	BITMAP* ni=load_bitmap("sprite/ninfa.bmp",NULL);
+	int linha,coluna;
+	int** mapa=carrega_mapa("mapa2.txt",&linha,&coluna);
+	Lista_ninfa *n=create_lista_ninfa();
+	
+	while ((!fecha) && (!ci)){
+		
+		while(fps>=1){
+			atualiza_tecla();
+			span_ninfa(n,x,y,mile);
+			
+			
+			
+			desenha_mapa(m,buffer,mapa,linha,coluna);
+			update_ninfa(n,ni,buffer,x,y,mile);
+			perso(player,buffer,frame_w,frame_h,mile);
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			
+			fps--;
+		}
+		
+		
+		
+		
+	}
+	fecha_mapa(mapa,linha);
+	destroy_lista_n(n);
+	destroy_bitmap(ni);
+	destroy_bitmap(player);
+	destroy_bitmap(m);
+	destroy_bitmap(buffer);
+	
+	
+	
+	
+	
+	
+}
 
 void gameover(){
 	
@@ -192,8 +246,7 @@ void game(){
 	
 	play_sample(musica,255,255,1000,TRUE);
 	LOCK_FUNCTION(play_sample);
-	int frame_w=259/4;
-	int frame_h=305/4,i=0;
+	int i=0;
 	
 	
 	
@@ -201,7 +254,7 @@ void game(){
 	Compara *com= new Compara();
 	Lista_inimi *l= create_lista_inimi();
 	Lista_fad *ll= create_lista_fad();
-	
+	int backup=myhp;
 	
 		while((!fecha) && (!ga)){
 		
@@ -210,6 +263,7 @@ void game(){
 			atualiza_tecla();
 			if (aperta(KEY_ESC)){ga=true;estado_screen=mena;}
 			if (aperta(KEY_F))pro=true;
+			if (round==5){ga=true;estado_screen=cida;x=0;y=0;}
 			span(l,ll,x, y, mile,qtd,vida);
 			
 			
@@ -221,8 +275,12 @@ void game(){
 		
 			
 			perso(player,buffer,frame_w,frame_h,mile);
-			//f1->espera(player,buffer,mile);
-			rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
+			if (estado_screen==cida){
+				myhp=backup;
+				clear(buffer);
+				textout_centre(buffer,asman,"LOADING",SCREEN_W/2,SCREEN_H/2,makecol(255,255,255));
+			}
+			//rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			textprintf_centre(buffer,asman,SCREEN_W/2,30,makecol(255,255,255),"ROUND: %d",round);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -331,7 +389,7 @@ void allegro_start(char *title,int height,int width){
 	install_keyboard();
 	install_timer();
 	//detect_digi_driver(0);
-	install_sound(DIGI_AUTODETECT,MIDI_NONE,NULL);
+	//install_sound(DIGI_AUTODETECT,MIDI_NONE,NULL);
 	install_mouse();
 	
 	

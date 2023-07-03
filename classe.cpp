@@ -14,7 +14,7 @@ class Pai{
 	bool ativo;
 	int hit;
 	Pai(int x,int y,int mile,int vida);
-	void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
+	virtual void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
 	
 };
 
@@ -34,6 +34,132 @@ typedef struct lista_inimi{
 	
 	
 }Lista_inimi;
+
+class Ninfa{//lembra de fazer a lista encadeada
+	
+	public:
+	
+	float pos_x;
+	float pos_y;
+	float vel_x;
+	float vel_y;
+	float limx;
+	float limy;
+	float ace;
+	float varx;
+	float vary;
+	int wid,dee,dess;
+	int hi,hp,tx,ty,tempox,tempoy;
+	bool ativo,esq,cima;
+	int hit;
+
+		Ninfa(int mile){
+	
+		srand(time(NULL));
+		this->pos_x= rand() % 3000;
+		srand(mile);
+		this->pos_y= rand() % 3000;
+		this->limx=this->pos_x;
+		this->limy=this->pos_y;
+		this->varx=300;
+		this->vary=300;
+		this->ace= 0.2;
+		this->tx=0;
+		this->ty=0;
+		this->tempox=0;
+		this->tempoy=0;
+		this->vel_x= ace;
+		this->vel_y= ace;
+		this->ativo=true;
+		this->esq=true;
+		this->cima=true;
+	
+	
+	
+	}
+	
+	void update(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){
+		
+		
+		this->espera(ni,buffer,x,y,mile);
+	}
+	
+	void espera(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){
+		
+		if (this->pos_x + x == this->limx + x){
+			
+			srand(mile);
+			this->esq= rand() % 2;
+			this->varx=rand() % 300;
+			this->tempox= rand() % 500;
+			
+		}
+		
+		if (this->pos_y + y == this->limy + y){
+			
+			srand(time(NULL));
+			this->cima= rand() % 2;
+			this->vary=rand() % 300;
+			this->tempoy= rand() % 500;
+			
+		}
+		
+		if (mile - tx >= tempox){
+			
+			if ((this->pos_x + x >= this->limx + x - 300) && (this->esq))
+				this->pos_x--;
+
+			if ((this->pos_x + x <= this->limx + x + 300) && (!this->esq))
+				this->pos_x++;
+			this->tx=mile;
+		}
+		
+		if (mile - ty >= tempoy){
+			
+			if ((this->pos_y + y >= this->limy + y - 300) && (this->cima))
+				this->pos_y--;
+
+			if ((this->pos_y + y <= this->limy + y + 300) && (!this->cima))
+				this->pos_y++;
+		
+			this->ty=mile;
+		}
+		
+		if (this->pos_x + x < this->limx + x - this->varx)
+			this->esq=false;
+		
+		if (this->pos_x + x > this->limx + x + this->varx)
+			this->esq=true;
+		
+		if (this->pos_y + y < this->limy + y - this->vary)
+			this->cima=false;
+		
+		if (this->pos_y + y > this->limy + y + this->vary)
+			this->cima=true;
+		
+		masked_blit(ni,buffer,11,9,this->pos_x + x,this->pos_y + y,64,72);
+		
+	}
+	
+	
+};
+
+typedef struct no_ninfa{
+	
+	Ninfa *nina;
+	struct no_ninfa *prox;
+	
+	
+}No_ninfa;
+
+
+typedef struct lista_ninfa{
+	
+	 No_ninfa* inicio;
+	
+	
+	
+}Lista_ninfa;
 
 class Fadia{
 	

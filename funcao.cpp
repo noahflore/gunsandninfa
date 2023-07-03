@@ -9,7 +9,7 @@ void habilidade(){
 	srand(time(NULL));
 	
 //	sel= rand() % 10;
-	sel=1;
+	sel=3;
 	if (sel == 1){
 	no1= "fadia submissa";
 		
@@ -54,8 +54,8 @@ void habilidade(){
 	v1= rand() % 50;
 	v2= rand() % 50;
 	v3= rand() % 10;
-	d1= rand() % 100;
-	d2= rand() % 100;
+	d1= rand() % 10;
+	d2= rand() % 10;
 	d3= rand() % 100;
 	v4= rand() % 100;
 	v5= rand() % 100;
@@ -180,6 +180,12 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 					
 				masked_blit(m,buffer,2 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
 				
+			}else if((mapa[i][j]== piso) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				
+				
+				masked_blit(m,buffer,3 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
 			}
 			
 		}
@@ -206,14 +212,14 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 	
 	
 		
-		if ((velx<=8) && (segura(KEY_D))){
+		if ((velx<=limpx) && (segura(KEY_D))){
 			
 			velx+=ace;
 			x-=velx;
 			p=true;
 			stopf=2;
 			
-			frame=(mile /150) % 4;
+			frame=(mile /300) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 			
@@ -228,7 +234,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 		}
 	
 		
-		if ((velx<=8) && (segura(KEY_A))){
+		if ((velx<=limpx) && (segura(KEY_A))){
 			velx+=ace;
 			x+=velx;
 			p=false;
@@ -240,13 +246,13 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			
 			x+=velx;
 			
-			frame=(mile /300) % 4;
+			frame=(mile /150) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
 	
 	
-	if((vely<=8) && (segura(KEY_W))){
+	if((vely<=limpy) && (segura(KEY_W))){
 		
 			vely+=ace;
 			y+=vely;
@@ -262,7 +268,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			y+=vely;
 		
 			
-			frame=(mile /300) % 4;
+			frame=(mile /150) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}
@@ -271,14 +277,14 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 		
 	
 
-		if ((vely<=8) && (segura(KEY_S))){
+		if ((vely<=limpy) && (segura(KEY_S))){
 			vely+=ace;
 			y-=vely;
 			stopf=0;
 			pp=false;
 			
 			
-			frame=(mile /300) % 4;
+			frame=(mile /150) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}else if (segura(KEY_S)){
@@ -419,17 +425,32 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				vy=v2;
 				ht+=v3;
 				tempopro-=d1;
+				limpx-=d2;
+				limpy-=d3;
+				
+				if (limpx <= 0)limpx=1;
+				if (limpy <=0)limpy=1;
 				
 				
-			}else if  (sel== 2){//aumenta atributos do maleman
+			}else if  ((sel== 2) && (!parou)){//aumenta atributos do maleman
 				
 				if (myhp <3)
 					myhp=3;
 				myhp*=2;
 				
-			}else if  (sel== 3){// aumenta a magia 
+				limpx+=v3;
+				limpy+=v3;
+				
+				tempopro-=300;
+				vx-=1;
+				vy-=1;
+				parou=true;
+				
+			}else if  ((sel== 3) && (!parou)){// aumenta a magia 
 				
 				tempopro+=v1;
+				cuv+=3;
+				parou=true;
 				
 			}else if ((sel == 4) && (!parou)){
 				
@@ -584,6 +605,17 @@ Lista_fad *create_lista_fad(){//cria a lista
 	
 }
 
+Lista_ninfa *create_lista_ninfa(){//cria a lista
+	
+	Lista_ninfa* l= (Lista_ninfa*) malloc(sizeof(Lista_ninfa));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
+
 
 void destroy_inimi (Pai *i){//recebe o objeto
 	
@@ -624,6 +656,29 @@ void destroy_lista_f(Lista_fad *l){
 		aux= l->inicio;
 		l->inicio =l->inicio->prox;
 		destroy_fad(aux->fad);
+		free(aux);
+		
+	}
+	
+	
+}
+
+void destroy_ninfa (Ninfa *i){//recebe o objeto
+	
+	free(i);
+	
+	
+}
+
+void destroy_lista_n(Lista_ninfa *l){
+	
+	No_ninfa *aux;
+	
+	while (l->inicio != NULL){
+		
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_ninfa(aux->nina);
 		free(aux);
 		
 	}
@@ -716,6 +771,71 @@ void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMA
 			
 			
 		}
+		
+		
+	}
+	
+}
+
+void span_ninfa(Lista_ninfa *l,int x,int y,int mile){
+	static int marco=mile;
+	
+	if (mile - marco >= 500){
+		
+		
+		if (ou <= qtdn){
+	
+		No_ninfa *novo= (No_ninfa*) malloc(sizeof(No_ninfa));
+		novo->nina= new Ninfa(mile);
+		novo->prox=l->inicio;
+		l->inicio=novo;
+
+			ou++;
+		}
+		
+		marco=mile;
+	}
+	
+}
+
+void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile){
+	
+	No_ninfa *aux=l->inicio;
+	No_ninfa *aux2=l->inicio;
+	
+	while (aux != NULL){
+		
+		if (aux->nina->ativo){
+			
+			
+			aux->nina->update(ni,buffer,x,y,mile);
+			aux2=aux;
+			aux=aux->prox;
+			
+		}else{
+			
+			if (aux == aux2){
+				
+				l->inicio=l->inicio->prox;
+				destroy_ninfa(aux->nina);
+				free(aux);
+				aux=aux2=l->inicio;
+				
+				
+			}else{
+				
+				aux2->prox=aux->prox;
+				destroy_ninfa(aux->nina);
+				free(aux);
+				aux->prox=aux2->prox;
+				
+				
+			}
+			
+			
+			
+		}
+		
 		
 		
 	}

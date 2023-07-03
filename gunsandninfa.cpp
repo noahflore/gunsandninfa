@@ -106,7 +106,7 @@ void cidade(){
 			
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			update_ninfa(n,ni,buffer,x,y,mile);
+			update_ninfa(n,ni,buffer,x,y,mile,sex);
 			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);

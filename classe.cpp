@@ -49,7 +49,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	float varx;
 	float vary;
 	int wid,dee,dess;
-	int hi,hp,tx,ty,tempox,tempoy;
+	int hi,hp,tx,ty,tempox,tempoy,mysex;
 	bool ativo,esq,cima;
 	int hit;
 
@@ -59,6 +59,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 		this->pos_x= rand() % 3000;
 		srand(mile);
 		this->pos_y= rand() % 3000;
+		this->mysex= rand() % 100;
 		this->limx=this->pos_x;
 		this->limy=this->pos_y;
 		this->varx=300;
@@ -78,10 +79,69 @@ class Ninfa{//lembra de fazer a lista encadeada
 	
 	}
 	
-	void update(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){
+	void update(BITMAP *ni, BITMAP *buffer,int x, int y,int mile,int sex){
 		
+		if ((this->pos_x + x <= SCREEN_W/2+300) || (this->pos_x + x >= SCREEN_W/2-500)
+			|| (this->pos_y + y <= SCREEN_H/2+300) || (this->pos_y + y >= SCREEN_H/2-500)){
 		
-		this->espera(ni,buffer,x,y,mile);
+				
+				this->atracao(ni,buffer,x,y,mile,sex);
+			
+		}else {
+			
+			this->espera(ni,buffer,x,y,mile);
+			
+		}
+	}
+	
+	void atracao(BITMAP *ni,BITMAP *buffer, int x, int y, int mile,int sex){
+		
+		if (this->vel_x < 4)
+			this->vel_x+=this->ace;
+		
+		if (this->vel_y < 4)
+			this->vel_y+=this->ace;
+		
+		if ((sex >= this->mysex - 10) &&  (sex < this->mysex))
+			this->espera(ni,buffer,x,y,mile);
+		
+		if (sex < this->mysex - 10){
+			
+			if (this->pos_x + x < SCREEN_W/2-100)
+				this->pos_x-=this->vel_x;
+			
+			if (this->pos_x + x > SCREEN_W/2-100)
+				this->pos_x+=this->vel_x;
+			
+			if (this->pos_y + y < SCREEN_H/2-100)
+				this->pos_y-=this->vel_y;
+			
+			if (this->pos_y + y > SCREEN_H/2-100)
+				this->pos_y+=this->vel_y;
+			
+			
+			
+		}
+		
+		if (sex >= this->mysex){
+			
+			if (this->pos_x + x < SCREEN_W/2-100)
+				this->pos_x+=this->vel_x;
+			
+			if (this->pos_x + x > SCREEN_W/2-100)
+				this->pos_x-=this->vel_x;
+			
+			if (this->pos_y + y < SCREEN_H/2-100)
+				this->pos_y+=this->vel_y;
+			
+			if (this->pos_y + y > SCREEN_H/2-100)
+				this->pos_y-=this->vel_y;
+			
+			
+			
+		}
+		
+		masked_blit(ni,buffer,11,9,this->pos_x + x,this->pos_y + y,64,72);
 	}
 	
 	void espera(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){

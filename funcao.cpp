@@ -798,7 +798,7 @@ void span_ninfa(Lista_ninfa *l,int x,int y,int mile){
 	
 }
 
-void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile){
+void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile,int sex){
 	
 	No_ninfa *aux=l->inicio;
 	No_ninfa *aux2=l->inicio;
@@ -808,7 +808,7 @@ void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile)
 		if (aux->nina->ativo){
 			
 			
-			aux->nina->update(ni,buffer,x,y,mile);
+			aux->nina->update(ni,buffer,x,y,mile,sex);
 			aux2=aux;
 			aux=aux->prox;
 			

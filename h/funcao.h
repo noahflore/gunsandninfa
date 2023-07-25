@@ -30,6 +30,7 @@ enum{
 	concreto=1,
 	agua=2,
 	piso=3,
+	casa=4,
 	titula=100,
 	mena=101,
 	gama=103,

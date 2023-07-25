@@ -186,6 +186,63 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				
 				masked_blit(m,buffer,3 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
 				
+			}else if ((mapa[i][j]== casa) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,4 *m_w,0 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
+					
+					y-=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)) {
+					
+					y+=vely;
+					x+=velx;
+					
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){
+					
+					y-=vely;
+					x+=velx;
+				}else if ((j * 80+x +m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)){
+					
+					y+=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x+=velx;
+				}else if ((j * 80+x + m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x+=velx;
+					
+				}
+				
 			}
 			
 		}

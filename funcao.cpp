@@ -265,10 +265,12 @@ void fecha_mapa(int **m,int linha){
 
 
 
-void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
+void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu boneco
 	
-	
+	static int fixa=0,fixa2=0;
 		
+		
+	
 		if ((velx<=limpx) && (segura(KEY_D))){
 			
 			velx+=ace;
@@ -277,7 +279,16 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			stopf=2;
 			
 			frame=(mile /300) % 4;
-			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w + fixa - fixa2,frame_h);
 			
 			
 		}else if (segura(KEY_D)){
@@ -285,8 +296,17 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			x-=velx;
 			
 			frame=(mile /150) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
 			
-			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w + fixa - fixa2,frame_h);
 			
 		}
 	
@@ -298,13 +318,31 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			stopf=3;
 			
 			frame=(mile /300) % 4;
-			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w + fixa - fixa2,frame_h);
 		}else if (segura(KEY_A)){
 			
 			x+=velx;
 			
 			frame=(mile /150) % 4;
-			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w + fixa - fixa2,frame_h);
 			
 		}
 	
@@ -341,7 +379,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			pp=false;
 			
 			
-			frame=(mile /150) % 4;
+			frame=(mile /300) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}else if (segura(KEY_S)){
@@ -350,7 +388,7 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){
 			y-=vely;
 			
 			
-			frame=(mile /300) % 4;
+			frame=(mile /150) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 			
 		}

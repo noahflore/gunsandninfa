@@ -13,8 +13,8 @@
 
 volatile bool fecha= false;
 volatile int fps= 0,mile=0;
-int frame_w=259/4;
-int frame_h=305/4;
+int frame_w=250/4;
+int frame_h=400/4;
 	
 
 

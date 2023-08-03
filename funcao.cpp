@@ -393,13 +393,22 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu
 			
 		}
 		
-		if ((velx>=0) && (!key[KEY_A]) && (!key[KEY_D])){
+		if ((velx>=0) && (!key[KEY_A]) && (!key[KEY_D])){//desacelaçao
 			velx-=ace;
 			if(p){x-=velx;}else{x+=velx;}
 			
-			
+			if ((!key[KEY_S]) && (!key[KEY_W]))
 			frame=(mile /300) % 4;
-			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w + fixa - fixa2,frame_h);
 			
 		}
 	
@@ -407,11 +416,12 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu
 			vely-=ace;
 			if(pp){y+=vely;}else{y-=vely;}
 			
+			if ((!key[KEY_A]) && (!key[KEY_D]))
 			frame=(mile /300) % 4;
 			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,SCREEN_W/2-100,SCREEN_H/2-100,frame_w,frame_h);
 		}
 	
-		if ((!key[KEY_A]) && (!key[KEY_D]) && (!key[KEY_W]) && (!key[KEY_S])){
+		if ((!key[KEY_A]) && (!key[KEY_D]) && (!key[KEY_W]) && (!key[KEY_S]) && (velx<0) && (vely<0)){//boneco parado
 			
 			
 			

@@ -48,7 +48,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	float ace;
 	float varx;
 	float vary;
-	int wid,dee,dess;
+	int wid,dee,dess,frame_w,frame_h;
 	int hi,hp,tx,ty,tempox,tempoy,mysex;
 	bool ativo,esq,cima;
 	int hit;
@@ -141,7 +141,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 			
 		}
 		
-		masked_blit(ni,buffer,11,9,this->pos_x + x,this->pos_y + y,64,72);
+		masked_blit(ni,buffer,0,0,this->pos_x + x,this->pos_y + y,64,130);
 	}
 	
 	void espera(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){

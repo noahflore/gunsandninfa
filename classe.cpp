@@ -71,6 +71,8 @@ class Ninfa{//lembra de fazer a lista encadeada
 		this->tempoy=0;
 		this->vel_x= ace;
 		this->vel_y= ace;
+		this->frame_w=222/4;
+		this->frame_h=400/3;
 		this->ativo=true;
 		this->esq=true;
 		this->cima=true;
@@ -85,7 +87,9 @@ class Ninfa{//lembra de fazer a lista encadeada
 			|| (this->pos_y + y <= SCREEN_H/2+300) || (this->pos_y + y >= SCREEN_H/2-500)){
 		
 				
-				this->atracao(ni,buffer,x,y,mile,sex);
+				//this->atracao(ni,buffer,x,y,mile,sex);
+			
+			this->espera(ni,buffer,x,y,mile);
 			
 		}else {
 			
@@ -105,7 +109,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 		if ((sex >= this->mysex - 10) &&  (sex < this->mysex))
 			this->espera(ni,buffer,x,y,mile);
 		
-		if (sex < this->mysex - 10){
+		if (sex < this->mysex - 10){//ninfas foge
 			
 			if (this->pos_x + x < SCREEN_W/2-100)
 				this->pos_x-=this->vel_x;
@@ -123,7 +127,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 			
 		}
 		
-		if (sex >= this->mysex){
+		if (sex >= this->mysex){//ninfas atraindas
 			
 			if (this->pos_x + x < SCREEN_W/2-100)
 				this->pos_x+=this->vel_x;
@@ -145,6 +149,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	}
 	
 	void espera(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){
+		static int salto=0,cor1=0;
 		
 		if (this->pos_x + x == this->limx + x){
 			
@@ -197,7 +202,25 @@ class Ninfa{//lembra de fazer a lista encadeada
 		if (this->pos_y + y > this->limy + y + this->vary)
 			this->cima=true;
 		
-		masked_blit(ni,buffer,11,9,this->pos_x + x,this->pos_y + y,64,72);
+		if ((!this->esq) && (!this->cima)){
+			
+			salto=(mile/tempoy) % 4;
+			if (salto == 2)
+				cor1=5;
+			else
+				cor1=0;
+			masked_blit(ni,buffer,salto * this->frame_w,2 * this->frame_h,this->pos_x + x,this->pos_y + y,this->frame_w - cor1,this->frame_h);
+		}
+		
+		if ((this->esq) && (!this->cima)){
+			
+			salto=(mile/tempoy) % 4;
+			if (salto == 2)
+				cor1=5;
+			else
+				cor1=0;
+			masked_blit(ni,buffer,salto * this->frame_w,1 * this->frame_h,this->pos_x + x,this->pos_y + y,this->frame_w - cor1,this->frame_h);
+		}
 		
 	}
 	

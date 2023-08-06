@@ -50,7 +50,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	float vary;
 	int wid,dee,dess,frame_w,frame_h;
 	int hi,hp,tx,ty,tempox,tempoy,mysex;
-	bool ativo,esq,cima;
+	bool ativo,esq,cima,pare;
 	int hit;
 
 		Ninfa(int mile){
@@ -76,6 +76,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 		this->ativo=true;
 		this->esq=true;
 		this->cima=true;
+		this->pare=false;
 	
 	
 	
@@ -87,9 +88,9 @@ class Ninfa{//lembra de fazer a lista encadeada
 			|| (this->pos_y + y <= SCREEN_H/2+300) || (this->pos_y + y >= SCREEN_H/2-500)){
 		
 				
-				//this->atracao(ni,buffer,x,y,mile,sex);
+				this->atracao(ni,buffer,x,y,mile,sex);
 			
-			this->espera(ni,buffer,x,y,mile);
+			//this->espera(ni,buffer,x,y,mile);
 			
 		}else {
 			
@@ -99,6 +100,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	}
 	
 	void atracao(BITMAP *ni,BITMAP *buffer, int x, int y, int mile,int sex){
+		
 		
 		if (this->vel_x < 4)
 			this->vel_x+=this->ace;
@@ -127,7 +129,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 			
 		}
 		
-		if (sex >= this->mysex){//ninfas atraindas
+		if ((sex >= this->mysex) && (!this->pare)){//ninfas atraindas
 			
 			if (this->pos_x + x < SCREEN_W/2-100)
 				this->pos_x+=this->vel_x;
@@ -141,11 +143,20 @@ class Ninfa{//lembra de fazer a lista encadeada
 			if (this->pos_y + y > SCREEN_H/2-100)
 				this->pos_y-=this->vel_y;
 			
+			masked_blit(ni,buffer,0,0,this->pos_x + x,this->pos_y + y,64,130);
+		}
+		
+		if (((this->pos_x + x >= SCREEN_W/2-100) &&
+			 (this->pos_x + x <= SCREEN_W/2-60) &&
+			(this->pos_y + y >= SCREEN_H/2-100) &&
+			(this->pos_y + y <= SCREEN_H/2-50)) || (pare)){
 			
+			this->pare=true;
+			masked_blit(ni,buffer,0,0,this->pos_x + x,this->pos_y + y,64,130);
 			
 		}
 		
-		masked_blit(ni,buffer,0,0,this->pos_x + x,this->pos_y + y,64,130);
+		
 	}
 	
 	void espera(BITMAP *ni, BITMAP *buffer,int x, int y,int mile){

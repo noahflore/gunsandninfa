@@ -222,6 +222,26 @@ class Ninfa{//lembra de fazer a lista encadeada
 			masked_blit(ni,buffer,salto * this->frame_w,1 * this->frame_h,this->pos_x + x,this->pos_y + y,this->frame_w - cor1,this->frame_h);
 		}
 		
+		if ((!this->esq) && (this->cima)){
+			
+			salto=(mile/tempoy) % 4;
+			if (salto == 2)
+				cor1=5;
+			else
+				cor1=0;
+			masked_blit(ni,buffer,salto * this->frame_w,3 * this->frame_h + 3,this->pos_x + x,this->pos_y + y,this->frame_w - cor1,this->frame_h);
+		}
+		
+		if ((this->esq) && (this->cima)){
+			
+			salto=(mile/tempoy) % 4;
+			if (salto == 2)
+				cor1=5;
+			else
+				cor1=0;
+			masked_blit(ni,buffer,salto * this->frame_w,4 * this->frame_h + 9,this->pos_x + x,this->pos_y + y,this->frame_w - cor1,this->frame_h);
+		}
+		
 	}
 	
 	

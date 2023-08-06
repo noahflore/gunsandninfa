@@ -110,7 +110,10 @@ void cidade(){
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			loja(m,buffer,lo);
 			update_ninfa(n,ni,buffer,x,y,mile,sex);
-			perso(player,buffer,frame_w,frame_h,mile);
+			if (!lojaopen)
+				perso(player,buffer,frame_w,frame_h,mile);
+			else
+				persotwo(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			

@@ -434,6 +434,175 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu
 	
 }
 
+void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu boneco
+	
+	static int fixa=0,fixa2=0,px=30,py=600;
+		
+		
+	
+		if ((velx<=limpx) && (segura(KEY_D))){
+			
+			velx+=ace;
+			px+=velx;
+			p=true;
+			stopf=2;
+			
+			frame=(mile /300) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,px,py,frame_w + fixa - fixa2,frame_h);
+			
+			
+		}else if (segura(KEY_D)){
+			
+			px+=velx;
+			
+			frame=(mile /150) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,px,py,frame_w + fixa - fixa2,frame_h);
+			
+		}
+	
+		
+		if ((velx<=limpx) && (segura(KEY_A))){
+			velx+=ace;
+			px-=velx;
+			p=false;
+			stopf=3;
+			
+			frame=(mile /300) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,px,py,frame_w + fixa - fixa2,frame_h);
+		}else if (segura(KEY_A)){
+			
+			px-=velx;
+			
+			frame=(mile /150) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,px,py,frame_w + fixa - fixa2,frame_h);
+			
+		}
+	
+	
+	if((vely<=limpy) && (segura(KEY_W))){
+		
+			vely+=ace;
+			py-=vely;
+			pp=true;
+			stopf=1;
+		
+		
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+			
+		}else if (segura(KEY_W)){
+			
+			py-=vely;
+		
+			
+			frame=(mile /150) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+			
+		}
+		
+		
+		
+	
+
+		if ((vely<=limpy) && (segura(KEY_S))){
+			vely+=ace;
+			py+=vely;
+			stopf=0;
+			pp=false;
+			
+			
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+			
+		}else if (segura(KEY_S)){
+			
+		
+			py+=vely;
+			
+			
+			frame=(mile /150) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+			
+		}
+		
+		if ((velx>=0) && (!key[KEY_A]) && (!key[KEY_D])){//desacelaçao
+			velx-=ace;
+			if(p){x-=velx;}else{x+=velx;}
+			
+			if ((!key[KEY_S]) && (!key[KEY_W]))
+			frame=(mile /300) % 4;
+			if ((frame == 3) || (frame==1))
+			fixa=5;
+			else
+				fixa=0;
+			
+			if (frame==2)
+				fixa2=5;
+			else
+				fixa2=0;
+			masked_blit(player,buffer,frame * frame_w + fixa2,stopf * frame_h,px,py,frame_w + fixa - fixa2,frame_h);
+			
+		}
+	
+		if ((vely>=0) && (!key[KEY_S]) && (!key[KEY_W])){
+			vely-=ace;
+			if(pp){y+=vely;}else{y-=vely;}
+			
+			if ((!key[KEY_A]) && (!key[KEY_D]))
+			frame=(mile /300) % 4;
+			masked_blit(player,buffer,frame * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+		}
+	
+		if ((!key[KEY_A]) && (!key[KEY_D]) && (!key[KEY_W]) && (!key[KEY_S]) && (velx<0) && (vely<0)){//boneco parado
+			
+			
+			
+			
+			masked_blit(player,buffer,0 * frame_w,stopf * frame_h,px,py,frame_w,frame_h);
+			
+		}
+	
+	
+	
+}
+
 bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){
 	static int temes=mile;
 	static bool conr=false;
@@ -1063,6 +1232,18 @@ void loja(BITMAP *m,BITMAP *buffer,BITMAP *lo){
 	int m_w=569/5;
 	int m_h=411/4;
 	
+	if (((500 + x >= SCREEN_W/2-100) &&
+		(500 + x <= SCREEN_W/2-50) &&
+		(500 + y >= SCREEN_H/2-100) &&
+		(500 + y <= SCREEN_H/2-50)) || (lojaopen)){
+		x=-10000;
+		y=-10000;
+		lojaopen=true;
+		draw_sprite(buffer,lo,0,0);
+	}
+	
+	rect(buffer,500 + x,500 + y,500 + x,500 + y,makecol(255,255,255));
+		
 	masked_blit(m,buffer,0 *m_w,1 *m_h,500 + x, 500 + y,m_w,m_h);
 	
 }

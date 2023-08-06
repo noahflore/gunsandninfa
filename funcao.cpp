@@ -1058,3 +1058,11 @@ void vid(BITMAP *life,BITMAP *buffer,Pai *inimi,int x,int y,int mile){
 	}
 	
 }
+
+void loja(BITMAP *m,BITMAP *buffer,BITMAP *lo){
+	int m_w=569/5;
+	int m_h=411/4;
+	
+	masked_blit(m,buffer,0 *m_w,1 *m_h,500 + x, 500 + y,m_w,m_h);
+	
+}

@@ -93,6 +93,7 @@ void cidade(){
 	BITMAP* player=load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* ni=load_bitmap("sprite/ninfa.bmp",NULL);
+	BITMAP* lo=load_bitmap("sprite/loja.bmp",NULL);
 	int linha,coluna;
 	int** mapa=carrega_mapa("mapa2.txt",&linha,&coluna);
 	Lista_ninfa *n=create_lista_ninfa();
@@ -105,7 +106,9 @@ void cidade(){
 			
 			
 			
+			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
+			loja(m,buffer,lo);
 			update_ninfa(n,ni,buffer,x,y,mile,sex);
 			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
@@ -120,6 +123,7 @@ void cidade(){
 	}
 	fecha_mapa(mapa,linha);
 	destroy_lista_n(n);
+	destroy_bitmap(lo);
 	destroy_bitmap(ni);
 	destroy_bitmap(player);
 	destroy_bitmap(m);

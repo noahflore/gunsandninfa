@@ -438,7 +438,26 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 	
 	static int fixa=0,fixa2=0,px=30,py=600;
 		
-		
+		if (px <30)
+			px=30;
+		else if (px > 940)
+			px=940;
+		else if (py >600)
+			py=600;
+		else if (py <387)
+			py=387;
+	
+		//rect(buffer,650,630,990,780,makecol(255,0,0));
+	
+		if ((px >= 650) && (px <=990) && (py + 30 >=630) && (py <=780)){
+			x=0;
+			y=0;
+			px=30;
+			py=600;
+			lojaopen=false;
+			
+		}
+	
 	
 		if ((velx<=limpx) && (segura(KEY_D))){
 			
@@ -564,7 +583,7 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 		
 		if ((velx>=0) && (!key[KEY_A]) && (!key[KEY_D])){//desacelaçao
 			velx-=ace;
-			if(p){x-=velx;}else{x+=velx;}
+			if(p){px+=velx;}else{px-=velx;}
 			
 			if ((!key[KEY_S]) && (!key[KEY_W]))
 			frame=(mile /300) % 4;
@@ -583,7 +602,7 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 	
 		if ((vely>=0) && (!key[KEY_S]) && (!key[KEY_W])){
 			vely-=ace;
-			if(pp){y+=vely;}else{y-=vely;}
+			if(pp){py-=vely;}else{py+=vely;}
 			
 			if ((!key[KEY_A]) && (!key[KEY_D]))
 			frame=(mile /300) % 4;
@@ -1234,16 +1253,16 @@ void loja(BITMAP *m,BITMAP *buffer,BITMAP *lo){
 	
 	if (((500 + x >= SCREEN_W/2-100) &&
 		(500 + x <= SCREEN_W/2-50) &&
-		(500 + y >= SCREEN_H/2-100) &&
-		(500 + y <= SCREEN_H/2-50)) || (lojaopen)){
+		(2600 + y >= SCREEN_H/2-100) &&
+		(2600 + y <= SCREEN_H/2-50)) || (lojaopen)){
 		x=-10000;
 		y=-10000;
 		lojaopen=true;
 		draw_sprite(buffer,lo,0,0);
 	}
 	
-	rect(buffer,500 + x,500 + y,500 + x,500 + y,makecol(255,255,255));
+	//rect(buffer,500 + x,500 + y,500 + x,500 + y,makecol(255,255,255));
 		
-	masked_blit(m,buffer,0 *m_w,1 *m_h,500 + x, 500 + y,m_w,m_h);
+	masked_blit(m,buffer,0 *m_w,1 *m_h,500 + x, 2600 + y,m_w,m_h);
 	
 }

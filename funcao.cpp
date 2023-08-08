@@ -618,8 +618,199 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 			
 		}
 	
+	item(buffer,lojaopen);
 	
+}
+
+void item(BITMAP *buffer,bool lojaa){
+	static int slot1=0,slot2=0,slot3=0,slot4=0,seleto=0;
+
+		srand(time(NULL));
+	while ((slot1 == 0) || (slot2 == 0) || (slot3 == 0) || (slot4 == 0)){
+		
+			seleto= rand() % 10;
+		
+		if ((seleto != slot1) && (seleto != slot2) && (seleto != slot3) && (seleto != slot4)){
+			
+			if (slot1 == 0)
+				
+				slot1 = seleto;
+			else if (slot2 == 0)
+				
+				slot2 = seleto;
+			else if (slot3 == 0)
+				
+				slot3 = seleto;
+			else if (slot4 == 0)
+				
+				slot4 = seleto;
+			
+			
+		}
+			
+			
+			
+		}
 	
+	circle(buffer,300,400,20,makecol(255,255,0));
+	circle(buffer,320,400,20,makecol(255,255,0));
+	circle(buffer,340,400,20,makecol(255,255,0));
+	circle(buffer,360,400,20,makecol(255,255,0));
+	
+	switch (slot1){
+			
+		case 1:
+			merda ="sprite/item/1.bmp";
+			break;
+		case 2:
+			merda ="sprite/item/2.bmp";
+			break;
+		case 3:
+			merda ="sprite/item/3.bmp";
+			break;
+		case 4:
+			merda ="sprite/item/4.bmp";
+			break;
+		case 5:
+			merda ="sprite/item/5.bmp";
+			break;
+		case 6:
+			merda ="sprite/item/6.bmp";
+			break;
+		case 7:
+			merda ="sprite/item/7.bmp";
+			break;
+		case 8:
+			merda ="sprite/item/8.bmp";
+			break;
+		case 9:
+			merda ="sprite/item/9.bmp";
+			break;
+		case 10:
+			merda ="sprite/item/10.bmp";
+			break;
+			
+			
+	}
+	BITMAP * a1= load_bitmap(merda.c_str(),NULL);
+
+	/*
+	switch (slot2){
+			
+		case 1:
+			BITMAP * a2= load_bitmap("sprite/item/1.bmp",NULL);
+			break;
+		case 2:
+			BITMAP * a2= load_bitmap("sprite/item/2.bmp",NULL);
+			break;
+		case 3:
+			BITMAP * a2= load_bitmap("sprite/item/3.bmp",NULL);
+			break;
+		case 4:
+			BITMAP * a2= load_bitmap("sprite/item/4.bmp",NULL);
+			break;
+		case 5:
+			BITMAP * a2= load_bitmap("sprite/item/5.bmp",NULL);
+			break;
+		case 6:
+			BITMAP * a2= load_bitmap("sprite/item/6.bmp",NULL);
+			break;
+		case 7:
+			BITMAP * a2= load_bitmap("sprite/item/7.bmp",NULL);
+			break;
+		case 8:
+			BITMAP * a2= load_bitmap("sprite/item/8.bmp",NULL);
+			break;
+		case 9:
+			BITMAP * a2= load_bitmap("sprite/item/9.bmp",NULL);
+			break;
+		case 10:
+			BITMAP * a2= load_bitmap("sprite/item/10.bmp",NULL);
+			break;
+			
+			
+	}
+	
+	switch (slot3){
+			
+		case 1:
+			BITMAP * a3= load_bitmap("sprite/item/1.bmp",NULL);
+			break;
+		case 2:
+			BITMAP * a3= load_bitmap("sprite/item/2.bmp",NULL);
+			break;
+		case 3:
+			BITMAP * a3= load_bitmap("sprite/item/3.bmp",NULL);
+			break;
+		case 4:
+			BITMAP * a3= load_bitmap("sprite/item/4.bmp",NULL);
+			break;
+		case 5:
+			BITMAP * a3= load_bitmap("sprite/item/5.bmp",NULL);
+			break;
+		case 6:
+			BITMAP * a3= load_bitmap("sprite/item/6.bmp",NULL);
+			break;
+		case 7:
+			BITMAP * a3= load_bitmap("sprite/item/7.bmp",NULL);
+			break;
+		case 8:
+			BITMAP * a3= load_bitmap("sprite/item/8.bmp",NULL);
+			break;
+		case 9:
+			BITMAP * a3= load_bitmap("sprite/item/9.bmp",NULL);
+			break;
+		case 10:
+			BITMAP * a3= load_bitmap("sprite/item/10.bmp",NULL);
+			break;
+			
+			
+	}
+	
+	switch (slot4){
+			
+		case 1:
+			BITMAP * a4= load_bitmap("sprite/item/1.bmp",NULL);
+			break;
+		case 2:
+			BITMAP * a4= load_bitmap("sprite/item/2.bmp",NULL);
+			break;
+		case 3:
+			BITMAP * a4= load_bitmap("sprite/item/3.bmp",NULL);
+			break;
+		case 4:
+			BITMAP * a4= load_bitmap("sprite/item/4.bmp",NULL);
+			break;
+		case 5:
+			BITMAP * a4= load_bitmap("sprite/item/5.bmp",NULL);
+			break;
+		case 6:
+			BITMAP * a4= load_bitmap("sprite/item/6.bmp",NULL);
+			break;
+		case 7:
+			BITMAP * a4= load_bitmap("sprite/item/7.bmp",NULL);
+			break;
+		case 8:
+			BITMAP * a4= load_bitmap("sprite/item/8.bmp",NULL);
+			break;
+		case 9:
+			BITMAP * a4= load_bitmap("sprite/item/9.bmp",NULL);
+			break;
+		case 10:
+			BITMAP * a4= load_bitmap("sprite/item/10.bmp",NULL);
+			break;
+			
+			
+	}
+	*/
+	if (!lojaa){
+		destroy_bitmap(a1);
+		//destroy_bitmap(a2);
+		//destroy_bitmap(a3);
+	//	destroy_bitmap(a4);
+		
+		
+	}
 }
 
 bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){

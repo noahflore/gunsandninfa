@@ -152,7 +152,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 			(this->pos_y + y <= SCREEN_H/2-50)) || (pare)){
 			
 			this->pare=true;
-			masked_blit(ni,buffer,0,0,this->pos_x + x,this->pos_y + y,64,130);
+			masked_blit(ni,buffer,1 * this->frame_w,0,this->pos_x + x,this->pos_y + y,this->frame_w,this->frame_h);
 			
 		}
 		

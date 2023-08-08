@@ -694,120 +694,126 @@ void item(BITMAP *buffer,bool lojaa){
 	}
 	BITMAP * a1= load_bitmap(merda.c_str(),NULL);
 
-	/*
+	
 	switch (slot2){
 			
 		case 1:
-			BITMAP * a2= load_bitmap("sprite/item/1.bmp",NULL);
+			merda2 ="sprite/item/1.bmp";
 			break;
 		case 2:
-			BITMAP * a2= load_bitmap("sprite/item/2.bmp",NULL);
+			merda2 ="sprite/item/2.bmp";
 			break;
 		case 3:
-			BITMAP * a2= load_bitmap("sprite/item/3.bmp",NULL);
+			merda2 ="sprite/item/3.bmp";
 			break;
 		case 4:
-			BITMAP * a2= load_bitmap("sprite/item/4.bmp",NULL);
+			merda2 ="sprite/item/4.bmp";
 			break;
 		case 5:
-			BITMAP * a2= load_bitmap("sprite/item/5.bmp",NULL);
+			merda2 ="sprite/item/5.bmp";
 			break;
 		case 6:
-			BITMAP * a2= load_bitmap("sprite/item/6.bmp",NULL);
+			merda2 ="sprite/item/6.bmp";
 			break;
 		case 7:
-			BITMAP * a2= load_bitmap("sprite/item/7.bmp",NULL);
+			merda2 ="sprite/item/7.bmp";
 			break;
 		case 8:
-			BITMAP * a2= load_bitmap("sprite/item/8.bmp",NULL);
+			merda2 ="sprite/item/8.bmp";
 			break;
 		case 9:
-			BITMAP * a2= load_bitmap("sprite/item/9.bmp",NULL);
+			merda2 ="sprite/item/9.bmp";
 			break;
 		case 10:
-			BITMAP * a2= load_bitmap("sprite/item/10.bmp",NULL);
+			merda2 ="sprite/item/10.bmp";
 			break;
 			
 			
 	}
+	
+	BITMAP * a2= load_bitmap(merda2.c_str(),NULL);
 	
 	switch (slot3){
 			
 		case 1:
-			BITMAP * a3= load_bitmap("sprite/item/1.bmp",NULL);
+			merda3 ="sprite/item/1.bmp";
 			break;
 		case 2:
-			BITMAP * a3= load_bitmap("sprite/item/2.bmp",NULL);
+			merda3 ="sprite/item/2.bmp";
 			break;
 		case 3:
-			BITMAP * a3= load_bitmap("sprite/item/3.bmp",NULL);
+			merda3 ="sprite/item/3.bmp";
 			break;
 		case 4:
-			BITMAP * a3= load_bitmap("sprite/item/4.bmp",NULL);
+			merda3 ="sprite/item/4.bmp";
 			break;
 		case 5:
-			BITMAP * a3= load_bitmap("sprite/item/5.bmp",NULL);
+			merda3 ="sprite/item/5.bmp";
 			break;
 		case 6:
-			BITMAP * a3= load_bitmap("sprite/item/6.bmp",NULL);
+			merda3 ="sprite/item/6.bmp";
 			break;
 		case 7:
-			BITMAP * a3= load_bitmap("sprite/item/7.bmp",NULL);
+			merda3 ="sprite/item/7.bmp";
 			break;
 		case 8:
-			BITMAP * a3= load_bitmap("sprite/item/8.bmp",NULL);
+			merda3 ="sprite/item/8.bmp";
 			break;
 		case 9:
-			BITMAP * a3= load_bitmap("sprite/item/9.bmp",NULL);
+			merda3 ="sprite/item/9.bmp";
 			break;
 		case 10:
-			BITMAP * a3= load_bitmap("sprite/item/10.bmp",NULL);
+			merda3 ="sprite/item/10.bmp";
 			break;
 			
 			
 	}
 	
+	BITMAP * a3= load_bitmap(merda3.c_str(),NULL);
+	
 	switch (slot4){
 			
 		case 1:
-			BITMAP * a4= load_bitmap("sprite/item/1.bmp",NULL);
+			merda4 ="sprite/item/1.bmp";
 			break;
 		case 2:
-			BITMAP * a4= load_bitmap("sprite/item/2.bmp",NULL);
+			merda4 ="sprite/item/2.bmp";
 			break;
 		case 3:
-			BITMAP * a4= load_bitmap("sprite/item/3.bmp",NULL);
+			merda4 ="sprite/item/3.bmp";
 			break;
 		case 4:
-			BITMAP * a4= load_bitmap("sprite/item/4.bmp",NULL);
+			merda4 ="sprite/item/4.bmp";
 			break;
 		case 5:
-			BITMAP * a4= load_bitmap("sprite/item/5.bmp",NULL);
+			merda4 ="sprite/item/5.bmp";
 			break;
 		case 6:
-			BITMAP * a4= load_bitmap("sprite/item/6.bmp",NULL);
+			merda4 ="sprite/item/6.bmp";
 			break;
 		case 7:
-			BITMAP * a4= load_bitmap("sprite/item/7.bmp",NULL);
+			merda4 ="sprite/item/7.bmp";
 			break;
 		case 8:
-			BITMAP * a4= load_bitmap("sprite/item/8.bmp",NULL);
+			merda4 ="sprite/item/8.bmp";
 			break;
 		case 9:
-			BITMAP * a4= load_bitmap("sprite/item/9.bmp",NULL);
+			merda4 ="sprite/item/9.bmp";
 			break;
 		case 10:
-			BITMAP * a4= load_bitmap("sprite/item/10.bmp",NULL);
+			merda4 ="sprite/item/10.bmp";
 			break;
 			
 			
 	}
-	*/
+	
+	BITMAP * a4= load_bitmap(merda4.c_str(),NULL);
+	
 	if (!lojaa){
 		destroy_bitmap(a1);
-		//destroy_bitmap(a2);
-		//destroy_bitmap(a3);
-	//	destroy_bitmap(a4);
+		destroy_bitmap(a2);
+		destroy_bitmap(a3);
+		destroy_bitmap(a4);
 		
 		
 	}

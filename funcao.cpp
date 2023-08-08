@@ -437,6 +437,9 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu
 void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu boneco
 	
 	static int fixa=0,fixa2=0,px=30,py=600;
+	
+	item(buffer,lojaopen);
+	
 		
 		if (px <30)
 			px=30;
@@ -618,12 +621,12 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 			
 		}
 	
-	item(buffer,lojaopen);
 	
 }
 
 void item(BITMAP *buffer,bool lojaa){
 	static int slot1=0,slot2=0,slot3=0,slot4=0,seleto=0;
+	static bool umavez=false;
 
 		srand(time(NULL));
 	while ((slot1 == 0) || (slot2 == 0) || (slot3 == 0) || (slot4 == 0)){
@@ -692,7 +695,7 @@ void item(BITMAP *buffer,bool lojaa){
 			
 			
 	}
-	BITMAP * a1= load_bitmap(merda.c_str(),NULL);
+
 
 	
 	switch (slot2){
@@ -730,8 +733,7 @@ void item(BITMAP *buffer,bool lojaa){
 			
 			
 	}
-	
-	BITMAP * a2= load_bitmap(merda2.c_str(),NULL);
+
 	
 	switch (slot3){
 			
@@ -769,7 +771,6 @@ void item(BITMAP *buffer,bool lojaa){
 			
 	}
 	
-	BITMAP * a3= load_bitmap(merda3.c_str(),NULL);
 	
 	switch (slot4){
 			
@@ -807,14 +808,32 @@ void item(BITMAP *buffer,bool lojaa){
 			
 	}
 	
-	BITMAP * a4= load_bitmap(merda4.c_str(),NULL);
+	if (!umavez){
+		
+		
+	a1= load_bitmap(merda.c_str(),NULL);
+	a2= load_bitmap(merda2.c_str(),NULL);
+	a3= load_bitmap(merda3.c_str(),NULL);
+	a4 = load_bitmap(merda4.c_str(),NULL);
+		
+		
+	}
+		
+		
+	
+	umavez=true;
+	
+	draw_sprite(buffer,a1,300,340);
+	draw_sprite(buffer,a2,380,340);
+	draw_sprite(buffer,a3,470,340);
+	draw_sprite(buffer,a4,560,340);
 	
 	if (!lojaa){
 		destroy_bitmap(a1);
 		destroy_bitmap(a2);
 		destroy_bitmap(a3);
 		destroy_bitmap(a4);
-		
+		umavez=false;
 		
 	}
 }

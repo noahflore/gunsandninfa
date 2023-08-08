@@ -4,6 +4,11 @@
 #include <cstdio>
 #include <string>
 
+BITMAP * a1;
+BITMAP * a2;
+BITMAP * a3;
+BITMAP * a4;
+
 
 float x=-2000,y=-2000,velx=0,vely=0,ace=0.10,sex=100;
 bool p=false,pp=false,comeca=false,parou=false,ga=false,pro=false,lojaopen=false;

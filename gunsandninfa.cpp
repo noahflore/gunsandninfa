@@ -281,7 +281,7 @@ void game(){
 
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			update_lista_moeda(lll,c,buffer);
+			update_lista_moeda(lll,moedinha,buffer);
 			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);// spana inimigo
 		
 			

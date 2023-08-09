@@ -312,15 +312,15 @@ typedef struct lista_fad{
 class Moeda{
 	public:
 	
-	int pos_x,pos_y,vel_x,vel_y,ace;
+	float pos_x,pos_y,vel_x,vel_y,ace;
 	bool cima,esq,ativo;
 	
 	Moeda(int mile){
-		pos_x=0;
-		pos_y=0;
-		ace=10;
-		vel_x=ace;
-		vel_y=ace;
+		pos_x=SCREEN_W/2-100;
+		pos_y=SCREEN_H/2-100;
+		ace=0.3;
+		vel_x=10;
+		vel_y=10;
 		srand(time(NULL));
 		cima= rand() % 2;
 		srand(mile);
@@ -329,12 +329,12 @@ class Moeda{
 		
 	}
 	
-	void update(){
+	void update(BITMAP *buffer,BITMAP *c){
 		
-		this->anima();
+		this->anima(buffer,c);
 	}
 	
-	void anima(){
+	void anima(BITMAP *buffer,BITMAP *c){
 		
 		if (cima)
 			this->pos_y-=this->vel_y;
@@ -346,11 +346,15 @@ class Moeda{
 		else
 			this->pos_x+=this->vel_x;
 		
-		this->ace--;
+		this->vel_x-=this->ace;
+		this->vel_y-=this->ace;
 		
-		if (this->ace <= 0)
+		
+		
+		draw_sprite(buffer,c,this->pos_x,this->pos_y);
+		
+		if ((this->vel_x <= 0) || (this->vel_y <=0))
 			this->ativo=false;
-		
 	}
 	
 };

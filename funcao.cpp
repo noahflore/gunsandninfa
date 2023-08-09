@@ -1230,7 +1230,7 @@ void destroy_lista_n(Lista_ninfa *l){
 	
 }
 
-void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMP *buffer){
+void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMAP *buffer){
 	
 	No_moeda *aux=l->inicio;
 	No_moeda *aux2=l->inicio;
@@ -1256,7 +1256,7 @@ void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMP *buffer){
 				aux2->prox=aux->prox;
 				destroy_moeda(aux->mo);
 				free(aux);
-				aux->prox=aux2->prox;
+				aux=aux2->prox;
 				
 			}
 			
@@ -1428,20 +1428,27 @@ void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile,
 }
 
 void span_moeda(Lista_moeda *l,int mile){
-	No_moeda *novo= (No_moeda*) malloc(sizeof(No_moeda));
+	static int ip=0,del=mile;
 	
-	if (coin){
+	if ((coin) && (mile - del >= 100)){
 		
-	for (int i=0;i<=4;i++){
+		ip++;
+
 		
+	No_moeda *novo= (No_moeda*) malloc(sizeof(No_moeda));
 	novo->mo= new Moeda(mile);
 	novo->prox=l->inicio;
 	l->inicio=novo;
 		
-	}
-		coin=false;
 	
-		
+		if (ip >= 4){
+			
+		coin=false;
+		ip=0;
+			
+		}
+	
+		del=mile;
 	}
 	
 	

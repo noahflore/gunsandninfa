@@ -2,6 +2,8 @@
 #include "h/funcao.h"
 #include "h/classe.h"
 
+
+
 void habilidade(){
 	
 	vida*=2;
@@ -1091,6 +1093,16 @@ bool solta(int tecla){
 	
 }
 
+Lista_moeda *create_lista_moeda(){//cria a lista
+	
+	Lista_moeda* l= (Lista_moeda*) malloc(sizeof(Lista_moeda));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
 
 Lista_inimi *create_lista_inimi(){//cria a lista
 	
@@ -1149,6 +1161,29 @@ void destroy_lista(Lista_inimi *l){
 	
 }
 
+void destroy_moeda (Moeda *i){//recebe o objeto
+	
+	free(i);
+	
+	
+}
+
+void destroy_lista_moeda(Lista_moeda *l){
+	
+	No_moeda *aux;
+	
+	while (l->inicio != NULL){
+		
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_moeda(aux->mo);
+		free(aux);
+		
+	}
+	
+	
+}
+
 void destroy_fad (Fadia *i){//recebe o objeto
 	
 	free(i);
@@ -1189,6 +1224,47 @@ void destroy_lista_n(Lista_ninfa *l){
 		l->inicio =l->inicio->prox;
 		destroy_ninfa(aux->nina);
 		free(aux);
+		
+	}
+	
+	
+}
+
+void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMP *buffer){
+	
+	No_moeda *aux=l->inicio;
+	No_moeda *aux2=l->inicio;
+	
+	while (aux != NULL){
+		
+		if (aux->mo->ativo){
+			
+			aux->mo->update(buffer,c);
+			aux2=aux;
+			aux=aux->prox;
+			
+		}else{
+			if (aux2==aux){
+				l->inicio=l->inicio->prox;
+				destroy_moeda(aux->mo);
+				free(aux);
+				aux2=aux=l->inicio;
+				
+				
+			}else{
+				
+				aux2->prox=aux->prox;
+				destroy_moeda(aux->mo);
+				free(aux);
+				aux->prox=aux2->prox;
+				
+			}
+			
+			
+			
+		}
+		
+		
 		
 	}
 	
@@ -1348,6 +1424,26 @@ void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile,
 		
 		
 	}
+	
+}
+
+void span_moeda(Lista_moeda *l,int mile){
+	No_moeda *novo= (No_moeda*) malloc(sizeof(No_moeda));
+	
+	if (coin){
+		
+	for (int i=0;i<=4;i++){
+		
+	novo->mo= new Moeda(mile);
+	novo->prox=l->inicio;
+	l->inicio=novo;
+		
+	}
+		coin=false;
+	
+		
+	}
+	
 	
 }
 

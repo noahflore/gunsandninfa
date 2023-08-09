@@ -309,6 +309,69 @@ typedef struct lista_fad{
 }Lista_fad;
 
 
+class Moeda{
+	public:
+	
+	int pos_x,pos_y,vel_x,vel_y,ace;
+	bool cima,esq,ativo;
+	
+	Moeda(int mile){
+		pos_x=0;
+		pos_y=0;
+		ace=10;
+		vel_x=ace;
+		vel_y=ace;
+		srand(time(NULL));
+		cima= rand() % 2;
+		srand(mile);
+		esq= rand() % 2;
+		ativo=true;
+		
+	}
+	
+	void update(){
+		
+		this->anima();
+	}
+	
+	void anima(){
+		
+		if (cima)
+			this->pos_y-=this->vel_y;
+		else
+			this->pos_y+=this->vel_y;
+		
+		if (esq)
+			this->pos_x-=this->vel_x;
+		else
+			this->pos_x+=this->vel_x;
+		
+		this->ace--;
+		
+		if (this->ace <= 0)
+			this->ativo=false;
+		
+	}
+	
+};
+
+typedef struct no_moeda{
+	
+	Moeda *mo;
+	struct no_moeda *prox;
+	
+	
+}No_moeda;
+
+
+typedef struct lista_moeda{
+	
+	 No_moeda* inicio;
+	
+	
+	
+}Lista_moeda;
+
 class Compara{
 	
 	public:
@@ -433,8 +496,10 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 				    (this->fadia_y <= l->pos_y+ y +l->hi)){
 					
 					l->hp-=this->hit;
-					if (l->hp <= 0)
+					if (l->hp <= 0){
 					l->ativo=false;
+					coin=true;
+					}
 					
 				
 					this->casa=true;

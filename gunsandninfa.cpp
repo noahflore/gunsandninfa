@@ -243,6 +243,7 @@ void game(){
 	BITMAP* player= load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP* grande= load_bitmap("sprite/escudo.bmp",NULL);
 	BITMAP* life= load_bitmap("sprite/life.bmp",NULL);
+	BITMAP* moedinha= load_bitmap("sprite/coin.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP* inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
 	SAMPLE* musica= logg_load("music/musica.ogg");//logg.h só serve para converter arquivo.ogg para .wav
@@ -261,6 +262,7 @@ void game(){
 	Compara *com= new Compara();
 	Lista_inimi *l= create_lista_inimi();
 	Lista_fad *ll= create_lista_fad();
+	Lista_moeda *lll= create_lista_moeda();
 	int backup=myhp;
 	
 		while((!fecha) && (!ga)){
@@ -272,12 +274,14 @@ void game(){
 			if (aperta(KEY_F))pro=true;
 			if (round==5){ga=true;estado_screen=cida;x=0;y=0;}
 			span(l,ll,x, y, mile,qtd,vida);
+			span_moeda(lll,mile);
 			
 			
 			Compara *com= new Compara();
 
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
+			update_lista_moeda(lll,c,buffer);
 			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);// spana inimigo
 		
 			
@@ -305,10 +309,12 @@ void game(){
 	if ((fecha) && (l->inicio !=NULL))
 	destroy_lista(l);
 	destroy_lista_f(ll);
+	destroy_lista_moeda(lll);
 	//free(f1);
 	free(com);
 	fecha_mapa(mapa,linha);
 	destroy_font(asman);
+	destroy_bitmap(moedinha);
 	destroy_bitmap(grande);
 	destroy_bitmap(inimi);
 	destroy_bitmap(life);

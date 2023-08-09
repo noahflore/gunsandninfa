@@ -2,7 +2,9 @@
 #define _CLASSE_H_
 //#include <allegro.h>
 #include <cstdlib>
+bool coin=false;
 #include "../classe.cpp"
+
 
 typedef struct botao{
 	

@@ -440,7 +440,7 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 	
 	static int fixa=0,fixa2=0,px=30,py=600;
 	
-	item(buffer,lojaopen);
+	item(buffer,lojaopen,px,py);
 	
 		
 		if (px <30)
@@ -626,7 +626,7 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 	
 }
 
-void item(BITMAP *buffer,bool lojaa){
+void item(BITMAP *buffer,bool lojaa,int px,int py){
 	static int slot1=0,slot2=0,slot3=0,slot4=0,seleto=0;
 	static bool umavez=false;
 
@@ -657,10 +657,10 @@ void item(BITMAP *buffer,bool lojaa){
 			
 		}
 	
-	circle(buffer,300,400,20,makecol(255,255,0));
-	circle(buffer,320,400,20,makecol(255,255,0));
-	circle(buffer,340,400,20,makecol(255,255,0));
-	circle(buffer,360,400,20,makecol(255,255,0));
+//	circle(buffer,300,400,20,makecol(255,255,0));
+//	circle(buffer,320,400,20,makecol(255,255,0));
+//	circle(buffer,340,400,20,makecol(255,255,0));
+//	circle(buffer,360,400,20,makecol(255,255,0));
 	
 	switch (slot1){
 			
@@ -829,6 +829,23 @@ void item(BITMAP *buffer,bool lojaa){
 	draw_sprite(buffer,a2,380,340);
 	draw_sprite(buffer,a3,470,340);
 	draw_sprite(buffer,a4,560,340);
+	
+	rect(buffer,330,440,390,500,makecol(255,0,0));
+	rect(buffer,410,440,470,500,makecol(255,0,0));
+	rect(buffer,490,440,550,500,makecol(255,0,0));
+	rect(buffer,570,440,630,500,makecol(255,0,0));
+	
+	if ((px >= 300) && (px<= 360) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,330,330,makecol(255,255,255),"B");
+	
+	if ((px >= 380) && (px<= 440) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,400,330,makecol(255,255,255),"B");
+	
+	if ((px >= 460) && (px<= 520) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,480,330,makecol(255,255,255),"B");
+	
+	if ((px >= 540) && (px<= 600) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,560,330,makecol(255,255,255),"B");
 	
 	if (!lojaa){
 		destroy_bitmap(a1);
@@ -1445,6 +1462,7 @@ void span_moeda(Lista_moeda *l,int mile){
 			
 		coin=false;
 		ip=0;
+		rale+=4;
 			
 		}
 	

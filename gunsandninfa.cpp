@@ -94,6 +94,8 @@ void cidade(){
 	BITMAP* m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP* ni=load_bitmap("sprite/ninfa.bmp",NULL);
 	BITMAP* lo=load_bitmap("sprite/loja.bmp",NULL);
+	BITMAP* moedinha=load_bitmap("sprite/coin.bmp",NULL);
+	FONT *asman=load_font("fonte/asman.pcx",NULL,NULL);
 	int linha,coluna;
 	int** mapa=carrega_mapa("mapa2.txt",&linha,&coluna);
 	Lista_ninfa *n=create_lista_ninfa();
@@ -114,6 +116,9 @@ void cidade(){
 				perso(player,buffer,frame_w,frame_h,mile);
 			else
 				persotwo(player,buffer,frame_w,frame_h,mile);
+			
+			draw_sprite(buffer,moedinha,SCREEN_W-120,0);
+			textprintf_ex(buffer,asman,SCREEN_W-110,0,makecol(255,255,255),30,"%d",rale);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			
@@ -126,11 +131,13 @@ void cidade(){
 	}
 	fecha_mapa(mapa,linha);
 	destroy_lista_n(n);
+	destroy_bitmap(moedinha);
 	destroy_bitmap(lo);
 	destroy_bitmap(ni);
 	destroy_bitmap(player);
 	destroy_bitmap(m);
 	destroy_bitmap(buffer);
+	destroy_font(asman);
 	
 	
 	
@@ -263,7 +270,7 @@ void game(){
 	Lista_inimi *l= create_lista_inimi();
 	Lista_fad *ll= create_lista_fad();
 	Lista_moeda *lll= create_lista_moeda();
-	int backup=myhp;
+	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
 	
 		while((!fecha) && (!ga)){
 		
@@ -278,7 +285,14 @@ void game(){
 			
 			
 			Compara *com= new Compara();
+			if (ulti !=rale)
+				mudcor=0;
 
+			if (mile - tem >= 2000){
+				ulti=rale;
+				mudcor=255;
+				tem=mile;
+			}
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_moeda(lll,moedinha,buffer);
@@ -293,6 +307,8 @@ void game(){
 			}
 			//rectfill(buffer,800+x,400+y,840+x,440+y,makecol(255,0,0));
 			textprintf_centre(buffer,asman,SCREEN_W/2,30,makecol(255,255,255),"ROUND: %d",round);
+			draw_sprite(buffer,moedinha,SCREEN_W-120,0);
+			textprintf_ex(buffer,asman,SCREEN_W-110,0,makecol(255,255,mudcor),30,"%d",rale);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			if ((l->inicio == NULL) && (comeca)){

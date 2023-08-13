@@ -76,6 +76,12 @@ void habilidade(){
 	
 }
 
+void equipa(int roupa,BITMAP *buffer,BITMAP *obj){
+	
+	if (roupa == 1)
+		masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+	
+}
 
 
 int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
@@ -436,11 +442,11 @@ void perso(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu
 	
 }
 
-void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//meu boneco
+void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile,FONT *fonte){//meu boneco
 	
 	static int fixa=0,fixa2=0,px=30,py=600;
 	
-	item(buffer,lojaopen,px,py);
+	item(buffer,lojaopen,px,py,fonte);
 	
 		
 		if (px <30)
@@ -626,7 +632,7 @@ void persotwo(BITMAP *player,BITMAP *buffer,int frame_w,int frame_h,int mile){//
 	
 }
 
-void item(BITMAP *buffer,bool lojaa,int px,int py){
+void item(BITMAP *buffer,bool lojaa,int px,int py,FONT *fonte){
 	static int slot1=0,slot2=0,slot3=0,slot4=0,seleto=0;
 	static bool umavez=false;
 
@@ -666,6 +672,7 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 			
 		case 1:
 			merda ="sprite/item/1.bmp";
+			preco1=30;
 			break;
 		case 2:
 			merda ="sprite/item/2.bmp";
@@ -678,6 +685,7 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 			break;
 		case 5:
 			merda ="sprite/item/5.bmp";
+			preco1=5;
 			break;
 		case 6:
 			merda ="sprite/item/6.bmp";
@@ -704,6 +712,7 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 			
 		case 1:
 			merda2 ="sprite/item/1.bmp";
+			preco2=30;
 			break;
 		case 2:
 			merda2 ="sprite/item/2.bmp";
@@ -741,6 +750,7 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 			
 		case 1:
 			merda3 ="sprite/item/1.bmp";
+			preco3=30;
 			break;
 		case 2:
 			merda3 ="sprite/item/2.bmp";
@@ -778,6 +788,7 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 			
 		case 1:
 			merda4 ="sprite/item/1.bmp";
+			preco4=30;
 			break;
 		case 2:
 			merda4 ="sprite/item/2.bmp";
@@ -836,7 +847,25 @@ void item(BITMAP *buffer,bool lojaa,int px,int py){
 	rect(buffer,570,440,630,500,makecol(255,0,0));
 	
 	if ((px >= 300) && (px<= 360) && (py>= 400) && (py<= 500))
-		textprintf(buffer,font,330,330,makecol(255,255,255),"B");
+		textprintf(buffer,fonte,330,330,makecol(255,255,255),"(B) this cost $%d",preco1);
+	
+	if ((px >= 380) && (px<= 440) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,400,330,makecol(255,255,255),"B");
+	
+	if ((px >= 460) && (px<= 520) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,480,330,makecol(255,255,255),"B");
+	
+	if ((px >= 540) && (px<= 600) && (py>= 400) && (py<= 500))
+		textprintf(buffer,font,560,330,makecol(255,255,255),"B");
+	
+	if ((px >= 300) && (px<= 360) && (py>= 400) && (py<= 500) && (aperta[KEY_B])){
+		if (rale >= preco1){
+			
+			rale-=preco1;
+			roupa=slot1;
+		}
+	}
+		
 	
 	if ((px >= 380) && (px<= 440) && (py>= 400) && (py<= 500))
 		textprintf(buffer,font,400,330,makecol(255,255,255),"B");

@@ -115,7 +115,8 @@ void cidade(){
 			if (!lojaopen)
 				perso(player,buffer,frame_w,frame_h,mile);
 			else
-				persotwo(player,buffer,frame_w,frame_h,mile);
+				persotwo(player,buffer,frame_w,frame_h,mile,asman);
+			
 			
 			draw_sprite(buffer,moedinha,SCREEN_W-120,0);
 			textprintf_ex(buffer,asman,SCREEN_W-110,0,makecol(255,255,255),30,"%d",rale);
@@ -253,6 +254,7 @@ void game(){
 	BITMAP* moedinha= load_bitmap("sprite/coin.bmp",NULL);
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP* inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
+	BITMAP* obj=load_bitmap("sprite/item/obj.bmp",NULL);
 	SAMPLE* musica= logg_load("music/musica.ogg");//logg.h só serve para converter arquivo.ogg para .wav
 	LOCK_FUNCTION(logg_load);
 	lock_sample(musica);
@@ -300,6 +302,7 @@ void game(){
 		
 			
 			perso(player,buffer,frame_w,frame_h,mile);
+			equipa(roupa,buffer,obj);
 			if (estado_screen==cida){
 				myhp=backup;
 				clear(buffer);
@@ -331,6 +334,7 @@ void game(){
 	fecha_mapa(mapa,linha);
 	destroy_font(asman);
 	destroy_bitmap(moedinha);
+	destroy_bitmap(obj);
 	destroy_bitmap(grande);
 	destroy_bitmap(inimi);
 	destroy_bitmap(life);

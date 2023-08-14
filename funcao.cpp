@@ -1617,6 +1617,24 @@ void vid(BITMAP *life,BITMAP *buffer,Pai *inimi,int x,int y,int mile){
 	
 }
 
+bool para_floresta(BITMAP *buffer,BITMAP *flor,bool ci){
+	
+	int m_w=569/5;
+	int m_h=411/4;
+	
+	
+	masked_blit(flor,buffer,1 * m_w,1 * m_h,0 + x,1100 + y,m_w,m_h);
+	
+	if ((0 + x >= SCREEN_W/2-100) && (0 + x <= SCREEN_W/2) && (1100 + y >= SCREEN_H/2-100) && (1100 + y <= SCREEN_H/2))
+		ci=true;
+	
+	else
+		ci=false;
+	
+	return ci;
+	
+}
+
 void loja(BITMAP *m,BITMAP *buffer,BITMAP *lo){
 	int m_w=569/5;
 	int m_h=411/4;

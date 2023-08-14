@@ -110,6 +110,7 @@ void cidade(){
 			
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
+			ci=para_floresta(buffer,m,ci);
 			loja(m,buffer,lo);
 			update_ninfa(n,ni,buffer,x,y,mile,sex);
 			if (!lojaopen)

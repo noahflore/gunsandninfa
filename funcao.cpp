@@ -251,6 +251,63 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 					
 				}
 				
+			}else if ((mapa[i][j]== forest) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,1 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
+					
+					y-=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)) {
+					
+					y+=vely;
+					x+=velx;
+					
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){
+					
+					y-=vely;
+					x+=velx;
+				}else if ((j * 80+x +m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)){
+					
+					y+=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x+=velx;
+				}else if ((j * 80+x + m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x+=velx;
+					
+				}
+				
 			}
 			
 		}
@@ -1625,10 +1682,11 @@ bool para_floresta(BITMAP *buffer,BITMAP *flor,bool ci){
 	
 	masked_blit(flor,buffer,1 * m_w,1 * m_h,0 + x,1100 + y,m_w,m_h);
 	
-	if ((0 + x >= SCREEN_W/2-100) && (0 + x <= SCREEN_W/2) && (1100 + y >= SCREEN_H/2-100) && (1100 + y <= SCREEN_H/2))
+	if ((0 + x >= SCREEN_W/2-100) && (0 + x <= SCREEN_W/2) && (1100 + y >= SCREEN_H/2-100) && (1100 + y <= SCREEN_H/2)){
 		ci=true;
+		estado_screen=flu;
 	
-	else
+	}else
 		ci=false;
 	
 	return ci;

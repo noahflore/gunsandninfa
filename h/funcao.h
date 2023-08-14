@@ -37,12 +37,14 @@ enum{
 	agua=2,
 	piso=3,
 	casa=4,
+	forest=5,
 	titula=100,
 	mena=101,
 	gama=103,
 	muda=104,
 	over=105,
-	cida=106
+	cida=106,
+	flu=107
 	
 	
 	

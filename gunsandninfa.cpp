@@ -28,6 +28,7 @@ void game();
 void carta();
 void gameover();
 void cidade();
+void saveflor();
 
 
 int main(){
@@ -74,6 +75,9 @@ int main(){
 				
 				cidade();
 				
+			}else if (estado_screen==flu){
+				saveflor();
+				
 			}
 		
 		}
@@ -84,6 +88,45 @@ int main(){
 }
 
 END_OF_MAIN();
+
+void saveflor(){
+	
+	bool fl=false;
+	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
+	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
+	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
+	int linha,coluna;
+	int **mapa=carrega_mapa("mapa4.txt",&linha,&coluna);
+	
+	x=200;
+	y=200;
+	while ((!fecha) && (!fl)){
+		
+		while (fps>=1){
+			atualiza_tecla();
+			
+			
+			
+			desenha_mapa(m,buffer,mapa,linha,coluna);
+			perso(player,buffer,frame_w,frame_h,mile);
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			
+			fps--;
+		}
+		
+		
+		
+		
+	}
+	
+	fecha_mapa(mapa,linha);
+	destroy_bitmap(player);
+	destroy_bitmap(m);
+	destroy_bitmap(buffer);
+	
+	
+}
 
 void cidade(){
 	

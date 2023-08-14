@@ -10,7 +10,7 @@ BITMAP * a3;
 BITMAP * a4;
 
 
-float x=-2000,y=-2000,velx=0,vely=0,ace=0.10,sex=100;
+float x=-2000,y=-2000,velx=0,vely=0,ace=0.10,sex=0;
 bool p=false,pp=false,comeca=false,parou=false,ga=false,pro=false,lojaopen=false;
 bool tempo=false;;
 int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,vx=2,vy=2,ht=1,es,tam=0,tamf=1,ii=0,round=1,ou=0,qtdn=30;

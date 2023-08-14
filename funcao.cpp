@@ -1014,9 +1014,13 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				tamf++;
 				parou=true;
 				
-			}else if (sel == 5){//aumenta a conquista de ninfa
+			}else if ((sel == 5) && (!parou)){//aumenta a conquista de ninfa
+				
+				sex+=3;
+				parou=true;
 				
 				
+			}else if ((sel == 6) && (!parou)){// aumenta o exp dos miniman
 				
 				
 			}
@@ -1050,7 +1054,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			
 			if (mudo)
 				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
-		}
+		}//esse é o deck primeiro
 		
 				
 				ca=false;

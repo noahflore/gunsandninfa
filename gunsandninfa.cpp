@@ -98,8 +98,8 @@ void saveflor(){
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa4.txt",&linha,&coluna);
 	
-	x=200;
-	y=200;
+	x=-2000;
+	y=-500;
 	while ((!fecha) && (!fl)){
 		
 		while (fps>=1){

@@ -376,6 +376,43 @@ typedef struct lista_moeda{
 	
 }Lista_moeda;
 
+class Mini_man{
+	
+	float pos_x,pos_y,vel_x,vel_y,ace;
+	bool ativo;
+	
+	Mini_man(){
+		
+		pos_x=500;
+		pos_y=-20;
+		ace=0.1;
+		vel_x=ace;
+		vel_y=ace;
+		ativo=true;
+		
+		
+	}
+	
+};
+
+typedef struct no_mini{
+	
+	Mini_man *mi;
+	struct no_mini *prox;
+	
+	
+}No_mini;
+
+
+typedef struct lista_mini{
+	
+	 No_mini* inicio;
+	
+	
+	
+}Lista_mini;
+
+
 class Compara{
 	
 	public:

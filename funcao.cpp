@@ -308,6 +308,63 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 					
 				}
 				
+			}else if ((mapa[i][j]== cerca) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,2 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
+					
+					y-=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)) {
+					
+					y+=vely;
+					x+=velx;
+					
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){
+					
+					y-=vely;
+					x+=velx;
+				}else if ((j * 80+x +m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)){
+					
+					y+=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x+=velx;
+				}else if ((j * 80+x + m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x-=velx;
+					
+				}
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y+=vely;
+					x-=velx;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y-=vely;
+					x+=velx;
+					
+				}
+				
 			}
 			
 		}
@@ -1211,6 +1268,17 @@ Lista_moeda *create_lista_moeda(){//cria a lista
 	
 }
 
+Lista_mini *create_lista_mini(){//cria a lista
+	
+	Lista_mini* l= (Lista_mini*) malloc(sizeof(Lista_mini));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
+
 Lista_inimi *create_lista_inimi(){//cria a lista
 	
 	Lista_inimi* l= (Lista_inimi*) malloc(sizeof(Lista_inimi));
@@ -1261,6 +1329,29 @@ void destroy_lista(Lista_inimi *l){
 		aux= l->inicio;
 		l->inicio =l->inicio->prox;
 		destroy_inimi(aux->inimi);
+		free(aux);
+		
+	}
+	
+	
+}
+
+void destroy_mini (Mini_man *i){//recebe o objeto
+	
+	free(i);
+	
+	
+}
+
+void destroy_lista_mini(Lista_mini *l){
+	
+	No_mini *aux;
+	
+	while (l->inicio != NULL){
+		
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_inimi(aux->mi);
 		free(aux);
 		
 	}
@@ -1336,6 +1427,49 @@ void destroy_lista_n(Lista_ninfa *l){
 	
 	
 }
+
+
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer){
+	
+	No_mini *aux=l->inicio;
+	No_mini *aux2=l->inicio;
+	
+	while (aux != NULL){
+		
+		if (aux->mi->ativo){
+			
+			aux->mi->update(buffer,mini);
+			aux2=aux;
+			aux=aux->prox;
+			
+		}else{
+			if (aux2==aux){
+				l->inicio=l->inicio->prox;
+				destroy_moeda(aux->mi);
+				free(aux);
+				aux2=aux=l->inicio;
+				
+				
+			}else{
+				
+				aux2->prox=aux->prox;
+				destroy_moeda(aux->mi);
+				free(aux);
+				aux=aux2->prox;
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
+}
+
 
 void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMAP *buffer){
 	
@@ -1562,6 +1696,34 @@ void span_moeda(Lista_moeda *l,int mile){
 	
 }
 
+void span_mini(Lista_mini *l,int mile){//configura esse span por os mini-man
+	static int ip=0,del=mile;
+	
+	if ((coin) && (mile - del >= 100)){
+		
+		ip++;
+
+		
+	No_mini *novo= (No_mini*) malloc(sizeof(No_mini));
+	novo->mi= new Mini_man(mile);
+	novo->prox=l->inicio;
+	l->inicio=novo;
+		
+	
+		if (ip >= 4){
+			
+		coin=false;
+		ip=0;
+		rale+=4;
+			
+		}
+	
+		del=mile;
+	}
+	
+	
+}
+
 void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida){
 	static	int macadora=mile;
 	 static int inde=0;
@@ -1678,11 +1840,12 @@ bool para_floresta(BITMAP *buffer,BITMAP *flor,bool ci){
 	
 	int m_w=569/5;
 	int m_h=411/4;
+	int xf=0,yf=1100;
 	
 	
-	masked_blit(flor,buffer,1 * m_w,1 * m_h,0 + x,1100 + y,m_w,m_h);
+	masked_blit(flor,buffer,1 * m_w,1 * m_h,xf + x,yf + y,m_w,m_h);
 	
-	if ((0 + x >= SCREEN_W/2-100) && (0 + x <= SCREEN_W/2) && (1100 + y >= SCREEN_H/2-100) && (1100 + y <= SCREEN_H/2)){
+	if ((xf + x >= SCREEN_W/2-100) && (xf + x <= SCREEN_W/2) && (yf + y >= SCREEN_H/2-100) && (yf + y <= SCREEN_H/2)){
 		ci=true;
 		estado_screen=flu;
 	

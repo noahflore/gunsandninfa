@@ -95,6 +95,7 @@ void saveflor(){
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
+	BITMAP *mini=load_bitmap("miniman.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa4.txt",&linha,&coluna);
 	
@@ -121,6 +122,7 @@ void saveflor(){
 	}
 	
 	fecha_mapa(mapa,linha);
+	destroy_bitmap(mini);
 	destroy_bitmap(player);
 	destroy_bitmap(m);
 	destroy_bitmap(buffer);

@@ -38,6 +38,7 @@ enum{
 	piso=3,
 	casa=4,
 	forest=5,
+	cerca=6,
 	titula=100,
 	mena=101,
 	gama=103,

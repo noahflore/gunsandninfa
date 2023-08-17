@@ -3,6 +3,7 @@
 //#include <allegro.h>
 #include <cstdlib>
 bool coin=false;
+int qtdm=0;
 #include "../classe.cpp"
 
 

@@ -95,9 +95,10 @@ void saveflor(){
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
-	BITMAP *mini=load_bitmap("miniman.bmp",NULL);
+	BITMAP *minu=load_bitmap("miniman.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa4.txt",&linha,&coluna);
+	Lista_mini *l=create_lista_mini();
 	
 	x=-2000;
 	y=-500;
@@ -105,10 +106,12 @@ void saveflor(){
 		
 		while (fps>=1){
 			atualiza_tecla();
+			span_mini(l,mile);
 			
 			
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
+			update_lista_mini(l,minu,buffer,x,y);
 			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
@@ -122,7 +125,8 @@ void saveflor(){
 	}
 	
 	fecha_mapa(mapa,linha);
-	destroy_bitmap(mini);
+	destroy_lista_mini(l);
+	destroy_bitmap(minu);
 	destroy_bitmap(player);
 	destroy_bitmap(m);
 	destroy_bitmap(buffer);

@@ -1351,7 +1351,7 @@ void destroy_lista_mini(Lista_mini *l){
 		
 		aux= l->inicio;
 		l->inicio =l->inicio->prox;
-		destroy_inimi(aux->mi);
+		destroy_mini(aux->mi);
 		free(aux);
 		
 	}
@@ -1429,7 +1429,7 @@ void destroy_lista_n(Lista_ninfa *l){
 }
 
 
-void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer){
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y){
 	
 	No_mini *aux=l->inicio;
 	No_mini *aux2=l->inicio;
@@ -1438,14 +1438,14 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer){
 		
 		if (aux->mi->ativo){
 			
-			aux->mi->update(buffer,mini);
+			aux->mi->update(buffer,min,x,y);
 			aux2=aux;
 			aux=aux->prox;
 			
 		}else{
 			if (aux2==aux){
 				l->inicio=l->inicio->prox;
-				destroy_moeda(aux->mi);
+				destroy_mini(aux->mi);
 				free(aux);
 				aux2=aux=l->inicio;
 				
@@ -1453,7 +1453,7 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer){
 			}else{
 				
 				aux2->prox=aux->prox;
-				destroy_moeda(aux->mi);
+				destroy_mini(aux->mi);
 				free(aux);
 				aux=aux2->prox;
 				
@@ -1697,28 +1697,24 @@ void span_moeda(Lista_moeda *l,int mile){
 }
 
 void span_mini(Lista_mini *l,int mile){//configura esse span por os mini-man
-	static int ip=0,del=mile;
+	static int ie=0,deu=mile;
 	
-	if ((coin) && (mile - del >= 100)){
+	
+	if (ie<=qtdm){
+	//if ((coin) && (mile - del >= 100)){
 		
-		ip++;
+	
 
 		
 	No_mini *novo= (No_mini*) malloc(sizeof(No_mini));
-	novo->mi= new Mini_man(mile);
+	novo->mi= new Mini_man();
 	novo->prox=l->inicio;
 	l->inicio=novo;
 		
 	
-		if (ip >= 4){
-			
-		coin=false;
-		ip=0;
-		rale+=4;
-			
-		}
+		
 	
-		del=mile;
+	ie++;
 	}
 	
 	

@@ -50,7 +50,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 	float vary;
 	int wid,dee,dess,frame_w,frame_h;
 	int hi,hp,tx,ty,tempox,tempoy,mysex;
-	bool ativo,esq,cima,pare;
+	bool ativo,esq,cima,pare,spare;
 	int hit;
 
 		Ninfa(int mile){
@@ -77,6 +77,7 @@ class Ninfa{//lembra de fazer a lista encadeada
 		this->esq=true;
 		this->cima=true;
 		this->pare=false;
+		this->spare=true;
 	
 	
 	
@@ -152,6 +153,11 @@ class Ninfa{//lembra de fazer a lista encadeada
 			(this->pos_y + y <= SCREEN_H/2-50)) || (pare)){
 			
 			this->pare=true;
+			if ((this->pare) && (this->spare)){
+				qtdm++;
+				this->spare=false;
+				
+			}
 			masked_blit(ni,buffer,1 * this->frame_w,0,this->pos_x + x,this->pos_y + y,this->frame_w,this->frame_h);
 			
 		}
@@ -377,6 +383,7 @@ typedef struct lista_moeda{
 }Lista_moeda;
 
 class Mini_man{
+	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace;
 	bool ativo;
@@ -390,6 +397,20 @@ class Mini_man{
 		vel_y=ace;
 		ativo=true;
 		
+		
+	}
+	
+	void update(BITMAP *buffer,BITMAP *min,int x,int y){
+		
+		this->centro(buffer,min,x,y);
+	}
+	
+	void centro(BITMAP *buffer,BITMAP *min,int x,int y){
+		
+		if (this->pos_y + y < 1000)
+			this->pos_y+= this->vel_y;
+		
+		masked_blit(min,buffer,0,0,this->pos_x + x,this->pos_y + y,100,100);
 		
 	}
 	

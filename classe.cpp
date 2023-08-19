@@ -386,16 +386,19 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace;
+	int w,h;
 	bool ativo;
 	
 	Mini_man(){
 		
-		pos_x=500;
+		pos_x=1100;
 		pos_y=-20;
 		ace=0.1;
 		vel_x=ace;
 		vel_y=ace;
 		ativo=true;
+		w=102/4;
+		h=85/2;
 		
 		
 	}
@@ -407,10 +410,12 @@ class Mini_man{
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y){
 		
-		if (this->pos_y + y < 1000)
+		if (this->pos_y + y < 1000 + y)
 			this->pos_y+= this->vel_y;
 		
-		masked_blit(min,buffer,0,0,this->pos_x + x,this->pos_y + y,100,100);
+		this->vel_y+=this->ace;
+		
+		masked_blit(min,buffer,0,0,this->pos_x + x,this->pos_y + y,w,h);
 		
 	}
 	

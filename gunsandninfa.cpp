@@ -95,7 +95,7 @@ void saveflor(){
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
 	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
-	BITMAP *minu=load_bitmap("miniman.bmp",NULL);
+	BITMAP *minu=load_bitmap("sprite/miniman.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa4.txt",&linha,&coluna);
 	Lista_mini *l=create_lista_mini();

@@ -386,7 +386,7 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace;
-	int w,h;
+	int w,h,frame;
 	bool ativo;
 	
 	Mini_man(){
@@ -403,19 +403,20 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
 		
-		this->centro(buffer,min,x,y);
+		this->centro(buffer,min,x,y,mile);
 	}
 	
-	void centro(BITMAP *buffer,BITMAP *min,int x,int y){
+	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
 		
 		if (this->pos_y + y < 1000 + y)
 			this->pos_y+= this->vel_y;
 		
 		this->vel_y+=this->ace;
 		
-		masked_blit(min,buffer,0,0,this->pos_x + x,this->pos_y + y,w,h);
+		this->frame= (mile/200) % 4;
+		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 		
 	}
 	

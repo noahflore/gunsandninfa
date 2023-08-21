@@ -1429,7 +1429,7 @@ void destroy_lista_n(Lista_ninfa *l){
 }
 
 
-void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y){
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile){
 	
 	No_mini *aux=l->inicio;
 	No_mini *aux2=l->inicio;
@@ -1438,7 +1438,7 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y){
 		
 		if (aux->mi->ativo){
 			
-			aux->mi->update(buffer,min,x,y);
+			aux->mi->update(buffer,min,x,y,mile);
 			aux2=aux;
 			aux=aux->prox;
 			

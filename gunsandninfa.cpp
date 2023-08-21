@@ -111,7 +111,7 @@ void saveflor(){
 			
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
-			update_lista_mini(l,minu,buffer,x,y);
+			update_lista_mini(l,minu,buffer,x,y,mile);
 			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);

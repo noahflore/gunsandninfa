@@ -386,17 +386,20 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace;
-	int w,h,frame;
-	bool ativo;
+	int w,h,frame,p,i;
+	bool ativo,ani;
 	
 	Mini_man(){
 		
 		pos_x=1100;
 		pos_y=-20;
+		p=1;
+		i=1;
 		ace=0.1;
 		vel_x=ace;
 		vel_y=ace;
 		ativo=true;
+		ani=false;
 		w=102/4;
 		h=85/2;
 		
@@ -405,7 +408,12 @@ class Mini_man{
 	
 	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
 		
-		this->centro(buffer,min,x,y,mile);
+		if (ani){
+			this->ani=true;
+			this->caminha(buffer,min,x,y,mile);
+			
+		}else
+		 this->centro(buffer,min,x,y,mile);
 	}
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
@@ -413,11 +421,48 @@ class Mini_man{
 		if (this->pos_y + y < 1000 + y)
 			this->pos_y+= this->vel_y;
 		
+		if (this->pos_y + y >= 1000 + y){//isso precisa se ajustado
+			
+			this->ani=true;
+			srand(time(NULL));
+			this->pos_x= rand () % 1000;
+			srand(mile);
+			this->pos_y= rand () % 1000;
+			
+			this->i = -i;
+			this->p = -p;
+			
+			if (this->pos_x <=720)
+				this->pos_x=720;
+			
+		}
+		
 		this->vel_y+=this->ace;
 		
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 		
+	}
+	
+	void caminha(BITMAP *buffer,BITMAP *min,int x, int y, int mile){
+		
+		if (this->pos_x + x <= 720 + x)
+			this->i= -i;
+		
+		if (this->pos_x + x >= 2000 + x)
+			this->i= -i;
+		
+		if (this->pos_y + y <= 0 + y)
+			this->p= -p;
+		
+		if (this->pos_y + y >= 2000 + y)
+			this->p= -p;
+		
+		this->pos_x+=this->i;
+		this->pos_y+=this->p;
+		
+		this->frame= (mile/200) % 4;
+		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	}
 	
 };

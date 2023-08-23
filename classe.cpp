@@ -425,7 +425,7 @@ class Mini_man{
 			
 			this->ani=true;
 			srand(time(NULL));
-			this->pos_x= rand () % 1000;
+			this->pos_x= rand () % 4600;
 			srand(mile);
 			this->pos_y= rand () % 1000;
 			
@@ -434,6 +434,9 @@ class Mini_man{
 			
 			if (this->pos_x <=720)
 				this->pos_x=720;
+			
+			if (this->pos_y <=420)
+				this->pos_y=420;
 			
 		}
 		
@@ -449,10 +452,10 @@ class Mini_man{
 		if (this->pos_x + x <= 720 + x)
 			this->i= -i;
 		
-		if (this->pos_x + x >= 2000 + x)
+		if (this->pos_x + x >= 4600 + x)
 			this->i= -i;
 		
-		if (this->pos_y + y <= 0 + y)
+		if (this->pos_y + y <= 420 + y)
 			this->p= -p;
 		
 		if (this->pos_y + y >= 2000 + y)

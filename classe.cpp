@@ -427,7 +427,7 @@ class Mini_man{
 			srand(time(NULL));
 			this->pos_x= rand () % 4600;
 			srand(mile);
-			this->pos_y= rand () % 1000;
+			this->pos_y= rand () % 2700;
 			
 			this->i = -i;
 			this->p = -p;
@@ -440,6 +440,7 @@ class Mini_man{
 			
 		}
 		
+		if (((mile/200) % 2 == 1))
 		this->vel_y+=this->ace;
 		
 		this->frame= (mile/200) % 4;
@@ -458,12 +459,13 @@ class Mini_man{
 		if (this->pos_y + y <= 420 + y)
 			this->p= -p;
 		
-		if (this->pos_y + y >= 2000 + y)
+		if (this->pos_y + y >= 2700 + y)
 			this->p= -p;
 		
 		this->pos_x+=this->i;
 		this->pos_y+=this->p;
 		
+		circle(buffer,this->pos_x + x,this->pos_y + y,50,makecol(255,0,0));//colisão circula
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	}

@@ -115,6 +115,33 @@ int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
 	
 	
 }
+
+void prepara_colisao(int **mapa,int linha,int coluna){//prepara a colisão da matriz no draw
+	
+	static bool paro=false;
+	
+	if (!paro){
+		
+		for (int i=0;i<= linha;i++){
+			for (int j=0;j<=coluna;j++){
+
+				if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6)){
+
+					conp++;
+				}
+
+
+
+			}
+
+
+		}
+		paro=true;
+		
+	}
+	
+}
+
 void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 	
 	int m_w=569/5;
@@ -365,12 +392,52 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 					
 				}
 				
+			}else if ((mapa[i][j] == gym1) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,3 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				
+				
+			}else if((mapa[i][j] == gym2) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,4 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				
+			}else if((mapa[i][j] == gym3) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,0 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+				
+			}else if((mapa[i][j] == gym4) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,1 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if((mapa[i][j] == gym5) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,2 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if((mapa[i][j] == gym6) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,3 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+			}
+			
+		
+		
+		
+		if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6)){
+				//isso aqui não desenha o mapa e sim coloca o x e y dentro da array
+				
+				if (coni <= conp){
+					
+					xgym[coni]= j * 80;
+					ygym[coni]= i * 85;
+					
+					coni++;
+				}
+				
 			}
 			
 		}
-		
-		
-		
 	}
 	
 	

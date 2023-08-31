@@ -118,12 +118,12 @@ int **carrega_mapa(const char *arquivo,int *linha,int *coluna){
 
 void prepara_colisao(int **mapa,int linha,int coluna){//prepara a colisão da matriz no draw
 	
-	static bool paro=false;
+	static bool paru=false;
 	
-	if (!paro){
+	if (!paru){
 		
-		for (int i=0;i<= linha;i++){
-			for (int j=0;j<=coluna;j++){
+		for (int i=0;i< linha;i++){
+			for (int j=0;j<coluna;j++){
 
 				if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6)){
 
@@ -136,7 +136,7 @@ void prepara_colisao(int **mapa,int linha,int coluna){//prepara a colisão da ma
 
 
 		}
-		paro=true;
+		paru=true;
 		
 	}
 	
@@ -393,7 +393,7 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				}
 				
 			}else if ((mapa[i][j] == gym1) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
-				
+				circle(buffer,j* 80 + x + 40,i* 85 + y + 65,50,makecol(255,0,0));
 				masked_blit(m,buffer,3 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
 				
 				
@@ -1505,7 +1505,7 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int 
 		
 		if (aux->mi->ativo){
 			
-			aux->mi->update(buffer,min,x,y,mile);
+			aux->mi->update(buffer,min,x,y,mile,conp,xgym,ygym);
 			aux2=aux;
 			aux=aux->prox;
 			

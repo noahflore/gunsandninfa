@@ -406,7 +406,7 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,int xgym[],int ygym[]){
 		
 		if (ani){
 			this->ani=true;
@@ -414,6 +414,8 @@ class Mini_man{
 			
 		}else
 		 this->centro(buffer,min,x,y,mile);
+		
+		this->obst(x,y,conp,xgym,ygym);
 	}
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
@@ -468,6 +470,32 @@ class Mini_man{
 		circle(buffer,this->pos_x + x,this->pos_y + y,50,makecol(255,0,0));//colisÃ£o circula
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
+	}
+	
+	void obst(int x,int y,int conp,int xgym[],int ygym[]){//colisão dentro da matriz
+		
+		for (int i=0;i< conp;i++){
+			
+			if ((xgym[i] !=0) && (ygym[i] !=0)){//precisa se corrigido
+			
+				if (((this->pos_x + x) - (xgym[i] + x +40)<= 50 + 50) && ((this->pos_y + y) - (ygym[i] + y +65) <= 50 + 50)){
+
+					if (this->pos_x + x < xgym[i] + x)
+						this->i= -1;
+					if (this->pos_x + x > xgym[i] + x)
+						this->i=1;
+					if (this->pos_y + y < ygym[i] + y)
+						this->p=-1;
+					if (this->pos_y + y > ygym[i] + y)
+						this->p=1;
+				}
+				
+			}
+			
+		}
+		
+		
+		
 	}
 	
 };

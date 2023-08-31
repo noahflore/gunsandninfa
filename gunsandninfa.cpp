@@ -107,6 +107,7 @@ void saveflor(){
 		while (fps>=1){
 			atualiza_tecla();
 			span_mini(l,mile);
+			prepara_colisao(mapa,linha,coluna);
 			
 			
 			

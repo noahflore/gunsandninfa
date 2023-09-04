@@ -385,7 +385,7 @@ typedef struct lista_moeda{
 class Mini_man{
 	public:
 	
-	float pos_x,pos_y,vel_x,vel_y,ace;
+	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
 	int w,h,frame,p,i;
 	bool ativo,ani;
 	
@@ -398,6 +398,8 @@ class Mini_man{
 		ace=0.1;
 		vel_x=ace;
 		vel_y=ace;
+		da=0;
+		db=0;
 		ativo=true;
 		ani=false;
 		w=102/4;
@@ -406,7 +408,7 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,int xgym[],int ygym[]){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[]){
 		
 		if (ani){
 			this->ani=true;
@@ -472,21 +474,24 @@ class Mini_man{
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	}
 	
-	void obst(int x,int y,int conp,int xgym[],int ygym[]){//colisão dentro da matriz
+	void obst(int x,int y,int conp,float xgym[],float ygym[]){//colisão dentro da matriz
 		
-		for (int i=0;i< conp;i++){
+		for (int i=0;i<= conp;i++){
 			
-			if ((xgym[i] !=0) && (ygym[i] !=0)){//precisa se corrigido
+			if ((xgym[i] !=0) && (ygym[i] !=0)){//corrigido
 			
-				if (((this->pos_x + x) - (xgym[i] + x +40)<= 50 + 50) && ((this->pos_y + y) - (ygym[i] + y +65) <= 50 + 50)){
+				this->da=((this->pos_x + x) - (xgym[i] + x +40))* ((this->pos_x + x) - (xgym[i] + x +40));
+				this->db=((this->pos_y + y) - (ygym[i] + y +65)) * ((this->pos_y + y) - (ygym[i] + y +65));
+				
+				if ((this->da + this->db <= (50 + 50) * (50 + 50))){
 
-					if (this->pos_x + x < xgym[i] + x)
+					if (this->pos_x + x < xgym[i] + x )
 						this->i= -1;
-					if (this->pos_x + x > xgym[i] + x)
+					if (this->pos_x + x  > xgym[i] + x )
 						this->i=1;
-					if (this->pos_y + y < ygym[i] + y)
+					if (this->pos_y + y < ygym[i] + y )
 						this->p=-1;
-					if (this->pos_y + y > ygym[i] + y)
+					if (this->pos_y + y > ygym[i] + y )
 						this->p=1;
 				}
 				

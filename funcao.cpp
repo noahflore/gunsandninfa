@@ -122,6 +122,14 @@ void prepara_colisao(int **mapa,int linha,int coluna){//prepara a colisão da ma
 	
 	if (!paru){
 		
+		for (int i=0;i<30;i++){
+			xgym[i]=0;
+			ygym[i]=0;
+			
+			
+		}
+		
+		
 		for (int i=0;i< linha;i++){
 			for (int j=0;j<coluna;j++){
 
@@ -393,7 +401,7 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				}
 				
 			}else if ((mapa[i][j] == gym1) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
-				circle(buffer,j* 80 + x + 40,i* 85 + y + 65,50,makecol(255,0,0));
+			//	circle(buffer,j* 80 + x + 40,i* 85 + y + 65,50,makecol(255,0,0));
 				masked_blit(m,buffer,3 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
 				
 				

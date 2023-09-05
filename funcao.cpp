@@ -402,31 +402,31 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				
 			}else if ((mapa[i][j] == gym1) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 			//	circle(buffer,j* 80 + x + 40,i* 85 + y + 65,50,makecol(255,0,0));
-				masked_blit(m,buffer,3 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,3 *m_w,1 *m_h,j * 80+x + 3,i *85+y - 3,m_w,m_h);
 				
 				
 				
 			}else if((mapa[i][j] == gym2) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
-				masked_blit(m,buffer,4 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,4 *m_w,1 *m_h,j * 80+x+ 13,i *85+y - 5,m_w,m_h + 2);
 				
 				
 			}else if((mapa[i][j] == gym3) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
-				masked_blit(m,buffer,0 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,0 *m_w,2 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
 				
 				
 			}else if((mapa[i][j] == gym4) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
-				masked_blit(m,buffer,1 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,1 *m_w,2 *m_h + 6,j * 80+x,i *85+y,m_w,m_h);
 				
 			}else if((mapa[i][j] == gym5) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
-				masked_blit(m,buffer,2 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,2 *m_w,2 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
 				
 			}else if((mapa[i][j] == gym6) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
-				masked_blit(m,buffer,3 *m_w,2 *m_h,j * 80+x,i *85+y,m_w,m_h);
+				masked_blit(m,buffer,3 *m_w,2 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
 			}
 			
 		

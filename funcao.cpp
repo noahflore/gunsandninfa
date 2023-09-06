@@ -133,7 +133,7 @@ void prepara_colisao(int **mapa,int linha,int coluna){//prepara a colisão da ma
 		for (int i=0;i< linha;i++){
 			for (int j=0;j<coluna;j++){
 
-				if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6)){
+				if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6) || (mapa[i][j] == gym7) || (mapa[i][j] == gym8)){
 
 					conp++;
 				}
@@ -427,12 +427,24 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 			}else if((mapa[i][j] == gym6) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
 				
 				masked_blit(m,buffer,3 *m_w,2 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
+			}else if((mapa[i][j] == gym7) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,4 *m_w,2 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if((mapa[i][j] == gym8) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,0 *m_w,3 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
+				
+			}else if((mapa[i][j] == branco) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				
+				masked_blit(m,buffer,1 *m_w,3 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
+				
 			}
 			
 		
 		
 		
-		if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6)){
+		if ((mapa[i][j] == gym1) || (mapa[i][j] == gym2) || (mapa[i][j] == gym3) || (mapa[i][j] == gym4) || (mapa[i][j] == gym5) || (mapa[i][j] == gym6) || (mapa[i][j] == gym7) || (mapa[i][j] == gym8)){
 				//isso aqui não desenha o mapa e sim coloca o x e y dentro da array
 				
 				if (coni <= conp){

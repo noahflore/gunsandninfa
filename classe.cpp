@@ -418,6 +418,7 @@ class Mini_man{
 		 this->centro(buffer,min,x,y,mile);
 		
 		this->obst(x,y,conp,xgym,ygym);
+		this->fale_mini(min,buffer,x,y);
 	}
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
@@ -502,6 +503,21 @@ class Mini_man{
 		
 		
 	}
+	
+	
+void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//precisa se corrigido
+	
+	//rectfill(buffer,SCREEN_W/2,SCREEN_H/2-100,SCREEN_W/2+100,SCREEN_H/2,makecol(255,255,255));
+	
+	if ((this->pos_x + x - 720 >=SCREEN_W/2) && (this->pos_x + x - 720 <= SCREEN_W/2+100)
+		&& (this->pos_y + y - 420 >=SCREEN_H/2-100) && (this->pos_y + y - 420 <=SCREEN_H/2)){
+		
+		rectfill(buffer,50,50,50,50,makecol(255,255,255));
+		
+	}
+	
+	
+}
 	
 };
 

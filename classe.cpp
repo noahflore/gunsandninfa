@@ -387,7 +387,7 @@ class Mini_man{
 	
 	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
 	int w,h,frame,p,i;
-	bool ativo,ani;
+	bool ativo,ani,paro,treino;
 	
 	Mini_man(){
 		
@@ -402,6 +402,8 @@ class Mini_man{
 		db=0;
 		ativo=true;
 		ani=false;
+		paro=false;
+		treino=false;
 		w=102/4;
 		h=85/2;
 		
@@ -410,7 +412,7 @@ class Mini_man{
 	
 	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[]){
 		
-		if (ani){
+		if ((ani) && (!treino)){
 			this->ani=true;
 			this->caminha(buffer,min,x,y,mile);
 			
@@ -423,34 +425,39 @@ class Mini_man{
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
 		
-		if (this->pos_y + y < 1000 + y)
-			this->pos_y+= this->vel_y;
+		if (!this->paro){
 		
-		if (this->pos_y + y >= 1000 + y){//isso precisa se ajustado
-			
-			this->ani=true;
-			srand(time(NULL));
-			this->pos_x= rand () % 4600;
-			srand(mile);
-			this->pos_y= rand () % 2700;
-			
-			this->i = -i;
-			this->p = -p;
-			
-			if (this->pos_x <=720)
-				this->pos_x=720;
-			
-			if (this->pos_y <=420)
-				this->pos_y=420;
-			
-		}
+			if (this->pos_y + y < 1000 + y)
+				this->pos_y+= this->vel_y;
+
+			if (this->pos_y + y >= 1000 + y){//isso precisa se ajustado
+
+				this->ani=true;
+				srand(time(NULL));
+				this->pos_x= rand () % 4600;
+				srand(mile);
+				this->pos_y= rand () % 2700;
+
+				this->i = -i;
+				this->p = -p;
+
+				if (this->pos_x <=720)
+					this->pos_x=720;
+
+				if (this->pos_y <=420)
+					this->pos_y=420;
+
+			}
+
+			if (((mile/200) % 2 == 1))
+			this->vel_y+=this->ace;
+
+			this->frame= (mile/200) % 4;
+			masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 		
-		if (((mile/200) % 2 == 1))
-		this->vel_y+=this->ace;
-		
-		this->frame= (mile/200) % 4;
-		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
-		
+			
+		}else
+			masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	}
 	
 	void caminha(BITMAP *buffer,BITMAP *min,int x, int y, int mile){
@@ -470,7 +477,7 @@ class Mini_man{
 		this->pos_x+=this->i;
 		this->pos_y+=this->p;
 		
-		circle(buffer,this->pos_x + x,this->pos_y + y,50,makecol(255,0,0));//colisão circula
+		//circle(buffer,this->pos_x + x,this->pos_y + y,50,makecol(255,0,0));colisão circula
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	}
@@ -505,16 +512,28 @@ class Mini_man{
 	}
 	
 	
-void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//precisa se corrigido
+void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//fale por mini ir treina
 	
 	//rectfill(buffer,SCREEN_W/2,SCREEN_H/2-100,SCREEN_W/2+100,SCREEN_H/2,makecol(255,255,255));
 	
-	if ((this->pos_x + x - 720 >=SCREEN_W/2) && (this->pos_x + x - 720 <= SCREEN_W/2+100)
-		&& (this->pos_y + y - 420 >=SCREEN_H/2-100) && (this->pos_y + y - 420 <=SCREEN_H/2)){
+	if ((this->pos_x + x > SCREEN_W/2) && (this->pos_x + x < SCREEN_W/2+100)
+		&& (this->pos_y + y  > SCREEN_H/2-100) && (this->pos_y + y < SCREEN_H/2)){
 		
-		rectfill(buffer,50,50,50,50,makecol(255,255,255));
+		this->paro=true;
+		this->ani=false;
 		
-	}
+		rectfill(buffer,50,50,100,100,makecol(255,255,255));
+		textout(buffer,font,"T",this->pos_x + x,this->pos_y + y - 20,makecol(255,255,255));
+		
+		if (key[KEY_T])
+			this->treino=true;
+		
+		
+	}else
+		this->paro=false;
+		
+		
+	
 	
 	
 }

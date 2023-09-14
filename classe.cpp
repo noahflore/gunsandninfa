@@ -416,11 +416,14 @@ class Mini_man{
 			this->ani=true;
 			this->caminha(buffer,min,x,y,mile);
 			
-		}else
+		}else if (!treino)
 		 this->centro(buffer,min,x,y,mile);
 		
+		else
+			this->treinado(buffer,min,x,y,xgym,ygym);
+		
 		this->obst(x,y,conp,xgym,ygym);
-		this->fale_mini(min,buffer,x,y);
+		this->fale_mini(min,buffer,x,y,xgym,ygym);
 	}
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
@@ -512,7 +515,7 @@ class Mini_man{
 	}
 	
 	
-void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//fale por mini ir treina
+void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y,float xgym[],float ygym[]){//fale por mini ir treina
 	
 	//rectfill(buffer,SCREEN_W/2,SCREEN_H/2-100,SCREEN_W/2+100,SCREEN_H/2,makecol(255,255,255));
 	
@@ -525,9 +528,13 @@ void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//fale por mini ir treina
 		rectfill(buffer,50,50,100,100,makecol(255,255,255));
 		textout(buffer,font,"T",this->pos_x + x,this->pos_y + y - 20,makecol(255,255,255));
 		
-		if (key[KEY_T])
+		if (key[KEY_T]){
+			
 			this->treino=true;
+			this->pos_x=xgym[0] + 30;
+			this->pos_y=ygym[0] + 30;
 		
+		}
 		
 	}else
 		this->paro=false;
@@ -535,6 +542,15 @@ void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y){//fale por mini ir treina
 		
 	
 	
+	
+}
+	
+void treinado(BITMAP *buffer,BITMAP *min,int x,int y,float xgym[],float ygym[]){//os mini man vão treina golpes dentro do ginasio sem se necessario bater entre si
+	
+	
+	
+	
+	masked_blit(min,buffer,this->frame *this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	
 }
 	

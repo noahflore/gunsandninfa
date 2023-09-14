@@ -3,7 +3,7 @@
 //#include <allegro.h>
 #include <cstdlib>
 bool coin=false;
-int qtdm=0;
+int qtdm=50;//controla a quantidade de miniman
 #include "../classe.cpp"
 
 

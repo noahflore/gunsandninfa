@@ -420,7 +420,7 @@ class Mini_man{
 		 this->centro(buffer,min,x,y,mile);
 		
 		else
-			this->treinado(buffer,min,x,y,xgym,ygym);
+			this->treinado(buffer,min,x,y,xgym,ygym,mile);
 		
 		this->obst(x,y,conp,xgym,ygym);
 		this->fale_mini(min,buffer,x,y,xgym,ygym);
@@ -545,12 +545,49 @@ void fale_mini(BITMAP *min,BITMAP *buffer,int x,int y,float xgym[],float ygym[])
 	
 }
 	
-void treinado(BITMAP *buffer,BITMAP *min,int x,int y,float xgym[],float ygym[]){//os mini man vão treina golpes dentro do ginasio sem se necessario bater entre si
+void treinado(BITMAP *buffer,BITMAP *min,int x,int y,float xgym[],float ygym[],int mile){//os mini man vão treina golpes dentro do ginasio sem se necessario bater entre si
+	float da,db;
+	static int contt=mile;
+		
+		for (int i=0;i<=30;i++){
+			
+			if ((xgym[i]!=0) && (ygym[i]!=0)){
+			
+				da=(this->pos_x + x - xgym[i] + x) * (this->pos_x + x - xgym[i] + x);
+				db=(this->pos_y + y - ygym[i] + y) * (this->pos_y + y - ygym[i] + y);
+				
+				if (da + db <= (50 + 50) * (50 + 50)){
+					
+					if (this->pos_x < xgym[i])
+						this->i=-1;
+					if (this->pos_x > xgym[i])
+						this->i=1;
+					if (this->pos_y < ygym[i])
+						this->i=-1;
+					if (this->pos_y > ygym[i])
+						this->i=1;
+					
+					
+				}
+			
+			}
+		}
 	
+	this->pos_x+=this->i;
+	this->pos_y+=this->p;
 	
+	if (mile - contt >= 1000){
+		
+		if (this->i == 1)
+			this->i=-1;
+		else
+			this->i=1;
+		
+		contt=mile;
+	}
 	
-	
-	masked_blit(min,buffer,this->frame *this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
+	frame=(mile/370) % 3;
+	masked_blit(min,buffer,this->frame *this->w,4 * this->h - 10,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	
 }
 	

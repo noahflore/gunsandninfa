@@ -347,6 +347,12 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				
 				masked_blit(m,buffer,2 *m_w,1 *m_h,j * 80+x,i *85+y,m_w,m_h);
 				
+				//rect(buffer,j*80+ x+ 13,i *85 +y + 90,j*80+ x + 90,i *85 +y + 130,makecol(255,255,255));
+				
+				if ((SCREEN_W/2-100 >= j*80+x+13) && (SCREEN_W/2-100 <= j*80+x+90) &&
+					(SCREEN_H/2-100 >= i*85+y+90) && (SCREEN_H/2-100 <= i*85+y+130))
+						estado_screen=gama2;
+				
 				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
 				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
 					

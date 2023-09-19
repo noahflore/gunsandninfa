@@ -386,7 +386,7 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
-	int w,h,frame,p,i;
+	int w,h,frame,p,i,virou;
 	bool ativo,ani,paro,treino;
 	
 	Mini_man(){
@@ -395,6 +395,7 @@ class Mini_man{
 		pos_y=-20;
 		p=1;
 		i=1;
+		virou=0;
 		ace=0.1;
 		vel_x=ace;
 		vel_y=ace;
@@ -578,16 +579,25 @@ void treinado(BITMAP *buffer,BITMAP *min,int x,int y,float xgym[],float ygym[],i
 	
 	if (mile - contt >= 1000){
 		
-		if (this->i == 1)
+		if (this->i == 1){
+			
+			
 			this->i=-1;
-		else
+			this->virou=4;
+			
+			
+		}else{
+			
 			this->i=1;
+			this->virou=5;
+			
+		}
 		
 		contt=mile;
 	}
 	
 	frame=(mile/370) % 3;
-	masked_blit(min,buffer,this->frame *this->w,4 * this->h - 10,this->pos_x + x,this->pos_y + y,this->w,this->h);
+	masked_blit(min,buffer,this->frame *this->w,this->virou * this->h - 10,this->pos_x + x,this->pos_y + y,this->w,this->h);
 	
 }
 	

@@ -54,7 +54,8 @@ enum{
 	muda=104,
 	over=105,
 	cida=106,
-	flu=107
+	flu=107,
+	gama2=108
 	
 	
 	

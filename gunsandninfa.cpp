@@ -25,6 +25,7 @@ void ani();
 void titulo();
 void menu();
 void game();
+void game2();
 void carta();
 void gameover();
 void cidade();
@@ -78,6 +79,9 @@ int main(){
 			}else if (estado_screen==flu){
 				saveflor();
 				
+			}else if (estado_screen==gama2){
+				game2();
+				
 			}
 		
 		}
@@ -109,7 +113,8 @@ void saveflor(){
 			span_mini(l,mile);
 			prepara_colisao(mapa,linha,coluna);
 			
-			
+			if (estado_screen==gama2)
+				fl=true;
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_mini(l,minu,buffer,x,y,mile);
@@ -393,6 +398,14 @@ void game(){
 	destroy_bitmap(player);
 	destroy_bitmap(buffer);
 
+}
+
+void game2(){//os miniman aparece
+	
+	
+	
+	
+	
 }
 
 	

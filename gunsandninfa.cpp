@@ -402,8 +402,36 @@ void game(){
 
 void game2(){//os miniman aparece
 	
+	bool ga2=false;
 	
 	
+	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
+	BITMAP *min=load_bitmap("sprite/miniman.bmp",NULL);
+	BITMAP *player=load_bitmap("sprite/maleman.bmp",NULL);
+	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
+	int linha,coluna;
+	int **mapa=carrega_mapa("mapa.txt",&linha,&coluna);
+	
+	while((!ga) && (!fecha)){//talvez seja necessario criar um novo update da lista
+		
+		while (fps >=1){
+			
+			
+			
+			
+			draw_sprite(screen,buffer,0,0);
+			clear(buffer);
+			fps--;
+		}
+		
+		
+	}
+	
+	destroy_bitmap(player);
+	destroy_bitmap(m);
+	destroy_bitmap(min);
+	destroy_bitmap(buffer);
+	fecha_mapa(mapa,linha);
 	
 	
 }

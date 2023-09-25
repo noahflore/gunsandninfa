@@ -1522,7 +1522,7 @@ void destroy_lista_n(Lista_ninfa *l){
 }
 
 
-void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile){
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile,bool denovo=false){
 	
 	No_mini *aux=l->inicio;
 	No_mini *aux2=l->inicio;
@@ -1531,7 +1531,7 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int 
 		
 		if (aux->mi->ativo){
 			
-			aux->mi->update(buffer,min,x,y,mile,conp,xgym,ygym);
+			aux->mi->update(buffer,min,x,y,mile,conp,xgym,ygym,denovo);
 			aux2=aux;
 			aux=aux->prox;
 			
@@ -1789,9 +1789,11 @@ void span_moeda(Lista_moeda *l,int mile){
 	
 }
 
-void span_mini(Lista_mini *l,int mile){//configura esse span por os mini-man
+void span_mini(Lista_mini *l,int mile,bool ban=false){//configura esse span por os mini-man
 	static int ie=0,deu=mile;
 	
+	if (ban)
+		ie=0;
 	
 	if (ie<=qtdm){
 	//if ((coin) && (mile - del >= 100)){

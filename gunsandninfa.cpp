@@ -402,23 +402,42 @@ void game(){
 
 void game2(){//os miniman aparece
 	
-	bool ga2=false;
+	bool ga2=false,bann=true;
 	
 	
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *min=load_bitmap("sprite/miniman.bmp",NULL);
-	BITMAP *player=load_bitmap("sprite/maleman.bmp",NULL);
+	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
+	BITMAP *moedinha=load_bitmap("sprite/moeda.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa.txt",&linha,&coluna);
+	Lista_mini *lm=create_lista_mini();
+	Lista_moeda *lll=create_lista_moeda();
+	
+	
+	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
 	
 	while((!ga) && (!fecha)){//talvez seja necessario criar um novo update da lista
 		
 		while (fps >=1){
 			
+			if (bann)
+			span_mini(lm,mile,bann);
+			bann=false;
+			span_moeda(lll,mile);
+			atualiza_tecla();
 			
+			if (mile - tem >= 2000){
+				ulti=rale;
+				mudcor=255;
+				tem=mile;
+			}
 			
-			
+			desenha_mapa(m,buffer,mapa,linha,coluna);
+			update_lista_moeda(lll,moedinha,buffer);
+			update_lista_mini(lm,min,buffer,x,y,mile,true);
+			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			fps--;
@@ -427,10 +446,13 @@ void game2(){//os miniman aparece
 		
 	}
 	
+	destroy_bitmap(moedinha);
 	destroy_bitmap(player);
 	destroy_bitmap(m);
 	destroy_bitmap(min);
 	destroy_bitmap(buffer);
+	destroy_lista_mini(lm);
+	destroy_lista_moeda(lll);
 	fecha_mapa(mapa,linha);
 	
 	

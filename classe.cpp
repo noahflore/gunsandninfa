@@ -411,9 +411,9 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[]){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[],bool denovo=false){
 		
-		if ((ani) && (!treino)){
+		if ((ani) && (!treino) && (!denovo)){
 			this->ani=true;
 			this->caminha(buffer,min,x,y,mile);
 			
@@ -423,8 +423,19 @@ class Mini_man{
 		else
 			this->treinado(buffer,min,x,y,xgym,ygym,mile);
 		
-		this->obst(x,y,conp,xgym,ygym);
-		this->fale_mini(min,buffer,x,y,xgym,ygym);
+		if (!denovo){
+			
+			this->obst(x,y,conp,xgym,ygym);
+			this->fale_mini(min,buffer,x,y,xgym,ygym);
+			
+		}else
+		this->update2();
+		
+	}
+	
+	void update2(){//vai se usado na colisão entre inimigo
+		
+		
 	}
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){

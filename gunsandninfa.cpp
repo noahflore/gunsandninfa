@@ -403,17 +403,24 @@ void game(){
 void game2(){//os miniman aparece
 	
 	bool ga2=false,bann=true;
+	int tempi=0;
+	Compara *com= new Compara();
 	
 	
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *min=load_bitmap("sprite/miniman.bmp",NULL);
 	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);
 	BITMAP *m=load_bitmap("sprite/mapa.bmp",NULL);
-	BITMAP *moedinha=load_bitmap("sprite/moeda.bmp",NULL);
+	BITMAP *moedinha=load_bitmap("sprite/coin.bmp",NULL);
+	BITMAP *inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
+	BITMAP *grande=load_bitmap("sprite/escudo.bmp",NULL);
+	BITMAP *life=load_bitmap("sprite/life.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa.txt",&linha,&coluna);
 	Lista_mini *lm=create_lista_mini();
 	Lista_moeda *lll=create_lista_moeda();
+	Lista_inimi *l=create_lista_inimi();
+	Lista_fad *ll=create_lista_fad();
 	
 	
 	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
@@ -424,9 +431,18 @@ void game2(){//os miniman aparece
 			
 			if (bann)
 			span_mini(lm,mile,bann);
-			bann=false;
+			span(l,ll,x, y, mile,qtd,vida);
+			span_moeda(lll,mile);
+			
+			if (tempi>=qtdm)
+				bann=false;
+			else
+				tempi++;
 			span_moeda(lll,mile);
 			atualiza_tecla();
+			
+			//meio
+			Compara *com= new Compara();
 			
 			if (mile - tem >= 2000){
 				ulti=rale;
@@ -434,8 +450,11 @@ void game2(){//os miniman aparece
 				tem=mile;
 			}
 			
+			//sera necessario criar um vetor de posição para colidir diferentes lista
+			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_moeda(lll,moedinha,buffer);
+			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);
 			update_lista_mini(lm,min,buffer,x,y,mile,true);
 			perso(player,buffer,frame_w,frame_h,mile);
 			draw_sprite(screen,buffer,0,0);
@@ -447,11 +466,17 @@ void game2(){//os miniman aparece
 	}
 	
 	destroy_bitmap(moedinha);
+	destroy_bitmap(grande);
+	destroy_bitmap(inimi);
+	destroy_bitmap(life);
+	destroy_bitmap(inimi);
 	destroy_bitmap(player);
 	destroy_bitmap(m);
 	destroy_bitmap(min);
 	destroy_bitmap(buffer);
 	destroy_lista_mini(lm);
+	destroy_lista(l);
+	destroy_lista_f(ll);
 	destroy_lista_moeda(lll);
 	fecha_mapa(mapa,linha);
 	

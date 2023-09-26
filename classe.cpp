@@ -417,10 +417,10 @@ class Mini_man{
 			this->ani=true;
 			this->caminha(buffer,min,x,y,mile);
 			
-		}else if (!treino)
+		}else if ((!treino) && (!denovo))
 		 this->centro(buffer,min,x,y,mile);
 		
-		else
+		else if (!denovo)
 			this->treinado(buffer,min,x,y,xgym,ygym,mile);
 		
 		if (!denovo){
@@ -429,14 +429,24 @@ class Mini_man{
 			this->fale_mini(min,buffer,x,y,xgym,ygym);
 			
 		}else
-		this->update2();
+		this->update2(buffer,min,x,y,mile);
 		
 	}
 	
-	void update2(){//vai se usado na colisão entre inimigo
+	void update2(BITMAP *buffer,BITMAP *min,int x,int y,int mile){//vai se usado na colisão entre inimigo
 		
+		this->ataca(buffer,min,x,y,mile);
 		
 	}
+	
+	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
+		
+		
+		this->frame= (mile/200) % 4;
+		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
+		
+	}
+	
 	
 	void centro(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
 		

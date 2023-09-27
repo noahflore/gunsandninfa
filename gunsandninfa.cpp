@@ -454,9 +454,9 @@ void game2(){//os miniman aparece
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_moeda(lll,moedinha,buffer);
-			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);
 			update_lista_mini(lm,min,buffer,x,y,mile,true);
 			perso(player,buffer,frame_w,frame_h,mile);
+			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			fps--;

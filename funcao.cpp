@@ -1522,7 +1522,7 @@ void destroy_lista_n(Lista_ninfa *l){
 }
 
 
-void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile,bool denovo=false){
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile,bool denovo=false,float *posx_ini=0,float *posy_ini=0){
 	
 	No_mini *aux=l->inicio;
 	No_mini *aux2=l->inicio;
@@ -1531,7 +1531,7 @@ void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int 
 		
 		if (aux->mi->ativo){
 			
-			aux->mi->update(buffer,min,x,y,mile,conp,xgym,ygym,denovo);
+			aux->mi->update(buffer,min,x,y,mile,conp,xgym,ygym,denovo,posx_ini,posy_ini);
 			aux2=aux;
 			aux=aux->prox;
 			
@@ -1842,7 +1842,7 @@ void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida){
 					
 					No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
 				
-					novo->inimi= new Pai(x,y,mile,vida);
+					novo->inimi= new Pai(x,y,mile,vida,tam);
 					novo->prox= l->inicio;
 					l->inicio=novo;
 

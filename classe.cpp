@@ -9,11 +9,11 @@ class Pai{
 	float vel_x;
 	float vel_y;
 	float ace;
-	int wid,dee,dess;
+	int wid,dee,dess,id;
 	int hi,hp;
 	bool ativo;
 	int hit;
-	Pai(int x,int y,int mile,int vida);
+	Pai(int x,int y,int mile,int vida,int qtd);
 	virtual void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
 	
 };
@@ -411,7 +411,7 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[],bool denovo=false){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[],bool denovo=false,float *posx_ini=0,float *posy_ini=0){
 		
 		if ((ani) && (!treino) && (!denovo)){
 			this->ani=true;
@@ -429,17 +429,17 @@ class Mini_man{
 			this->fale_mini(min,buffer,x,y,xgym,ygym);
 			
 		}else
-		this->update2(buffer,min,x,y,mile);
+		this->update2(buffer,min,x,y,mile,posx_ini,posy_ini);
 		
 	}
 	
-	void update2(BITMAP *buffer,BITMAP *min,int x,int y,int mile){//vai se usado na colisão entre inimigo
+	void update2(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float *posx_ini,float *posy_ini){//vai se usado na colisão entre inimigo
 		
-		this->ataca(buffer,min,x,y,mile);
+		this->ataca(buffer,min,x,y,mile,posx_ini,posy_ini);
 		
 	}
 	
-	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile){
+	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini,float posy_ini){
 		
 		
 		this->frame= (mile/200) % 4;
@@ -924,7 +924,7 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		
 }
 
-	Pai::Pai(int x, int y,int mile,int vida){
+	Pai::Pai(int x, int y,int mile,int vida,int qtd){
 		
 		srand(mile);
 		pos_x=   rand() % 10000;
@@ -938,6 +938,7 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		hp=vida;
 		dee=0;
 		dess=0;
+		id=qtd;
 		ativo=true;
 		hit=false;
 	}
@@ -1045,6 +1046,9 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		if ((this->pos_x + x >= SCREEN_W/2-110) && (this->pos_x + x <= SCREEN_W/2-100+ this->wid))
 	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
+		//globaliza as posiçãoes
+		posx_ini[this->id]=this->pos_x;
+		posy_ini[this->id]=this->pos_y;
 	
 	
 	}	

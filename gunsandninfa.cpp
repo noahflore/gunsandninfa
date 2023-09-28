@@ -407,6 +407,14 @@ void game2(){//os miniman aparece
 	Compara *com= new Compara();
 	
 	
+for (int i=0;i<300;i++){
+	
+	posx_ini[i]=0;
+	posy_ini[i]=0;
+	
+}
+	
+	
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP *min=load_bitmap("sprite/miniman.bmp",NULL);
 	BITMAP *player=load_bitmap("sprite/spritemaleman.bmp",NULL);

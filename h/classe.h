@@ -4,8 +4,9 @@
 #include <cstdlib>
 bool coin=false;
 int qtdm=50;//controla a quantidade de miniman
-float *posx_ini= (float*) malloc(sizeof(float));
-float *posy_ini= (float*) malloc(sizeof(float));
+float posx_ini[300];
+float posy_ini[300];
+
 #include "../classe.cpp"
 
 

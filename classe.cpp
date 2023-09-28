@@ -433,15 +433,38 @@ class Mini_man{
 		
 	}
 	
-	void update2(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float *posx_ini,float *posy_ini){//vai se usado na colisão entre inimigo
+	void update2(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){//vai se usado na colisão entre inimigo
 		
 		this->ataca(buffer,min,x,y,mile,posx_ini,posy_ini);
 		
 	}
 	
-	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini,float posy_ini){
+	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){
+		int da,db;
 		
+		if ((posx_ini != 0) && (posy_ini != 0)){//erro na hora de usar vetor
 		
+			da=(this->pos_x + x - posx_ini[0] + x) * (this->pos_x + x - posx_ini[0] + x);
+			db=(this->pos_y + y - posy_ini[0] + y) * (this->pos_y + y - posy_ini[0] + y);
+		
+			if (da + db >= (50 + 50) * (50 + 50)){
+				
+				if (this->pos_x + x > posx_ini[0])
+					this->pos_x-=1;
+				
+				if (this->pos_x + x < posx_ini[0])
+					this->pos_x+=1;
+				
+				if (this->pos_y + y > posy_ini[0])
+					this->pos_y-=1;
+				
+				if (this->pos_y + y < posy_ini[0])
+					this->pos_y+=1;
+				
+			} 
+		}
+		
+			
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
 		

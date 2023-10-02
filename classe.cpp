@@ -411,7 +411,7 @@ class Mini_man{
 		
 	}
 	
-	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[],bool denovo=false,float *posx_ini=0,float *posy_ini=0){
+	void update(BITMAP *buffer,BITMAP *min,int x,int y,int mile,int conp,float xgym[],float ygym[],bool denovo=false,float posx_ini[]=0,float posy_ini[]=0){
 		
 		if ((ani) && (!treino) && (!denovo)){
 			this->ani=true;
@@ -442,28 +442,35 @@ class Mini_man{
 	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){
 		int da,db;
 		
-		if ((posx_ini != 0) && (posy_ini != 0)){//erro na hora de usar vetor
+		for (int i=0;i<300;i++){
+			
+		//	textprintf(buffer,font,300+20+i,300,makecol(255,255,255),"vetor: %f",posx_ini[i]);
 		
-			da=(this->pos_x + x - posx_ini[0] + x) * (this->pos_x + x - posx_ini[0] + x);
-			db=(this->pos_y + y - posy_ini[0] + y) * (this->pos_y + y - posy_ini[0] + y);
+			
+		if ((posx_ini[i] != 0) && (posy_ini[i] != 0)){//colisão a partir do vetor
 		
-			if (da + db >= (50 + 50) * (50 + 50)){
-				
-				if (this->pos_x + x > posx_ini[0])
-					this->pos_x-=1;
-				
-				if (this->pos_x + x < posx_ini[0])
-					this->pos_x+=1;
-				
-				if (this->pos_y + y > posy_ini[0])
-					this->pos_y-=1;
-				
-				if (this->pos_y + y < posy_ini[0])
-					this->pos_y+=1;
-				
-			} 
+			da=(this->pos_x + x - posx_ini[i] ) * (this->pos_x + x - posx_ini[i] );
+			db=(this->pos_y + y - posy_ini[i] ) * (this->pos_y + y - posy_ini[i] );
+
+				if (da + db >= (50 + 50) * (50 + 50)){
+
+					if (this->pos_x + x > posx_ini[i])
+						this->pos_x-=1;
+
+					if (this->pos_x + x < posx_ini[i])
+						this->pos_x+=1;
+
+					if (this->pos_y + y > posy_ini[i])
+						this->pos_y-=1;
+
+					if (this->pos_y + y < posy_ini[i])
+						this->pos_y+=1;
+
+				} else if (da + db <= (50 + 50) * (50 + 50))
+					textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
+			}
+		
 		}
-		
 			
 		this->frame= (mile/200) % 4;
 		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
@@ -1070,8 +1077,8 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	masked_blit(inimi,buffer,0 * this->wid, 0 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 		//globaliza as posiçãoes
-		posx_ini[this->id]=this->pos_x;
-		posy_ini[this->id]=this->pos_y;
+		posx_ini[this->id]=this->pos_x + x;
+		posy_ini[this->id]=this->pos_y + y;
 	
 	
 	}	

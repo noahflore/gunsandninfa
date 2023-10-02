@@ -1522,7 +1522,7 @@ void destroy_lista_n(Lista_ninfa *l){
 }
 
 
-void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile,bool denovo=false,float *posx_ini=0,float *posy_ini=0){
+void update_lista_mini(Lista_mini *l,BITMAP *min,BITMAP *buffer,int x,int y,int mile,bool denovo=false,float posx_ini[]=0,float posy_ini[]=0){
 	
 	No_mini *aux=l->inicio;
 	No_mini *aux2=l->inicio;

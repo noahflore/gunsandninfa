@@ -61,7 +61,7 @@ enum{
 	
 };
 
-int estado_screen=flu;
+int estado_screen=gama2;
 
 int **carrega_mapa(const char *arquivo,int *linha,int *coluna);
 void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna);

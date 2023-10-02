@@ -412,6 +412,7 @@ for (int i=0;i<300;i++){
 	posx_ini[i]=0;
 	posy_ini[i]=0;
 	
+	
 }
 	
 	
@@ -457,12 +458,13 @@ for (int i=0;i<300;i++){
 				mudcor=255;
 				tem=mile;
 			}
+
 			
 			//sera necessario criar um vetor de posição para colidir diferentes lista
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_moeda(lll,moedinha,buffer);
-			update_lista_mini(lm,min,buffer,x,y,mile,true);
+			update_lista_mini(lm,min,buffer,x,y,mile,true,posx_ini,posy_ini);
 			perso(player,buffer,frame_w,frame_h,mile);
 			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);
 			draw_sprite(screen,buffer,0,0);

@@ -411,6 +411,7 @@ for (int i=0;i<300;i++){
 	
 	posx_ini[i]=0;
 	posy_ini[i]=0;
+	alvo[i]=false;
 	
 	
 }

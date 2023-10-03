@@ -386,7 +386,7 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
-	int w,h,frame,p,i,virou;
+	int w,h,frame,p,i,virou,aid;
 	bool ativo,ani,paro,treino;
 	
 	Mini_man(){
@@ -401,6 +401,7 @@ class Mini_man{
 		vel_y=ace;
 		da=0;
 		db=0;
+		aid=-1;
 		ativo=true;
 		ani=false;
 		paro=false;
@@ -439,37 +440,44 @@ class Mini_man{
 		
 	}
 	
-	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){
+	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){//a variavel aid server para travar o alvo
 		int da,db;
 		
 		for (int i=0;i<300;i++){
 			
 		//	textprintf(buffer,font,300+20+i,300,makecol(255,255,255),"vetor: %f",posx_ini[i]);
-		
+			if (this->aid == i){
 			
-		if ((posx_ini[i] != 0) && (posy_ini[i] != 0)){//colisão a partir do vetor
-		
-			da=(this->pos_x + x - posx_ini[i] ) * (this->pos_x + x - posx_ini[i] );
-			db=(this->pos_y + y - posy_ini[i] ) * (this->pos_y + y - posy_ini[i] );
+				if ((posx_ini[i] != 0) && (posy_ini[i] != 0)){//colisão a partir do vetor
 
-				if (da + db >= (50 + 50) * (50 + 50)){
+					da=(this->pos_x + x - posx_ini[i] ) * (this->pos_x + x - posx_ini[i] );
+					db=(this->pos_y + y - posy_ini[i] ) * (this->pos_y + y - posy_ini[i] );
 
-					if (this->pos_x + x > posx_ini[i])
-						this->pos_x-=1;
+						if (da + db >= (50 + 50) * (50 + 50)){
 
-					if (this->pos_x + x < posx_ini[i])
-						this->pos_x+=1;
+							if (this->pos_x + x > posx_ini[i])
+								this->pos_x-=1;
 
-					if (this->pos_y + y > posy_ini[i])
-						this->pos_y-=1;
+							if (this->pos_x + x < posx_ini[i])
+								this->pos_x+=1;
 
-					if (this->pos_y + y < posy_ini[i])
-						this->pos_y+=1;
+							if (this->pos_y + y > posy_ini[i])
+								this->pos_y-=1;
 
-				} else if (da + db <= (50 + 50) * (50 + 50))
-					textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
+							if (this->pos_y + y < posy_ini[i])
+								this->pos_y+=1;
+
+						} else if (da + db <= (50 + 50) * (50 + 50)){//aqui começa a parte de bater no inimigo
+							textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
+							
+						}
+					}
+			}else if  ((!alvo[i]) && (this->aid ==-1)){
+				
+				alvo[i]=true;
+				this->aid=i;
+				
 			}
-		
 		}
 			
 		this->frame= (mile/200) % 4;

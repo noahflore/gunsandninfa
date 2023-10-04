@@ -442,11 +442,19 @@ class Mini_man{
 	
 	void ataca(BITMAP *buffer,BITMAP *min,int x,int y,int mile,float posx_ini[],float posy_ini[]){//a variavel aid server para travar o alvo
 		int da,db;
+		bool ttp=false;
 		
 		for (int i=0;i<300;i++){
 			
 		//	textprintf(buffer,font,300+20+i,300,makecol(255,255,255),"vetor: %f",posx_ini[i]);
 			if (this->aid == i){
+				
+				 if ((posy_ini[i] == -1) && (posy_ini[i] == -1)){
+					
+					 this->aid=-1;
+				
+				
+			}
 			
 				if ((posx_ini[i] != 0) && (posy_ini[i] != 0)){//colisão a partir do vetor
 
@@ -469,6 +477,9 @@ class Mini_man{
 
 						} else if (da + db <= (50 + 50) * (50 + 50)){//aqui começa a parte de bater no inimigo
 							textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
+							ttp=true;
+							this->frame= (mile/200) % 3;
+							masked_blit(min,buffer,this->frame * this->w+5,4 * this->h-10,this->pos_x + x,this->pos_y + y,this->w,this->h);
 							
 						}
 					}
@@ -479,9 +490,12 @@ class Mini_man{
 				
 			}
 		}
-			
-		this->frame= (mile/200) % 4;
-		masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
+			if (!ttp){
+				
+				this->frame= (mile/200) % 4;
+				masked_blit(min,buffer,this->frame * this->w,0,this->pos_x + x,this->pos_y + y,this->w,this->h);
+				
+			}
 		
 	}
 	
@@ -691,7 +705,7 @@ class Compara{
 	
 };
 
- Compara::Compara(){
+ Compara::Compara(){//esse construtor está parado
 	 
 	 
 	 
@@ -806,6 +820,8 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 					l->hp-=this->hit;
 					if (l->hp <= 0){
 					l->ativo=false;
+					posx_ini[l->id]=-1;
+					posy_ini[l->id]=-1;
 					coin=true;
 					}
 					

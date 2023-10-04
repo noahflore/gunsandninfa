@@ -16,8 +16,8 @@ bool tempo=false;
 int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,vx=2,vy=2,ht=1,es,tam=0,tamf=1,ii=0,round=5,ou=0,qtdn=30,coni=0,conp=0;
 int v1,v2,v3,v4,v5,v6,v7,v8,v9,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 std::string no1="t",no2="t",no3="t",merda,merda2,merda3,merda4;
-int qtd=5,vida=1,limpx=8,limpy=8;//atributos do inimigo
-int myhp=3,tempopro=3000,cuv=3,rale=30,preco1=0,preco2=0,preco3=0,preco4=0,roupa=1;//atributos do maleman
+int qtd=50,vida=1,limpx=8,limpy=8;//atributos do inimigo
+int myhp=300,tempopro=3000,cuv=3,rale=30,preco1=0,preco2=0,preco3=0,preco4=0,roupa=1;//atributos do maleman
 void atualiza_tecla();
 bool aperta(int tecla);
 bool segura(int tecla);

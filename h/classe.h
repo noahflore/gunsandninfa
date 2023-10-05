@@ -6,6 +6,7 @@ bool coin=false;
 int qtdm=10;//controla a quantidade de miniman
 float posx_ini[300];
 float posy_ini[300];
+int mini_no_ini[300];
 bool alvo[300];
 
 #include "../classe.cpp"

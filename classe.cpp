@@ -476,11 +476,21 @@ class Mini_man{
 								this->pos_y+=1;
 
 						} else if (da + db <= (50 + 50) * (50 + 50)){//aqui começa a parte de bater no inimigo
-							textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
+							//textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
 							ttp=true;
-							this->frame= (mile/200) % 3;
+							mini_no_ini[i]=1;
+							
+							if (this->pos_x + x > posx_ini[i]){
+								
+								this->frame= (mile/200) % 3;
+							masked_blit(min,buffer,this->frame * this->w+5,5 * this->h-10,this->pos_x + x,this->pos_y + y,this->w,this->h);
+							
+							}else{
+								
+								this->frame= (mile/200) % 3;
 							masked_blit(min,buffer,this->frame * this->w+5,4 * this->h-10,this->pos_x + x,this->pos_y + y,this->w,this->h);
 							
+							}
 						}
 					}
 			}else if  ((!alvo[i]) && (this->aid ==-1)){
@@ -788,6 +798,7 @@ class Compara{
 
 
 void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
+	
 
 	if (l->hit == this->me){
 		
@@ -1000,7 +1011,18 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 
 void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	
-	
+	if (mini_no_ini[this->id] == 1){//isso é usado quando o miniman bater nele
+		
+		this->hp--;
+		mini_no_ini[this->id]=-1;
+		if (this->hp <= 0){
+			this->ativo=false;
+			posx_ini[this->id]=-1;
+			posy_ini[this->id]=-1;
+ 			coin=true;
+		}
+		
+	}//precisa se corrigido
 	
 	if ((this->pos_x + x >= SCREEN_W/2-100) && ((this->pos_x + x > SCREEN_W/2-100) || (this->pos_x + x >= SCREEN_W/2-100+ this->wid))){
 		

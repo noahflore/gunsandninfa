@@ -454,8 +454,13 @@ class Mini_man{
 					 this->aid=-1;
 				
 				
-			}
+		     	  }else if (mini_no_ini[this->aid]==-1){
+					 
+					 this->aid=-1;
+					 alvo[i]=false;
 			
+				 }
+					 
 				if ((posx_ini[i] != 0) && (posy_ini[i] != 0)){//colisão a partir do vetor
 
 					da=(this->pos_x + x - posx_ini[i] ) * (this->pos_x + x - posx_ini[i] );
@@ -800,7 +805,7 @@ class Compara{
 void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 	
 
-	if (l->hit == this->me){
+	if ((l->hit == this->me) && (mini_no_ini[l->id]!=-1)){
 		
 		
 			if (this->fadia_x >= l->pos_x+ x){
@@ -834,6 +839,8 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 					posx_ini[l->id]=-1;
 					posy_ini[l->id]=-1;
 					coin=true;
+					mini_no_ini[l->id]=-1;
+					alvo[l->id]=true;
 					}
 					
 				
@@ -844,7 +851,8 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 	
 			
 			masked_blit(player,buffer,fadia_eixox,471,fadia_x,fadia_y,fadia_w,fadia_h);
-	}
+	}else if (mini_no_ini[l->id]==-1)
+		casa=true;
 
 
 }
@@ -1011,18 +1019,7 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 
 void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	
-	if (mini_no_ini[this->id] == 1){//isso é usado quando o miniman bater nele
-		
-		this->hp--;
-		mini_no_ini[this->id]=-1;
-		if (this->hp <= 0){
-			this->ativo=false;
-			posx_ini[this->id]=-1;
-			posy_ini[this->id]=-1;
- 			coin=true;
-		}
-		
-	}//precisa se corrigido
+	
 	
 	if ((this->pos_x + x >= SCREEN_W/2-100) && ((this->pos_x + x > SCREEN_W/2-100) || (this->pos_x + x >= SCREEN_W/2-100+ this->wid))){
 		
@@ -1125,6 +1122,23 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 		//globaliza as posiçãoes
 		posx_ini[this->id]=this->pos_x + x;
 		posy_ini[this->id]=this->pos_y + y;
+		
+		
+		if (mini_no_ini[this->id] == 1){//isso é usado quando o miniman bater nele
+		
+		this->hp--;
+		mini_no_ini[this->id]=-1;
+		posx_ini[this->id]=-1;
+		posy_ini[this->id]=-1;
+		//hit=true;
+		if (this->hp <= 0){
+			this->ativo=false;
+			
+ 			coin=true;
+		//	mini_no_ini[this->id]=-1;
+		}
+		
+	}// corrigido
 	
 	
 	}	

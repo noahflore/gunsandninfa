@@ -11,10 +11,11 @@ class Pai{
 	float ace;
 	int wid,dee,dess,id;
 	int hi,hp;
-	bool ativo;
-	int hit;
-	Pai(int x,int y,int mile,int vida,int qtd);
-	virtual void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
+	bool ativo,gerou;
+	int hit,nnivel;
+	Pai(int x,int y,int mile,int vida,int qtd,int nivel);
+	 void update(BITMAP *inimi, BITMAP *buffer,int x, int y);
+	void update2(BITMAP *inimi, BITMAP *buffer,int x, int y);
 	
 };
 
@@ -997,7 +998,7 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		
 }
 
-	Pai::Pai(int x, int y,int mile,int vida,int qtd){
+	Pai::Pai(int x, int y,int mile,int vida,int qtd,int nivel){
 		
 		srand(mile);
 		pos_x=   rand() % 10000;
@@ -1012,13 +1013,16 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		dee=0;
 		dess=0;
 		id=qtd;
+		nnivel=nivel;
 		ativo=true;
+		gerou=false;
 		hit=false;
 	}
 
 
 void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	
+	if (this->nnivel==0){
 	
 	
 	if ((this->pos_x + x >= SCREEN_W/2-100) && ((this->pos_x + x > SCREEN_W/2-100) || (this->pos_x + x >= SCREEN_W/2-100+ this->wid))){
@@ -1142,4 +1146,28 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y){
 	
 	
 	}	
+		
+	}else if (this->nnivel==1)
+		this->update2(inimi,buffer, x, y);
+		
+}
+
+void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y){
+	
+	if (!this->gerou){
+		
+		srand(time(NULL));
+		this->nnivel= rand() % 2;
+		this->gerou=true;
+		
+	}
+	
+	if (this->nnivel==1){//chame o segundo inimigo
+		
+		
+		masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		
+	}
+	
+	
 }

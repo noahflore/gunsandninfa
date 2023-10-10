@@ -442,7 +442,7 @@ for (int i=0;i<300;i++){
 			
 			if (bann)
 			span_mini(lm,mile,bann);
-			span(l,ll,x, y, mile,qtd,vida);
+			span(l,ll,x, y, mile,qtd,vida,1);
 			span_moeda(lll,mile);
 			
 			if (tempi>=qtdm)

@@ -1815,7 +1815,7 @@ void span_mini(Lista_mini *l,int mile,bool ban=false){//configura esse span por 
 	
 }
 
-void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida){
+void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida,int nivel=0){
 	static	int macadora=mile;
 	 static int inde=0;
 	
@@ -1842,7 +1842,7 @@ void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida){
 					
 					No_inimi* novo= (No_inimi*) malloc(sizeof(No_inimi));
 				
-					novo->inimi= new Pai(x,y,mile,vida,tam);
+					novo->inimi= new Pai(x,y,mile,vida,tam,nivel);
 					novo->prox= l->inicio;
 					l->inicio=novo;
 

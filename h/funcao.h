@@ -28,7 +28,7 @@ bool protege(BITMAP * grande,BITMAP *buffer,bool vpro,int mile);
 void habilidade();
 void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd);
 void vid(BITMAP *life,BITMAP *buffer,Pai *inimi,int x,int y,int mile);
-void atua(BITMAP* inimi,BITMAP* buffer,Pai *p);
+void atua(BITMAP* inimi,BITMAP* buffer,Pai *p,int mile);
 
 enum{
 	

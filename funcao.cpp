@@ -1636,7 +1636,7 @@ void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMA
 
 				//	span(l,x, y, mile,qtd);
 					
-					atua(ini,buffer,aux->inimi);
+					atua(ini,buffer,aux->inimi,mile);
 					com->colisao(player,buffer,aux->inimi,aux3->fad,tam,x,y);
 					vid(life,buffer,aux->inimi,x,y,mile);
 				//	com->colisao(player,buffer,aux2->inimi,aux4->fad,tam,x,y);
@@ -1856,11 +1856,11 @@ void span(Lista_inimi *l,Lista_fad *ll,int x,int y,int mile,int qtd,int vida,int
 	
 }
 
-void atua(BITMAP* inimi,BITMAP* buffer,Pai *p){
+void atua(BITMAP* inimi,BITMAP* buffer,Pai *p,int mile){
 	
 	
 				
-				p->update(inimi,buffer,x,y);
+				p->update(inimi,buffer,x,y,mile);
 	
 	
 	

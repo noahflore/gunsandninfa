@@ -383,6 +383,44 @@ typedef struct lista_moeda{
 	
 }Lista_moeda;
 
+class Bolotas{
+	float pos_x,pos_y,velx,vely,ace;
+	int lado;
+	
+	Bolotas(int lad){
+		
+		ace=1.0;
+		velx=ace;
+		vely=ace;
+		lado=lad;
+		
+		
+	}
+	
+	
+	
+	
+	
+};
+
+
+typedef struct no_bolota{
+	
+	Bolotas *bo;
+	struct no_bolota *prox;
+	
+	
+}No_bolota;
+
+
+typedef struct lista_bolota{
+	
+	 No_bolota* inicio;
+	
+	
+	
+}Lista_bolota;
+
 class Mini_man{
 	public:
 	
@@ -1161,7 +1199,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 	if (!this->gerou){
 		
 		srand(time(NULL));
-		this->nnivel= rand() % 2;
+		//this->nnivel= rand() % 2;
 		this->lado= rand() % 4;
 		this->gerou=true;
 		
@@ -1171,46 +1209,115 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (this->lado == 0){//olhando para baixo
 			
-			if ((SCREEN_W/2 > this->pos_x + x) &&   //precisa se corrigido
-				(SCREEN_W/2 < this->pos_x + x + 50) &&
+			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   //precisa se corrigido
+				(SCREEN_W/2 < this->pos_x + x + 190) &&
 				(SCREEN_H/2 > this->pos_y + y ) &&
 				(SCREEN_H/2 < this->pos_y + y + 300)){//dentro da zona de ataque
 			
-			
-				if (mile - mark >=500){
+			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
+				if (mile - mark >=700){
 					
-					masked_blit(inimi,buffer,1 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
-					opa=true;
-					mark=mile;
-				}else
+
 					opa=false;
+					mark=mile;
+				}else{
+					
+					opa=true;
+					masked_blit(inimi,buffer,1 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 					//masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		 			
+				}
 				
-			}
+			}else opa=false;
 		
 			if (!opa)
 				masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 			
 		}
 		
-		if (this->lado == 1){
+		if (this->lado == 1){//olhando para direita
+			
+			if ((SCREEN_W/2 > this->pos_x + x) &&   //precisa se corrigido
+				(SCREEN_W/2 < this->pos_x + x + 300) &&
+				(SCREEN_H/2 > this->pos_y + y ) &&
+				(SCREEN_H/2 < this->pos_y + y + 190)){//dentro da zona de ataque
+			
+			//	rectfill(buffer,this->pos_x + x,this->pos_y + y,this->pos_x + x + 300,this->pos_y + y + 190,makecol(255,0,0));
+				if (mile - mark >=700){//dispara bolotas
+					
+
+					opa=false;
+					mark=mile;
+				}else{
+					
+					opa=true;
+					masked_blit(inimi,buffer,1 * this->wid, 7 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+					//masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		 			
+				}
+				
+			}else opa=false;
 		
-			masked_blit(inimi,buffer,0 * this->wid, 7 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+			if (!opa)
+				masked_blit(inimi,buffer,0 * this->wid, 7 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 			
 		}
 		
-		if (this->lado == 2){
+		if (this->lado == 2){//olhando para esquerda
+			
+			if ((SCREEN_W/2 < this->pos_x + x + 190) &&   //precisa se corrigido
+				(SCREEN_W/2 > this->pos_x + x - 300) &&
+				(SCREEN_H/2 > this->pos_y + y ) &&
+				(SCREEN_H/2 < this->pos_y + y + 190)){//dentro da zona de ataque
+			
+			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
+				if (mile - mark >=700){
+					
+
+					opa=false;
+					mark=mile;
+				}else{
+					
+					opa=true;
+					masked_blit(inimi,buffer,1 * this->wid, 6 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+					//masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		 			
+				}
+				
+			}else opa=false;
 		
-			masked_blit(inimi,buffer,0 * this->wid, 6 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+			if (!opa)
+				masked_blit(inimi,buffer,0 * this->wid, 6 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 			
 		}
 		
-		if (this->lado == 3){
+		if (this->lado == 3){//olhando para cima
+			
+			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   //precisa se corrigido
+				(SCREEN_W/2 < this->pos_x + x + 190) &&
+				(SCREEN_H/2 < this->pos_y + y + 50 ) &&
+				(SCREEN_H/2 > this->pos_y + y - 300)){//dentro da zona de ataque
+			
+			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
+				if (mile - mark >=700){
+					
+
+					opa=false;
+					mark=mile;
+				}else{
+					
+					opa=true;
+					masked_blit(inimi,buffer,1 * this->wid, 5 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+					//masked_blit(inimi,buffer,0 * this->wid, 4 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+		 			
+				}
+				
+			}else opa=false;
 		
-			masked_blit(inimi,buffer,0 * this->wid, 5 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
+			if (!opa)
+				masked_blit(inimi,buffer,0 * this->wid, 5 * this->hi,this->pos_x + x,this->pos_y + y,this->wid,this->hi);
 		
 			
 		}

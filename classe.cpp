@@ -384,20 +384,35 @@ typedef struct lista_moeda{
 }Lista_moeda;
 
 class Bolotas{
+	public:
+	
 	float pos_x,pos_y,velx,vely,ace;
 	int lado;
+	bool ativo;
 	
-	Bolotas(int lad){
+	Bolotas(int bx,int by,int lad){
 		
 		ace=1.0;
 		velx=ace;
 		vely=ace;
 		lado=lad;
+		pos_x=bx;
+		pos_y=by;
+		ativo=true;
 		
 		
 	}
 	
-	
+	void update(BITMAP *bo,BITMAP *buffer,int x,int y){
+		
+		if (lado == 0){
+			
+			
+			
+		}
+		
+		
+	}
 	
 	
 	
@@ -420,6 +435,10 @@ typedef struct lista_bolota{
 	
 	
 }Lista_bolota;
+//
+//foi necessario criar para evita erros
+//
+Lista_bolota *create_lista_bolota();
 
 class Mini_man{
 	public:
@@ -1057,7 +1076,12 @@ void Fadia::espera(BITMAP *player,BITMAP *buffer,int mile){
 		gerou=false;
 		hit=false;
 	}
+//
+//foi necessario coloca essa duas funções
+//
 
+void span_bolota(Lista_bolota *l,int bx,int by,int lado);
+Lista_bolota *l4=create_lista_bolota();
 
 void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 	
@@ -1209,7 +1233,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (this->lado == 0){//olhando para baixo
 			
-			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   //precisa se corrigido
+			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   // corrigido
 				(SCREEN_W/2 < this->pos_x + x + 190) &&
 				(SCREEN_H/2 > this->pos_y + y ) &&
 				(SCREEN_H/2 < this->pos_y + y + 300)){//dentro da zona de ataque
@@ -1217,7 +1241,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
 				if (mile - mark >=700){
 					
-
+					span_bolota(l4,this->pos_x,this->pos_y,0);
 					opa=false;
 					mark=mile;
 				}else{

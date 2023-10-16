@@ -1405,6 +1405,17 @@ Lista_ninfa *create_lista_ninfa(){//cria a lista
 	
 }
 
+Lista_bolota *create_lista_bolota(){//cria a lista
+	
+	Lista_bolota* l= (Lista_bolota*) malloc(sizeof(Lista_bolota));
+	
+	l->inicio=NULL;
+	
+	return l;
+	
+	
+}
+
 
 void destroy_inimi (Pai *i){//recebe o objeto
 	
@@ -1491,6 +1502,29 @@ void destroy_lista_f(Lista_fad *l){
 		aux= l->inicio;
 		l->inicio =l->inicio->prox;
 		destroy_fad(aux->fad);
+		free(aux);
+		
+	}
+	
+	
+}
+
+void destroy_bolota (Bolotas *i){//recebe o objeto
+	
+	free(i);
+	
+	
+}
+
+void destroy_lista_bo(Lista_bolota *l){
+	
+	No_bolota *aux;
+	
+	while (l->inicio != NULL){
+		
+		aux= l->inicio;
+		l->inicio =l->inicio->prox;
+		destroy_bolota(aux->bo);
 		free(aux);
 		
 	}
@@ -1761,6 +1795,51 @@ void update_ninfa(Lista_ninfa *l,BITMAP *ni,BITMAP *buffer,int x,int y,int mile,
 	
 }
 
+void update_bolota(Lista_bolota *l,BITMAP *bo,BITMAP *buffer,int x,int y,int mile){
+	
+	No_bolota *aux=l->inicio;
+	No_bolota *aux2=l->inicio;
+	
+	while (aux != NULL){
+		
+		if (aux->bo->ativo){
+			
+			
+			aux->bo->update(bo,buffer,x,y);
+			aux2=aux;
+			aux=aux->prox;
+			
+		}else{
+			
+			if (aux == aux2){
+				
+				l->inicio=l->inicio->prox;
+				destroy_bolota(aux->bo);
+				free(aux);
+				aux=aux2=l->inicio;
+				
+				
+			}else{
+				
+				aux2->prox=aux->prox;
+				destroy_bolota(aux->bo);
+				free(aux);
+				aux->prox=aux2->prox;
+				
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+	}
+	
+}
+
+
 void span_moeda(Lista_moeda *l,int mile){
 	static int ip=0,del=mile;
 	
@@ -1785,6 +1864,24 @@ void span_moeda(Lista_moeda *l,int mile){
 	
 		del=mile;
 	}
+	
+	
+}
+
+void span_bolota(Lista_bolota *l,int bx,int by,int lado){
+	//static int ip=0,del=mile;
+	
+
+		
+	No_bolota *novo= (No_bolota*) malloc(sizeof(No_bolota));
+	novo->bo= new Bolotas(bx,by,lado);
+	novo->prox=l->inicio;
+	l->inicio=novo;
+		
+	
+		
+	
+	
 	
 	
 }

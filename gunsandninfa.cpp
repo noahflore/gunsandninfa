@@ -434,6 +434,7 @@ for (int i=0;i<300;i++){
 	Lista_fad *ll=create_lista_fad();
 	
 	
+	
 	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
 	
 	while((!ga) && (!fecha)){//talvez seja necessario criar um novo update da lista
@@ -490,6 +491,7 @@ for (int i=0;i<300;i++){
 	destroy_lista(l);
 	destroy_lista_f(ll);
 	destroy_lista_moeda(lll);
+	destroy_lista_bo(l4);
 	fecha_mapa(mapa,linha);
 	
 	

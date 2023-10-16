@@ -10,6 +10,7 @@ BITMAP * a3;
 BITMAP * a4;
 
 
+
 float x=-2000,y=-2000,velx=0,vely=0,ace=0.10,sex=100,xgym[30],ygym[30];//controla variavels do cenario
 bool p=false,pp=false,comeca=false,parou=false,ga=false,pro=false,lojaopen=false;
 bool tempo=false;

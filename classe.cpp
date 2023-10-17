@@ -386,7 +386,7 @@ typedef struct lista_moeda{
 class Bolotas{
 	public:
 	
-	float pos_x,pos_y,velx,vely,ace;
+	float pos_x,pos_y,velx,vely,ace,limbolo,limboloa;
 	int lado;
 	bool ativo;
 	
@@ -398,6 +398,8 @@ class Bolotas{
 		lado=lad;
 		pos_x=bx;
 		pos_y=by;
+	    limbolo=pos_y;
+		limboloa=pos_x;
 		ativo=true;
 		
 		
@@ -405,9 +407,49 @@ class Bolotas{
 	
 	void update(BITMAP *bo,BITMAP *buffer,int x,int y){
 		
-		if (lado == 0){
+		
+		
+		if (lado == 0){//para baixo
 			
+			if (this->pos_y + y < limbolo + 300)
+				this->pos_y+=this->vely;
+			else if (this->pos_y + y > limbolo + 300)
+				this->ativo=false;
+				
+				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
 			
+		}
+		
+		if (lado == 1){//para cima
+			
+			if (this->pos_y + y > limbolo - 300)
+				this->pos_y-=this->vely;
+			else if (this->pos_y + y < limbolo - 300)
+				this->ativo=false;
+				
+				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
+			
+		}
+		//esquerda e direita precisa se corrigido
+		if (lado == 2){//para esquerda
+			
+			if (this->pos_x + x > (limboloa - 300))
+				this->pos_x-=this->velx;
+			else if (this->pos_x + x < (limboloa - 300))
+				this->ativo=false;
+				
+				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
+			
+		}
+		
+		if (lado == 3){//para direita
+			
+			if (this->pos_x + x < limboloa + 300)
+				this->pos_x+=this->velx;
+			else if (this->pos_x + x > limboloa + 300)
+				this->ativo=false;
+				
+				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
 			
 		}
 		
@@ -1261,7 +1303,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (this->lado == 1){//olhando para direita
 			
-			if ((SCREEN_W/2 > this->pos_x + x) &&   //precisa se corrigido
+			if ((SCREEN_W/2 > this->pos_x + x) &&   // corrigido
 				(SCREEN_W/2 < this->pos_x + x + 300) &&
 				(SCREEN_H/2 > this->pos_y + y ) &&
 				(SCREEN_H/2 < this->pos_y + y + 190)){//dentro da zona de ataque
@@ -1269,7 +1311,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 			//	rectfill(buffer,this->pos_x + x,this->pos_y + y,this->pos_x + x + 300,this->pos_y + y + 190,makecol(255,0,0));
 				if (mile - mark >=700){//dispara bolotas
 					
-
+					span_bolota(l4,this->pos_x,this->pos_y,3);
 					opa=false;
 					mark=mile;
 				}else{
@@ -1290,7 +1332,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (this->lado == 2){//olhando para esquerda
 			
-			if ((SCREEN_W/2 < this->pos_x + x + 190) &&   //precisa se corrigido
+			if ((SCREEN_W/2 < this->pos_x + x + 190) &&   // corrigido
 				(SCREEN_W/2 > this->pos_x + x - 300) &&
 				(SCREEN_H/2 > this->pos_y + y ) &&
 				(SCREEN_H/2 < this->pos_y + y + 190)){//dentro da zona de ataque
@@ -1298,7 +1340,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
 				if (mile - mark >=700){
 					
-
+					span_bolota(l4,this->pos_x,this->pos_y,2);
 					opa=false;
 					mark=mile;
 				}else{
@@ -1319,7 +1361,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (this->lado == 3){//olhando para cima
 			
-			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   //precisa se corrigido
+			if ((SCREEN_W/2 > this->pos_x + x + 20) &&   // corrigido
 				(SCREEN_W/2 < this->pos_x + x + 190) &&
 				(SCREEN_H/2 < this->pos_y + y + 50 ) &&
 				(SCREEN_H/2 > this->pos_y + y - 300)){//dentro da zona de ataque
@@ -1327,7 +1369,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
 				if (mile - mark >=700){
 					
-
+					span_bolota(l4,this->pos_x,this->pos_y,1);
 					opa=false;
 					mark=mile;
 				}else{

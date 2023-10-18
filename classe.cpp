@@ -411,9 +411,9 @@ class Bolotas{
 		
 		if (lado == 0){//para baixo
 			
-			if (this->pos_y + y < limbolo + 300)
+			if (this->pos_y + y < limbolo + y + 300)
 				this->pos_y+=this->vely;
-			else if (this->pos_y + y > limbolo + 300)
+			else if (this->pos_y + y == limbolo + y + 300)
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
@@ -422,9 +422,9 @@ class Bolotas{
 		
 		if (lado == 1){//para cima
 			
-			if (this->pos_y + y > limbolo - 300)
+			if (this->pos_y + y > limbolo + y - 300)
 				this->pos_y-=this->vely;
-			else if (this->pos_y + y < limbolo - 300)
+			else if (this->pos_y + y == limbolo + y - 300)
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
@@ -433,20 +433,20 @@ class Bolotas{
 		//esquerda e direita precisa se corrigido
 		if (lado == 2){//para esquerda
 			
-			if (this->pos_x + x > (limboloa - 300))
+			if (this->pos_x + x > (limboloa + x) - 1200)
 				this->pos_x-=this->velx;
-			else if (this->pos_x + x < (limboloa - 300))
+			else if (this->pos_x + x == (limboloa + x ) - 1200)
 				this->ativo=false;
 				
-				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
+				circlefill(buffer,this->pos_x + x + 74,this->pos_y + y + 20,10,makecol(0,255,0));
 			
 		}
 		
 		if (lado == 3){//para direita
 			
-			if (this->pos_x + x < limboloa + 300)
+			if (this->pos_x + x < limboloa + x + 900)
 				this->pos_x+=this->velx;
-			else if (this->pos_x + x > limboloa + 300)
+			else if (this->pos_x + x == limboloa + x + 900)
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));

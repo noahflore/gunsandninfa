@@ -392,7 +392,7 @@ class Bolotas{
 	
 	Bolotas(int bx,int by,int lad){
 		
-		ace=1.0;
+		ace=2.0;
 		velx=ace;
 		vely=ace;
 		lado=lad;
@@ -420,6 +420,8 @@ class Bolotas{
 			
 		}
 		
+		
+		
 		if (lado == 1){//para cima
 			
 			if (this->pos_y + y > limbolo + y - 300)
@@ -430,7 +432,7 @@ class Bolotas{
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
 			
 		}
-		//esquerda e direita precisa se corrigido
+		//
 		if (lado == 2){//para esquerda
 			
 			if (this->pos_x + x > (limboloa + x) - 1200)
@@ -1281,7 +1283,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 				(SCREEN_H/2 < this->pos_y + y + 300)){//dentro da zona de ataque
 			
 			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
-				if (mile - mark >=700){
+				if (mile - mark >=1700){
 					
 					span_bolota(l4,this->pos_x,this->pos_y,0);
 					opa=false;
@@ -1367,7 +1369,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 				(SCREEN_H/2 > this->pos_y + y - 300)){//dentro da zona de ataque
 			
 			//	rectfill(buffer,this->pos_x + x + 50,this->pos_y + y,this->pos_x + x + 100,this->pos_y + y + 300,makecol(255,0,0));
-				if (mile - mark >=700){
+				if (mile - mark >=1700){
 					
 					span_bolota(l4,this->pos_x,this->pos_y,1);
 					opa=false;

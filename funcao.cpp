@@ -1811,7 +1811,7 @@ void update_bolota(Lista_bolota *l,BITMAP *bo,BITMAP *buffer,int x,int y,int mil
 			
 		}else{
 			
-			if (aux == aux2){
+			if (aux2 == aux){
 				
 				l->inicio=l->inicio->prox;
 				destroy_bolota(aux->bo);
@@ -1824,7 +1824,7 @@ void update_bolota(Lista_bolota *l,BITMAP *bo,BITMAP *buffer,int x,int y,int mil
 				aux2->prox=aux->prox;
 				destroy_bolota(aux->bo);
 				free(aux);
-				aux->prox=aux2->prox;
+				aux=aux2->prox;//o aux não pode chama o prox
 				
 				
 			}

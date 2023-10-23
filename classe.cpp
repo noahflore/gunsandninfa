@@ -407,7 +407,22 @@ class Bolotas{
 	
 	void update(BITMAP *bo,BITMAP *buffer,int x,int y){
 		
-		
+		if ((this->pos_x + x > SCREEN_W/2-100) &&// isso colidir a bolota com o player
+				(this->pos_x + x < SCREEN_W/2) &&
+				(this->pos_y + y > SCREEN_H/2-100) &&
+				(this->pos_y + y < SCREEN_H/2)){
+				
+				if ((this->pos_x + x < SCREEN_W/2-50) && (this->lado == 3))
+				this->lado=2;
+				else if ((this->pos_x + x > SCREEN_W/2-70) && (this->lado == 2))
+				this->lado=3;
+			
+				if ((this->pos_y + y < SCREEN_H/2-50) && (this->lado == 1))
+				this->lado=0;
+				else if ((this->pos_y + y > SCREEN_H/2-70) && (this->lado == 0))
+				this->lado=1;
+				
+			}
 		
 		if (lado == 0){//para baixo
 			
@@ -417,6 +432,7 @@ class Bolotas{
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
+			
 			
 		}
 		

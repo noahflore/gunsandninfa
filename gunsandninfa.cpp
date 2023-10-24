@@ -461,7 +461,10 @@ for (int i=0;i<300;i++){
 				mudcor=255;
 				tem=mile;
 			}
-
+			
+			if (myhpy==2)
+				myhp-=myhpy;
+				myhpy=0;
 			
 			//sera necessario criar um vetor de posição para colidir diferentes lista
 			

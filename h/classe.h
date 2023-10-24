@@ -9,7 +9,7 @@ float posy_ini[300];
 int mini_no_ini[300];
 bool alvo[300];
 
-
+int myhpy=0;
 #include "../classe.cpp"
 
 

@@ -76,11 +76,20 @@ void habilidade(){
 	
 }
 
-void equipa(int roupa,BITMAP *buffer,BITMAP *obj){
+void equipa(int roupa,BITMAP *buffer,BITMAP *obj){//coloca armaduras e armas
 	
-	if (roupa == 1)
-		masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+	int h=124/3;
+	int w=152/3;
 	
+	if ((stopf==2) || (stopf ==3)){
+		
+		
+		if ((roupa == 1) && ((frame == 1) || (frame == 3)))
+			masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+		else if ((frame == 0) || (frame == 2))
+			masked_blit(obj,buffer,0,1* h,SCREEN_W/2-94,SCREEN_H/2-74,w,h);
+		
+	}
 }
 
 

@@ -417,18 +417,20 @@ class Bolotas{
 				else if ((this->pos_x + x > SCREEN_W/2-70) && (this->lado == 2))
 				this->lado=3;
 			
-				if ((this->pos_y + y < SCREEN_H/2-50) && (this->lado == 1))
+				if ((this->pos_y + y < SCREEN_H/2-20) && (this->lado == 1))
 				this->lado=0;
 				else if ((this->pos_y + y > SCREEN_H/2-70) && (this->lado == 0))
 				this->lado=1;
+			
+			myhpy=2;
 				
 			}
 		
 		if (lado == 0){//para baixo
 			
-			if (this->pos_y + y < limbolo + y + 300)
+			if (this->pos_y + y < limbolo + y + 700)
 				this->pos_y+=this->vely;
-			else if (this->pos_y + y == limbolo + y + 300)
+			else if (this->pos_y + y == limbolo + y + 700)
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
@@ -440,9 +442,9 @@ class Bolotas{
 		
 		if (lado == 1){//para cima
 			
-			if (this->pos_y + y > limbolo + y - 300)
+			if (this->pos_y + y > limbolo + y - 700)
 				this->pos_y-=this->vely;
-			else if (this->pos_y + y == limbolo + y - 300)
+			else if (this->pos_y + y == limbolo + y - 700)
 				this->ativo=false;
 				
 				circlefill(buffer,this->pos_x + x + 68,this->pos_y + y + 5,10,makecol(0,255,0));
@@ -1283,7 +1285,7 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 	if (!this->gerou){
 		
 		srand(time(NULL));
-		//this->nnivel= rand() % 2;
+		this->nnivel= rand() % 2;
 		this->lado= rand() % 4;
 		this->gerou=true;
 		

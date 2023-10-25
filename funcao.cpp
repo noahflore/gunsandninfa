@@ -81,13 +81,50 @@ void equipa(int roupa,BITMAP *buffer,BITMAP *obj){//coloca armaduras e armas
 	int h=124/3;
 	int w=152/3;
 	
-	if ((stopf==2) || (stopf ==3)){
+	if (roupa == 1){
+		
+		if ((stopf==2) || (stopf ==3)){//se o player está de lado
+
+
+			if (stopf==2){//se o player está olhando pra direita
+				
+				if  ((frame == 1) || (frame == 3))//em movimento
+					masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+				else if ((frame == 0) || (frame == 2))
+					masked_blit(obj,buffer,0,1* h,SCREEN_W/2-94,SCREEN_H/2-74,w,h);
+
+			}
+			
+			if (stopf==3){//se o player está olhando pra esquerda
+				
+				if  ((frame == 1) || (frame == 3))//em movimento
+					masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+				else if ((frame == 0) || (frame == 2))
+					masked_blit(obj,buffer,0,2* h,SCREEN_W/2-85,SCREEN_H/2-74,w,h);
+
+			}
+		}
 		
 		
-		if ((roupa == 1) && ((frame == 1) || (frame == 3)))
-			masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
-		else if ((frame == 0) || (frame == 2))
-			masked_blit(obj,buffer,0,1* h,SCREEN_W/2-94,SCREEN_H/2-74,w,h);
+		if ((stopf==0) || (stopf ==1)){//se o player está na vertical
+
+
+			if (stopf==0){//se o player está olhando pra baixo
+				
+				
+					masked_blit(obj,buffer,0,0,SCREEN_W/2-92,SCREEN_H/2-74,49,43);
+				
+
+			}
+			
+			if (stopf==1){//se o player está olhando pra cima
+				
+				
+					masked_blit(obj,buffer,1 * w,0,SCREEN_W/2-92,SCREEN_H/2-78,49,43);
+				
+
+			}
+		}
 		
 	}
 }
@@ -1238,6 +1275,9 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 			}else if ((sel == 6) && (!parou)){// aumenta o exp dos miniman
 				
+				expm*=2;
+				parou=true;
+				//será necessario coloca uma id na classe miniman para atribuir exp
 				
 			}
 			

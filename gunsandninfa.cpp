@@ -411,6 +411,9 @@ for (int i=0;i<300;i++){
 	
 	posx_ini[i]=0;
 	posy_ini[i]=0;
+	posx_mini[i]=0;
+	posy_mini[i]=0;
+	mini_morre[i]=0;
 	mini_no_ini[i]=0;
 	alvo[i]=false;
 	
@@ -441,12 +444,12 @@ for (int i=0;i<300;i++){
 		
 		while (fps >=1){
 			
-			if (bann)
+		
 			span_mini(lm,mile,bann);
 			span(l,ll,x, y, mile,qtd,vida,1);
 			span_moeda(lll,mile);
 			
-			if (tempi>=qtdm)
+			if (tempi>=0)
 				bann=false;
 			else
 				tempi++;

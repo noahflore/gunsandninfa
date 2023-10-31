@@ -473,10 +473,32 @@ class Bolotas{
 			
 		}
 		
-		
+		this->bolota_no_mini(x,y,buffer);
 	}
 	
-	
+	void bolota_no_mini(int x,int y,BITMAP *buffer){//colidir bolota com mini man
+		
+		for (int i=0;i<300;i++){
+			
+			if ((posx_mini[i] != 0) && (posy_mini[i] != 0)){
+			
+				if ((this->pos_x + x > posx_mini[i] + x) &&
+					(this->pos_x + x < posx_mini[i] + 50 + x) &&
+					(this->pos_y + y > posy_mini[i] + y) &&
+					(this->pos_y + y < posy_mini[i] + 50 + y)){//aqui onde a bolota bater
+
+					rectfill(buffer,50,50,100,100,makecol(255,0,0));
+					mini_morre[i]=1;
+
+				}
+				
+				
+			}
+				
+			}
+		
+		
+	}
 	
 };
 
@@ -506,10 +528,10 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
-	int w,h,frame,p,i,virou,aid;
+	int w,h,frame,p,i,virou,aid,id;
 	bool ativo,ani,paro,treino;
 	
-	Mini_man(){
+	Mini_man(int index){
 		
 		pos_x=1100;
 		pos_y=-20;
@@ -522,6 +544,7 @@ class Mini_man{
 		da=0;
 		db=0;
 		aid=-1;
+		id=index;
 		ativo=true;
 		ani=false;
 		paro=false;
@@ -551,6 +574,19 @@ class Mini_man{
 			
 		}else
 		this->update2(buffer,min,x,y,mile,posx_ini,posy_ini);
+		
+		this->ohoh(buffer,x,y);
+		
+	}
+	
+	void ohoh(BITMAP *buffer,int x,int y){
+		
+		posx_mini[this->id]=this->pos_x;
+		posy_mini[this->id]=this->pos_y;
+		
+		textprintf(buffer,font,this->pos_x + x,this->pos_y +y,makecol(255,255,255),"meu id: %d",this->id);
+		if (mini_morre[this->id] == 1)
+			this->ativo=false;
 		
 	}
 	
@@ -602,8 +638,12 @@ class Mini_man{
 
 						} else if (da + db <= (50 + 50) * (50 + 50)){//aqui começa a parte de bater no inimigo
 							//textprintf(buffer,font,300,300,makecol(255,255,255),"colidiu %f",posx_ini[i]);
-							ttp=true;
-							mini_no_ini[i]=1;
+							if (this->frame==3){
+								
+								ttp=true;
+								mini_no_ini[i]=1;
+								
+							}
 							
 							if (this->pos_x + x > posx_ini[i]){
 								
@@ -1255,7 +1295,7 @@ void Pai::update(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 		if (mini_no_ini[this->id] == 1){//isso é usado quando o miniman bater nele
 		
-		this->hp--;
+		this->hp-=expm;
 		mini_no_ini[this->id]=-1;
 		posx_ini[this->id]=-1;
 		posy_ini[this->id]=-1;
@@ -1285,12 +1325,12 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 	if (!this->gerou){
 		
 		srand(time(NULL));
-		this->nnivel= rand() % 2;
+	//	this->nnivel= rand() % 2;
 		this->lado= rand() % 4;
 		this->gerou=true;
 		
 	}
-	
+	//this->lado=1;
 	if (this->nnivel==1){//chame o segundo inimigo
 		
 		if (this->lado == 0){//olhando para baixo
@@ -1407,6 +1447,27 @@ void Pai::update2(BITMAP *inimi, BITMAP *buffer,int x, int y,int mile){
 		
 			
 		}
+		
+				//globaliza as posiçãoes
+				posx_ini[this->id]=this->pos_x + x;
+				posy_ini[this->id]=this->pos_y + y;
+		
+		
+		if (mini_no_ini[this->id] == 1){//isso é usado quando o miniman bater nele
+		
+			this->hp-=expm;
+			mini_no_ini[this->id]=-1;
+			posx_ini[this->id]=-1;
+			posy_ini[this->id]=-1;
+			//hit=true;
+			if (this->hp <= 0){
+				this->ativo=false;
+
+				coin=true;
+			//	mini_no_ini[this->id]=-1;
+			}
+		
+	}// corrigido
 	}
 	
 	

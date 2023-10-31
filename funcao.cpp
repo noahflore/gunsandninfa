@@ -1936,19 +1936,19 @@ void span_bolota(Lista_bolota *l,int bx,int by,int lado){
 }
 
 void span_mini(Lista_mini *l,int mile,bool ban=false){//configura esse span por os mini-man
-	static int ie=0,deu=mile;
+	static int ie=0,deu=0;
 	
-	if (ban)
-		ie=0;
+	//if (ban)
+	//	ie=0;
 	
-	if (ie<=qtdm){
+	if (ie<qtdm){
 	//if ((coin) && (mile - del >= 100)){
 		
 	
 
 		
 	No_mini *novo= (No_mini*) malloc(sizeof(No_mini));
-	novo->mi= new Mini_man();
+	novo->mi= new Mini_man(ie);
 	novo->prox=l->inicio;
 	l->inicio=novo;
 		

@@ -11,7 +11,7 @@ void habilidade(){
 	srand(time(NULL));
 	
 //	sel= rand() % 10;
-	sel=3;
+	sel=7;
 	if (sel == 1){
 	no1= "fadia submissa";
 		
@@ -1262,7 +1262,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				cuv+=3;
 				parou=true;
 				
-			}else if ((sel == 4) && (!parou)){
+			}else if ((sel == 4) && (!parou)){//aumenta fada
 				
 				tamf++;
 				parou=true;
@@ -1276,8 +1276,14 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			}else if ((sel == 6) && (!parou)){// aumenta o exp dos miniman
 				
 				expm*=2;
+				vida2+=2;
 				parou=true;
 				//será necessario coloca uma id na classe miniman para atribuir exp
+				
+			}else if ((sel == 7) && (!parou)){//novo atributo aleatorio
+				srand(time(NULL));
+				sel= rand() %  10;
+			//	sel=3;
 				
 			}
 			
@@ -1935,11 +1941,11 @@ void span_bolota(Lista_bolota *l,int bx,int by,int lado){
 	
 }
 
-void span_mini(Lista_mini *l,int mile,bool ban=false){//configura esse span por os mini-man
+void span_mini(Lista_mini *l,int mile,bool ban=false,int vida2=2){//configura esse span por os mini-man
 	static int ie=0,deu=0;
 	
-	//if (ban)
-	//	ie=0;
+	if (ban)
+		ie=0;
 	
 	if (ie<qtdm){
 	//if ((coin) && (mile - del >= 100)){
@@ -1948,7 +1954,7 @@ void span_mini(Lista_mini *l,int mile,bool ban=false){//configura esse span por 
 
 		
 	No_mini *novo= (No_mini*) malloc(sizeof(No_mini));
-	novo->mi= new Mini_man(ie);
+	novo->mi= new Mini_man(ie,vida2);
 	novo->prox=l->inicio;
 	l->inicio=novo;
 		

@@ -83,7 +83,7 @@ int main(){
 				game2();
 				
 			}
-		
+		fps--;
 		}
 	}
 	
@@ -325,7 +325,7 @@ void game(){
 	
 	//Fadia *f1= new Fadia(vx,vy,ht,es);
 	Compara *com= new Compara();
-	Lista_inimi *l= create_lista_inimi();
+ static	Lista_inimi *l= create_lista_inimi();
 	Lista_fad *ll= create_lista_fad();
 	Lista_moeda *lll= create_lista_moeda();
 	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
@@ -379,11 +379,14 @@ void game(){
 			fps--;
 		}
 	}
-	
+	//erro na hora de pausa a janela
 	destroy_sample(musica);
-	if ((fecha) && (l->inicio !=NULL))
-	destroy_lista(l);
-	destroy_lista_f(ll);
+	if ((fecha) && (l->inicio !=NULL)){
+		
+		destroy_lista(l);
+		destroy_lista_f(ll);
+		
+	}
 	destroy_lista_moeda(lll);
 	//free(f1);
 	free(com);
@@ -445,7 +448,7 @@ for (int i=0;i<300;i++){
 		while (fps >=1){
 			
 		
-			span_mini(lm,mile,bann);
+			span_mini(lm,mile,bann,vida2);
 			span(l,ll,x, y, mile,qtd,vida,1);
 			span_moeda(lll,mile);
 			

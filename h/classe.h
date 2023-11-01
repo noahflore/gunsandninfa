@@ -3,7 +3,7 @@
 //#include <allegro.h>
 #include <cstdlib>
 bool coin=false;
-int qtdm=10,expm=1;//controla a quantidade de miniman
+int qtdm=10,expm=1,vida2=2;//controla a quantidade de miniman
 float posx_ini[300];
 float posy_ini[300];
 float posx_mini[300];

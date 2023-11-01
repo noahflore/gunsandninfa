@@ -528,10 +528,10 @@ class Mini_man{
 	public:
 	
 	float pos_x,pos_y,vel_x,vel_y,ace,da,db;
-	int w,h,frame,p,i,virou,aid,id;
+	int w,h,frame,p,i,virou,aid,id,hp;
 	bool ativo,ani,paro,treino;
 	
-	Mini_man(int index){
+	Mini_man(int index,int vida2){
 		
 		pos_x=1100;
 		pos_y=-20;
@@ -545,6 +545,7 @@ class Mini_man{
 		db=0;
 		aid=-1;
 		id=index;
+		hp=vida2;
 		ativo=true;
 		ani=false;
 		paro=false;
@@ -575,18 +576,29 @@ class Mini_man{
 		}else
 		this->update2(buffer,min,x,y,mile,posx_ini,posy_ini);
 		
-		this->ohoh(buffer,x,y);
+		this->ohoh(buffer,x,y,mile);
 		
 	}
 	
-	void ohoh(BITMAP *buffer,int x,int y){
+	void ohoh(BITMAP *buffer,int x,int y,int mile){
+		static int outrotime=mile;
 		
 		posx_mini[this->id]=this->pos_x;
 		posy_mini[this->id]=this->pos_y;
 		
-		textprintf(buffer,font,this->pos_x + x,this->pos_y +y,makecol(255,255,255),"meu id: %d",this->id);
-		if (mini_morre[this->id] == 1)
-			this->ativo=false;
+//		textprintf(buffer,font,this->pos_x + x,this->pos_y +y,makecol(255,255,255),"meu id: %d",this->id);
+		if (mini_morre[this->id] == 1) {//aqui onde o mini tomar hit
+			
+			if(mile - outrotime >= 500){
+				
+				if (this->hp <= 0)
+					this->ativo=false;
+				else
+					this->hp--;
+				
+			outrotime=mile;
+			}
+		}
 		
 	}
 	

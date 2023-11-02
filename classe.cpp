@@ -908,7 +908,7 @@ class Compara{
 				if ((l->pos_x + x >= f1->fadia_x-600) && 
 					(l->pos_x + x <= f1->fadia_x +f1->fadia_w+600) &&
 					(l->pos_y + y >= f1->fadia_y-600) &&
-					(l->pos_y + y <= f1->fadia_y +f1->fadia_h+600)){
+					(l->pos_y + y <= f1->fadia_y +f1->fadia_h+600)){//zona onde fada detecta o inimigo
 					
 					f1->teste=false;
 					f1->casa=false;
@@ -1003,10 +1003,11 @@ void Fadia::ataca(BITMAP* player,BITMAP* buffer,Pai *l,int x,int y){
 				if ((this->fadia_x >= l->pos_x+ x) &&
 				   	(this->fadia_x <= l->pos_x+ x + l->wid)&&
 				    (this->fadia_y >= l->pos_y+ y)&&
-				    (this->fadia_y <= l->pos_y+ y +l->hi)){
+				    (this->fadia_y <= l->pos_y+ y +l->hi)){//fada colidi no inimigo
 					
 					l->hp-=this->hit;
 					if (l->hp <= 0){
+					tambackup+=1;
 					l->ativo=false;
 					posx_ini[l->id]=-1;
 					posy_ini[l->id]=-1;

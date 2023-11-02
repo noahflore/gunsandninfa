@@ -12,6 +12,7 @@ int mini_morre[300];
 int mini_no_ini[300];
 bool alvo[300];
 
+int tambackup=0;
 int myhpy=0;
 #include "../classe.cpp"
 

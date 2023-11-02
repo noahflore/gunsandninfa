@@ -1285,6 +1285,11 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				sel= rand() %  10;
 			//	sel=3;
 				
+			}else if ((sel == 8) && (!parou)){//precisa se preechido
+				
+				
+				
+				
 			}
 			
 			if (mile - bb >= 5000){

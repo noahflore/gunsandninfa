@@ -276,6 +276,11 @@ void menu(){
 	
 	bool me=false;
 	ga=false;
+	comeca=false;
+	tam=tambackup;
+	ii=0;
+	tambackup=0;
+	
 	
 	while ((!fecha) && (!me)){
 		
@@ -325,10 +330,23 @@ void game(){
 	
 	//Fadia *f1= new Fadia(vx,vy,ht,es);
 	Compara *com= new Compara();
- static	Lista_inimi *l= create_lista_inimi();
+ 	Lista_inimi *l= create_lista_inimi();
 	Lista_fad *ll= create_lista_fad();
 	Lista_moeda *lll= create_lista_moeda();
 	int backup=myhp,mudcor=255,ulti=rale,tem=mile;
+	
+	for (int i=0;i<300;i++){
+	
+		posx_ini[i]=0;
+		posy_ini[i]=0;
+		posx_mini[i]=0;
+		posy_mini[i]=0;
+		mini_morre[i]=0;
+		mini_no_ini[i]=0;
+		alvo[i]=false;
+	
+	
+	}
 	
 		while((!fecha) && (!ga)){
 		

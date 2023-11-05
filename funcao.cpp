@@ -10,8 +10,8 @@ void habilidade(){
 	
 	srand(time(NULL));
 	
-//	sel= rand() % 10;
-	sel=7;
+	sel= rand() % 10;
+//	sel=1;
 	if (sel == 1){
 	no1= "fadia submissa";
 		
@@ -51,8 +51,100 @@ void habilidade(){
 		
 		no1="fraco";
 	}
-	no2= "teste";
-	no3= "teste";
+	
+	srand(time(NULL));
+	
+	sel2= rand() % 10;
+	//sel=1;
+	
+	if (sel2 == 1){
+	no2= "fadia submissa";
+		
+		
+	}else if (sel2 == 2){
+		
+		no2= "homem masculo";
+	}else if (sel2 == 3){
+		
+		no2= "alpha";
+	}else if (sel2 == 4){
+		
+		
+		no2="mais fadia";
+		
+		
+	}else if(sel2 == 5){
+		
+		no2="deus grego";
+		
+	}else if(sel2 == 6){
+		
+		no2="a queda";
+		
+	}else if(sel2 == 7){
+		
+		no2="humilhação";
+		
+	}else if(sel2 == 8){
+		
+		no2="fadia rebeliao";
+		
+	}else if(sel2 == 9){
+		
+		no2="o beta";
+		
+	}else{
+		
+		no2="fraco";
+	}
+	
+	srand(time(NULL));
+	
+	sel3= rand() % 10;
+	//sel=1;
+	
+	if (sel3 == 1){
+	no3= "fadia submissa";
+		
+		
+	}else if (sel3 == 2){
+		
+		no3= "homem masculo";
+	}else if (sel3 == 3){
+		
+		no3= "alpha";
+	}else if (sel3 == 4){
+		
+		
+		no3="mais fadia";
+		
+		
+	}else if(sel3 == 5){
+		
+		no3="deus grego";
+		
+	}else if(sel3 == 6){
+		
+		no3="a queda";
+		
+	}else if(sel3 == 7){
+		
+		no3="humilhação";
+		
+	}else if(sel3 == 8){
+		
+		no3="fadia rebeliao";
+		
+	}else if(sel3 == 9){
+		
+		no3="o beta";
+		
+	}else{
+		
+		no3="fraco";
+	}
+	
+	
 	v1= rand() % 50;
 	v2= rand() % 50;
 	v3= rand() % 10;
@@ -1322,6 +1414,200 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			if (mudo)
 				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 		}//esse é o deck primeiro
+		
+		
+		if ((b->ativado) && (b->index==2)){
+			
+			if  (sel2== 1){//aumenta atributos da fada
+				
+				vx=v1;
+				vy=v2;
+				ht+=v3;
+				tempopro-=d1;
+				limpx-=d2;
+				limpy-=d3;
+				
+				if (limpx <= 0)limpx=1;
+				if (limpy <=0)limpy=1;
+				
+				
+			}else if  ((sel2== 2) && (!parou)){//aumenta atributos do maleman
+				
+				if (myhp <3)
+					myhp=3;
+				myhp*=2;
+				
+				limpx+=v3;
+				limpy+=v3;
+				
+				tempopro-=300;
+				vx-=1;
+				vy-=1;
+				parou=true;
+				
+			}else if  ((sel2== 3) && (!parou)){// aumenta a magia 
+				
+				tempopro+=v1;
+				cuv+=3;
+				parou=true;
+				
+			}else if ((sel2 == 4) && (!parou)){//aumenta fada
+				
+				tamf++;
+				parou=true;
+				
+			}else if ((sel2 == 5) && (!parou)){//aumenta a conquista de ninfa
+				
+				sex+=3;
+				parou=true;
+				
+				
+			}else if ((sel2 == 6) && (!parou)){// aumenta o exp dos miniman
+				
+				expm*=2;
+				vida2+=2;
+				parou=true;
+				//será necessario coloca uma id na classe miniman para atribuir exp
+				
+			}else if ((sel2 == 7) && (!parou)){//novo atributo aleatorio
+				srand(time(NULL));
+				sel= rand() %  10;
+			//	sel=3;
+				
+			}else if ((sel2 == 8) && (!parou)){//precisa se preechido
+				
+				
+				
+				
+			}
+			
+			if (mile - bb >= 5000){
+				
+				tam=0;
+				qtd*=2;
+				ca=true;
+				tempo=false;
+				
+				bb = mile;
+				return ca;
+			}
+				
+			
+			
+			if (mile - a >= 1000){
+			
+				if (mudo){
+					mudo=false;
+				}else{
+					mudo=true;
+				}
+			
+				a=mile;
+			}
+			
+			
+			
+			
+			if (mudo)
+				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+		}//esse é o deck segundo
+		
+		
+		if ((b->ativado) && (b->index==3)){
+			
+			if  (sel3== 1){//aumenta atributos da fada
+				
+				vx=v1;
+				vy=v2;
+				ht+=v3;
+				tempopro-=d1;
+				limpx-=d2;
+				limpy-=d3;
+				
+				if (limpx <= 0)limpx=1;
+				if (limpy <=0)limpy=1;
+				
+				
+			}else if  ((sel3== 2) && (!parou)){//aumenta atributos do maleman
+				
+				if (myhp <3)
+					myhp=3;
+				myhp*=2;
+				
+				limpx+=v3;
+				limpy+=v3;
+				
+				tempopro-=300;
+				vx-=1;
+				vy-=1;
+				parou=true;
+				
+			}else if  ((sel3== 3) && (!parou)){// aumenta a magia 
+				
+				tempopro+=v1;
+				cuv+=3;
+				parou=true;
+				
+			}else if ((sel3 == 4) && (!parou)){//aumenta fada
+				
+				tamf++;
+				parou=true;
+				
+			}else if ((sel3 == 5) && (!parou)){//aumenta a conquista de ninfa
+				
+				sex+=3;
+				parou=true;
+				
+				
+			}else if ((sel3 == 6) && (!parou)){// aumenta o exp dos miniman
+				
+				expm*=2;
+				vida2+=2;
+				parou=true;
+				//será necessario coloca uma id na classe miniman para atribuir exp
+				
+			}else if ((sel3 == 7) && (!parou)){//novo atributo aleatorio
+				srand(time(NULL));
+				sel= rand() %  10;
+			//	sel=3;
+				
+			}else if ((sel3 == 8) && (!parou)){//precisa se preechido
+				
+				
+				
+				
+			}
+			
+			if (mile - bb >= 5000){
+				
+				tam=0;
+				qtd*=2;
+				ca=true;
+				tempo=false;
+				
+				bb = mile;
+				return ca;
+			}
+				
+			
+			
+			if (mile - a >= 1000){
+			
+				if (mudo){
+					mudo=false;
+				}else{
+					mudo=true;
+				}
+			
+				a=mile;
+			}
+			
+			
+			
+			
+			if (mudo)
+				draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+		}//esse é o deck terceiro
 		
 				
 				ca=false;

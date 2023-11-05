@@ -559,6 +559,8 @@ void carta(){
 			botao_draw(bot2,buffer);
 			botao_draw(bot3,buffer);
 			ca=botao_acao(bot,mile,ca,buffer);
+			ca=botao_acao(bot2,mile,ca,buffer);
+			ca=botao_acao(bot3,mile,ca,buffer);
 			draw_sprite(buffer,mouse,mouse_x-16,mouse_y-18);
 			//show_mouse(buffer);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);

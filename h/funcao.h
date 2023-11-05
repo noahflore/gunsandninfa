@@ -14,7 +14,7 @@ BITMAP * a4;
 float x=-2000,y=-2000,velx=0,vely=0,ace=0.10,sex=100,xgym[30],ygym[30];//controla variavels do cenario
 bool p=false,pp=false,comeca=false,parou=false,ga=false,pro=false,lojaopen=false;
 bool tempo=false;
-int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,vx=2,vy=2,ht=1,es,tam=0,tamf=1,ii=0,round=1,ou=0,qtdn=30,coni=0,conp=0;//atributos do cenario
+int tecla_ante[KEY_MAX],frame=0,stopf=0,sel,sel2,sel3,vx=2,vy=2,ht=1,es,tam=0,tamf=1,ii=0,round=1,ou=0,qtdn=30,coni=0,conp=0;//atributos do cenario
 int v1,v2,v3,v4,v5,v6,v7,v8,v9,d1,d2,d3,d4,d5,d6,d7,d8,d9;
 std::string no1="t",no2="t",no3="t",merda,merda2,merda3,merda4;
 int qtd=5,vida=1,limpx=8,limpy=8;//atributos do inimigo

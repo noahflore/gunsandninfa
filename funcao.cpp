@@ -52,7 +52,7 @@ void habilidade(){
 		no1="fraco";
 	}
 	
-	srand(time(NULL));
+	//srand(time(NULL));
 	
 	sel2= rand() % 10;
 	//sel=1;
@@ -98,7 +98,7 @@ void habilidade(){
 		no2="fraco";
 	}
 	
-	srand(time(NULL));
+	//srand(time(NULL));
 	
 	sel3= rand() % 10;
 	//sel=1;
@@ -1383,7 +1383,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				
 			}
-			
+			/*
 			if (mile - bb >= 5000){
 				
 				tam=0;
@@ -1395,9 +1395,9 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				return ca;
 			}
 				
+			*/
 			
-			
-			if (mile - a >= 1000){
+			if (mile - a >= 1000){//piscar o deck
 			
 				if (mudo){
 					mudo=false;
@@ -1480,7 +1480,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				
 			}
-			
+		/*	
 			if (mile - bb >= 5000){
 				
 				tam=0;
@@ -1492,9 +1492,9 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				return ca;
 			}
 				
+			*/
 			
-			
-			if (mile - a >= 1000){
+			if (mile - a >= 1000){//pisca o deck
 			
 				if (mudo){
 					mudo=false;
@@ -1578,16 +1578,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 			}
 			
-			if (mile - bb >= 5000){
-				
-				tam=0;
-				qtd*=2;
-				ca=true;
-				tempo=false;
-				
-				bb = mile;
-				return ca;
-			}
+			
 				
 			
 			
@@ -1610,6 +1601,18 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		}//esse é o deck terceiro
 		
 				
+		if (mile - bb >= 20000){
+				
+				tam=0;
+				qtd*=2;
+				ca=true;
+				tempo=false;
+				
+				//bb = mile;
+				return ca;
+			}
+		
+		
 				ca=false;
 				return ca;
 		

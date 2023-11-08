@@ -1315,74 +1315,84 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 	}
 		
 	}
-	bool botao_acao(Botao  *b, int mile,bool ca,BITMAP *buffer){
+	bool botao_acao(Botao  *b, int mile,bool ca,BITMAP *buffer,int bba){
 		static int a=mile,bb=mile;
-		static bool mudo=false;
+		static bool mudo=false,clicou=false;
+		
+		if (bba == 0)//reseta  o bb
+			bb=mile;
 		
 		if ((b->ativado) && (b->index==1)){
 			
-			if  (sel== 1){//aumenta atributos da fada
-				
-				vx=v1;
-				vy=v2;
-				ht+=v3;
-				tempopro-=d1;
-				limpx-=d2;
-				limpy-=d3;
-				
-				if (limpx <= 0)limpx=1;
-				if (limpy <=0)limpy=1;
-				
-				
-			}else if  ((sel== 2) && (!parou)){//aumenta atributos do maleman
-				
-				if (myhp <3)
-					myhp=3;
-				myhp*=2;
-				
-				limpx+=v3;
-				limpy+=v3;
-				
-				tempopro-=300;
-				vx-=1;
-				vy-=1;
-				parou=true;
-				
-			}else if  ((sel== 3) && (!parou)){// aumenta a magia 
-				
-				tempopro+=v1;
-				cuv+=3;
-				parou=true;
-				
-			}else if ((sel == 4) && (!parou)){//aumenta fada
-				
-				tamf++;
-				parou=true;
-				
-			}else if ((sel == 5) && (!parou)){//aumenta a conquista de ninfa
-				
-				sex+=3;
-				parou=true;
-				
-				
-			}else if ((sel == 6) && (!parou)){// aumenta o exp dos miniman
-				
-				expm*=2;
-				vida2+=2;
-				parou=true;
-				//será necessario coloca uma id na classe miniman para atribuir exp
-				
-			}else if ((sel == 7) && (!parou)){//novo atributo aleatorio
-				srand(time(NULL));
-				sel= rand() %  10;
-			//	sel=3;
-				
-			}else if ((sel == 8) && (!parou)){//precisa se preechido
-				
-				
-				
-				
-			}
+			if (!clicou){
+			
+				if  (sel== 1){//aumenta atributos da fada
+
+					vx=v1;
+					vy=v2;
+					ht+=v3;
+					tempopro-=d1;
+					limpx-=d2;
+					limpy-=d3;
+
+					if (limpx <= 0)limpx=1;
+					if (limpy <=0)limpy=1;
+
+
+				}else if  ((sel== 2) && (!parou)){//aumenta atributos do maleman
+
+					if (myhp <3)
+						myhp=3;
+					myhp*=2;
+
+					limpx+=v3;
+					limpy+=v3;
+
+					tempopro-=300;
+					vx-=1;
+					vy-=1;
+					parou=true;
+
+				}else if  ((sel== 3) && (!parou)){// aumenta a magia 
+
+					tempopro+=v1;
+					cuv+=3;
+					parou=true;
+
+				}else if ((sel == 4) && (!parou)){//aumenta fada
+
+					tamf++;
+					parou=true;
+
+				}else if ((sel == 5) && (!parou)){//aumenta a conquista de ninfa
+
+					sex+=3;
+					parou=true;
+
+
+				}else if ((sel == 6) && (!parou)){// aumenta o exp dos miniman
+
+					expm*=2;
+					vida2+=2;
+					parou=true;
+					//será necessario coloca uma id na classe miniman para atribuir exp
+
+				}else if ((sel == 7) && (!parou)){//novo atributo aleatorio
+					srand(time(NULL));
+					sel= rand() %  10;
+				//	sel=3;
+
+				}else if ((sel == 8) && (!parou)){//precisa se preechido
+
+
+
+
+				}
+			
+			
+			
+			clicou = true;
+		}
 			/*
 			if (mile - bb >= 5000){
 				
@@ -1418,68 +1428,76 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		
 		if ((b->ativado) && (b->index==2)){
 			
-			if  (sel2== 1){//aumenta atributos da fada
-				
-				vx=v1;
-				vy=v2;
-				ht+=v3;
-				tempopro-=d1;
-				limpx-=d2;
-				limpy-=d3;
-				
-				if (limpx <= 0)limpx=1;
-				if (limpy <=0)limpy=1;
-				
-				
-			}else if  ((sel2== 2) && (!parou)){//aumenta atributos do maleman
-				
-				if (myhp <3)
-					myhp=3;
-				myhp*=2;
-				
-				limpx+=v3;
-				limpy+=v3;
-				
-				tempopro-=300;
-				vx-=1;
-				vy-=1;
-				parou=true;
-				
-			}else if  ((sel2== 3) && (!parou)){// aumenta a magia 
-				
-				tempopro+=v1;
-				cuv+=3;
-				parou=true;
-				
-			}else if ((sel2 == 4) && (!parou)){//aumenta fada
-				
-				tamf++;
-				parou=true;
-				
-			}else if ((sel2 == 5) && (!parou)){//aumenta a conquista de ninfa
-				
-				sex+=3;
-				parou=true;
-				
-				
-			}else if ((sel2 == 6) && (!parou)){// aumenta o exp dos miniman
-				
-				expm*=2;
-				vida2+=2;
-				parou=true;
-				//será necessario coloca uma id na classe miniman para atribuir exp
-				
-			}else if ((sel2 == 7) && (!parou)){//novo atributo aleatorio
-				srand(time(NULL));
-				sel= rand() %  10;
-			//	sel=3;
-				
-			}else if ((sel2 == 8) && (!parou)){//precisa se preechido
-				
-				
-				
-				
-			}
+			
+			if (!clicou){
+			
+				if  (sel2== 1){//aumenta atributos da fada
+
+					vx=v1;
+					vy=v2;
+					ht+=v3;
+					tempopro-=d1;
+					limpx-=d2;
+					limpy-=d3;
+
+					if (limpx <= 0)limpx=1;
+					if (limpy <=0)limpy=1;
+
+
+				}else if  ((sel2== 2) && (!parou)){//aumenta atributos do maleman
+
+					if (myhp <3)
+						myhp=3;
+					myhp*=2;
+
+					limpx+=v3;
+					limpy+=v3;
+
+					tempopro-=300;
+					vx-=1;
+					vy-=1;
+					parou=true;
+
+				}else if  ((sel2== 3) && (!parou)){// aumenta a magia 
+
+					tempopro+=v1;
+					cuv+=3;
+					parou=true;
+
+				}else if ((sel2 == 4) && (!parou)){//aumenta fada
+
+					tamf++;
+					parou=true;
+
+				}else if ((sel2 == 5) && (!parou)){//aumenta a conquista de ninfa
+
+					sex+=3;
+					parou=true;
+
+
+				}else if ((sel2 == 6) && (!parou)){// aumenta o exp dos miniman
+
+					expm*=2;
+					vida2+=2;
+					parou=true;
+					//será necessario coloca uma id na classe miniman para atribuir exp
+
+				}else if ((sel2 == 7) && (!parou)){//novo atributo aleatorio
+					srand(time(NULL));
+					sel= rand() %  10;
+				//	sel=3;
+
+				}else if ((sel2 == 8) && (!parou)){//precisa se preechido
+
+
+
+
+				}
+			
+			
+			
+			clicou =true;
+		}
 		/*	
 			if (mile - bb >= 5000){
 				
@@ -1515,71 +1533,75 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		
 		if ((b->ativado) && (b->index==3)){
 			
-			if  (sel3== 1){//aumenta atributos da fada
-				
-				vx=v1;
-				vy=v2;
-				ht+=v3;
-				tempopro-=d1;
-				limpx-=d2;
-				limpy-=d3;
-				
-				if (limpx <= 0)limpx=1;
-				if (limpy <=0)limpy=1;
-				
-				
-			}else if  ((sel3== 2) && (!parou)){//aumenta atributos do maleman
-				
-				if (myhp <3)
-					myhp=3;
-				myhp*=2;
-				
-				limpx+=v3;
-				limpy+=v3;
-				
-				tempopro-=300;
-				vx-=1;
-				vy-=1;
-				parou=true;
-				
-			}else if  ((sel3== 3) && (!parou)){// aumenta a magia 
-				
-				tempopro+=v1;
-				cuv+=3;
-				parou=true;
-				
-			}else if ((sel3 == 4) && (!parou)){//aumenta fada
-				
-				tamf++;
-				parou=true;
-				
-			}else if ((sel3 == 5) && (!parou)){//aumenta a conquista de ninfa
-				
-				sex+=3;
-				parou=true;
-				
-				
-			}else if ((sel3 == 6) && (!parou)){// aumenta o exp dos miniman
-				
-				expm*=2;
-				vida2+=2;
-				parou=true;
-				//será necessario coloca uma id na classe miniman para atribuir exp
-				
-			}else if ((sel3 == 7) && (!parou)){//novo atributo aleatorio
-				srand(time(NULL));
-				sel= rand() %  10;
-			//	sel=3;
-				
-			}else if ((sel3 == 8) && (!parou)){//precisa se preechido
-				
-				
-				
+			if (!clicou){
+			
+				if  (sel3== 1){//aumenta atributos da fada
+
+					vx=v1;
+					vy=v2;
+					ht+=v3;
+					tempopro-=d1;
+					limpx-=d2;
+					limpy-=d3;
+
+					if (limpx <= 0)limpx=1;
+					if (limpy <=0)limpy=1;
+
+
+				}else if  ((sel3== 2) && (!parou)){//aumenta atributos do maleman
+
+					if (myhp <3)
+						myhp=3;
+					myhp*=2;
+
+					limpx+=v3;
+					limpy+=v3;
+
+					tempopro-=300;
+					vx-=1;
+					vy-=1;
+					parou=true;
+
+				}else if  ((sel3== 3) && (!parou)){// aumenta a magia 
+
+					tempopro+=v1;
+					cuv+=3;
+					parou=true;
+
+				}else if ((sel3 == 4) && (!parou)){//aumenta fada
+
+					tamf++;
+					parou=true;
+
+				}else if ((sel3 == 5) && (!parou)){//aumenta a conquista de ninfa
+
+					sex+=3;
+					parou=true;
+
+
+				}else if ((sel3 == 6) && (!parou)){// aumenta o exp dos miniman
+
+					expm*=2;
+					vida2+=2;
+					parou=true;
+					//será necessario coloca uma id na classe miniman para atribuir exp
+
+				}else if ((sel3 == 7) && (!parou)){//novo atributo aleatorio
+					srand(time(NULL));
+					sel= rand() %  10;
+				//	sel=3;
+
+				}else if ((sel3 == 8) && (!parou)){//precisa se preechido
+
+
+
+
+				}
+			
+			
+				clicou =true;
 				
 			}
-			
-			
-				
 			
 			
 			if (mile - a >= 1000){
@@ -1607,6 +1629,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				qtd*=2;
 				ca=true;
 				tempo=false;
+				clicou = false;
 				
 				//bb = mile;
 				return ca;

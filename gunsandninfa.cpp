@@ -532,6 +532,7 @@ void carta(){
 	ga=false;
 	ii=0;
 	round++;
+	int bba = 0;
 	
 	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
 	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);
@@ -558,9 +559,10 @@ void carta(){
 			botao_draw(bot,buffer);
 			botao_draw(bot2,buffer);
 			botao_draw(bot3,buffer);
-			ca=botao_acao(bot,mile,ca,buffer);
-			ca=botao_acao(bot2,mile,ca,buffer);
-			ca=botao_acao(bot3,mile,ca,buffer);
+			ca=botao_acao(bot,mile,ca,buffer,bba);
+			ca=botao_acao(bot2,mile,ca,buffer,bba);
+			ca=botao_acao(bot3,mile,ca,buffer,bba);
+			bba=-1;
 			draw_sprite(buffer,mouse,mouse_x-16,mouse_y-18);
 			//show_mouse(buffer);
 		//	masked_blit(deck,buffer,15,6,SCREEN_W/2,SCREEN_H/2,82,73);

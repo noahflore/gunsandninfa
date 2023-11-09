@@ -49,6 +49,7 @@ enum{
 	gym7=13,
 	gym8=14,
 	branco=15,
+	morte=16,
 	titula=100,
 	mena=101,
 	gama=103,

@@ -583,6 +583,63 @@ void desenha_mapa(BITMAP* m,BITMAP* buffer,int **mapa,int linha,int coluna){
 				
 				masked_blit(m,buffer,1 *m_w,3 *m_h + 5,j * 80+x,i *85+y,m_w,m_h);
 				
+			}else if ((mapa[i][j] == morte) && (j* 80+x < SCREEN_W) && (j* 80+x >-100) && (i* 85+y < SCREEN_H)&& (i* 85+y > -100)){
+				//aqui ficar um bloco invisivel que serve para coloca o player no centro
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){//objeto a
+					
+					y=-1000;
+					x=-1000;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)) {
+					
+					y=-1000;
+					x=-1000;
+					
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-100 >= i* 85 + y)&& (SCREEN_H/2-100 <= i* 85 + y + m_h)){
+					
+					y=-1000;
+					x=-1000;
+				}else if ((j * 80+x +m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y >= SCREEN_H/2-100)&& ( i* 85 + y <=SCREEN_H/2-50)){
+					
+					y=-1000;
+					x=-1000;
+					
+				}
+				
+				if ((SCREEN_W/2-50 >= j * 80+x) && (SCREEN_W/2-50 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y=-1000;
+					x=-1000;
+				}else if ((j * 80+x + m_w >= SCREEN_W/2-60) && ( j* 80 + x + m_w <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y=-1000;
+					x=-1000;
+					
+				}
+				
+				if ((SCREEN_W/2-60 >= j * 80+x) && (SCREEN_W/2-60 <= j* 80 + x + m_w)
+				   && (SCREEN_H/2-50 >= i* 85 + y)&& (SCREEN_H/2-50 <= i* 85 + y + m_h)){
+					
+					y=-1000;
+					x=-1000;
+				}else if ((j * 80+x >= SCREEN_W/2-100) && ( j* 80 + x <= SCREEN_W/2)
+				   && ( i* 85 + y + m_h >= SCREEN_H/2-100)&& ( i* 85 + y + m_h <=SCREEN_H/2-50)){
+					
+					y=-1000;
+					x=-1000;
+					
+				}
+				
+				
 			}
 			
 		

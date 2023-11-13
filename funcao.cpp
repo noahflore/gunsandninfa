@@ -1305,7 +1305,7 @@ bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){
 		draw_sprite(buffer,grande,60,10);
 		textprintf(buffer,font,60+55,10,makecol(255,255,255),"%d",cuv);
 
-		if ((vpro) && (cuv >0)){
+		if ((vpro) && (cuv >0)){//aqui aparece o circulo
 
 				if (!conr)
 				cuv--;
@@ -1441,7 +1441,12 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 
 				}else if ((sel == 8) && (!parou)){//precisa se preechido
 
-
+					sex+=10;
+					
+					if (myhp >3)
+						myhp--;
+					
+					parou=true;
 
 
 				}
@@ -1544,9 +1549,14 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 					sel= rand() %  10;
 				//	sel=3;
 
-				}else if ((sel2 == 8) && (!parou)){//precisa se preechido
+				}else if ((sel2 == 8) && (!parou)){//aumenta sexappeal
 
-
+					sex+=10;
+					
+					if (myhp >3)
+						myhp--;
+					
+					parou=true;
 
 
 				}
@@ -1648,9 +1658,15 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 					sel= rand() %  10;
 				//	sel=3;
 
-				}else if ((sel3 == 8) && (!parou)){//precisa se preechido
+				}else if ((sel3 == 8) && (!parou)){//aumenta sexappeal
 
 
+					sex+=10;
+					
+					if (myhp >3)
+						myhp--;
+					
+					parou=true;
 
 
 				}

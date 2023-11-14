@@ -316,6 +316,7 @@ void game(){
 	BITMAP* buffer= create_bitmap(SCREEN_W,SCREEN_H);
 	BITMAP* inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
 	BITMAP* obj=load_bitmap("sprite/item/obj.bmp",NULL);
+	BITMAP* roda=load_bitmap("sprite/circle.bmp",NULL);
 	SAMPLE* musica= logg_load("music/musica.ogg");//logg.h só serve para converter arquivo.ogg para .wav
 	LOCK_FUNCTION(logg_load);
 	lock_sample(musica);
@@ -372,10 +373,11 @@ void game(){
 			
 			desenha_mapa(m,buffer,mapa,linha,coluna);
 			update_lista_moeda(lll,moedinha,buffer);
-			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);// spana inimigo
+			perso(player,buffer,frame_w,frame_h,mile);
+			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd,roda);// spana inimigo
 		
 			
-			perso(player,buffer,frame_w,frame_h,mile);
+			
 			equipa(roupa,buffer,obj);
 			if (estado_screen==cida){
 				myhp=backup;
@@ -410,6 +412,7 @@ void game(){
 	free(com);
 	fecha_mapa(mapa,linha);
 	destroy_font(asman);
+	destroy_bitmap(roda);
 	destroy_bitmap(moedinha);
 	destroy_bitmap(obj);
 	destroy_bitmap(grande);
@@ -450,6 +453,7 @@ for (int i=0;i<300;i++){
 	BITMAP *inimi=load_bitmap("sprite/spriteinimigo.bmp",NULL);
 	BITMAP *grande=load_bitmap("sprite/escudo.bmp",NULL);
 	BITMAP *life=load_bitmap("sprite/life.bmp",NULL);
+	BITMAP *roda=load_bitmap("sprite/circle.bmp",NULL);
 	int linha,coluna;
 	int **mapa=carrega_mapa("mapa.txt",&linha,&coluna);
 	Lista_mini *lm=create_lista_mini();
@@ -497,7 +501,7 @@ for (int i=0;i<300;i++){
 			update_lista_mini(lm,min,buffer,x,y,mile,true,posx_ini,posy_ini);
 			update_bolota(l4,m,buffer,x,y,mile);
 			perso(player,buffer,frame_w,frame_h,mile);
-			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd);
+			update_lista(l,ll,com,grande,life,player,inimi,buffer,pro,tam,x,y,mile,qtd,roda);
 			draw_sprite(screen,buffer,0,0);
 			clear(buffer);
 			fps--;
@@ -506,6 +510,7 @@ for (int i=0;i<300;i++){
 		
 	}
 	
+	destroy_bitmap(roda);
 	destroy_bitmap(moedinha);
 	destroy_bitmap(grande);
 	destroy_bitmap(inimi);

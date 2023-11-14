@@ -1288,10 +1288,10 @@ void item(BITMAP *buffer,bool lojaa,int px,int py,FONT *fonte){
 	}
 }
 
-bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){
+bool protege(BITMAP *grande,BITMAP *buffer,BITMAP *roda,bool vpro,int mile){
 	static int temes=mile;
 	static bool conr=false;
-		
+		set_trans_blender(255,255,255,50);
 	
 		if (mile  - temes >= tempopro){
 
@@ -1311,7 +1311,7 @@ bool protege(BITMAP *grande,BITMAP *buffer,bool vpro,int mile){
 				cuv--;
 				conr=true;
 			
-			circle(buffer,SCREEN_W/2-100,SCREEN_H/2-100,100,makecol(255,0,124));
+			draw_sprite_ex(buffer,roda,SCREEN_W/2-150,SCREEN_H/2-150,DRAW_SPRITE_TRANS,DRAW_SPRITE_NO_FLIP);
 			return true;
 		}else{
 
@@ -2084,7 +2084,7 @@ void update_lista_moeda(Lista_moeda *l,BITMAP *c,BITMAP *buffer){
 	
 }
 
-void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMAP* life,BITMAP *player,BITMAP* ini,BITMAP *buffer,bool vpro,int tam,int x,int y,int mile,int qtd){
+void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMAP* life,BITMAP *player,BITMAP* ini,BITMAP *buffer,bool vpro,int tam,int x,int y,int mile,int qtd,BITMAP *roda){
 	
 	//No_inimi *aux=l->inicio;
 	//No_inimi *aux2=l->inicio;
@@ -2094,7 +2094,7 @@ void update_lista(Lista_inimi *l,Lista_fad *ll,Compara *com,BITMAP *grande,BITMA
 	static int calma=mile;
 	 
 	
-	pro=protege(grande,buffer,vpro,mile);
+	pro=protege(grande,buffer,roda,vpro,mile);
 	while (aux3 !=NULL){
 		
 		

@@ -542,6 +542,7 @@ void carta(){
 	BITMAP *deck=load_bitmap("sprite/deck.bmp",NULL);
 	BITMAP *h_deck=load_bitmap("sprite/h_deck.bmp",NULL);
 	BITMAP *mouse=load_bitmap("sprite/mouse.bmp",NULL);
+	BITMAP *carda=load_bitmap("sprite/carda.bmp",NULL);
 	BITMAP *buffer=create_bitmap(SCREEN_W,SCREEN_H);
 	Botao *bot=create_botao(deck,h_deck,SCREEN_W/2-300,SCREEN_H/2-200,1);
 	Botao *bot2=create_botao(deck,h_deck,SCREEN_W/2-200,SCREEN_H/2-200,2);
@@ -561,9 +562,9 @@ void carta(){
 			
 			
 			
-			botao_draw(bot,buffer);
-			botao_draw(bot2,buffer);
-			botao_draw(bot3,buffer);
+			botao_draw(bot,buffer,carda);
+			botao_draw(bot2,buffer,carda);
+			botao_draw(bot3,buffer,carda);
 			ca=botao_acao(bot,mile,ca,buffer,bba);
 			ca=botao_acao(bot2,mile,ca,buffer,bba);
 			ca=botao_acao(bot3,mile,ca,buffer,bba);
@@ -583,6 +584,8 @@ void carta(){
 		
 		
 	}
+	
+	destroy_bitmap(carda);
 	destroy_bitmap(h_deck);
 	destroy_bitmap(mouse);
 	destroy_botao(bot);

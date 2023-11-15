@@ -1713,13 +1713,63 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				return ca;
 		
 	}
-	void botao_draw(Botao *b,BITMAP *buffer){
+	void botao_draw(Botao *b,BITMAP *buffer,BITMAP *carda){
 		
 		draw_sprite(buffer,b->img,b->pos_x,b->pos_y);
 		
 		if ((b->highon) && (b->index==1)){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s\n vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+			
+			if (sel==1){
+				
+				
+				draw_sprite(buffer,carda,0,0);
+				
+			}else if (sel==2){
+				
+				
+				
+				
+			}else if (sel==3){
+				
+				
+				
+				
+			}else if (sel==4){
+				
+				
+				
+				
+			}else if (sel==5){
+				
+				
+				
+				
+			}else if (sel==6){
+				
+				
+				
+				
+			}else if (sel==7){
+				
+				
+				
+				
+			}else if (sel==8){
+				
+				
+				
+				
+			}else if (sel==9){
+				
+				
+				
+				
+			}
+			
+			
+			
 		}else if ((b->highon) && (b->index==2)){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \n vanta: %d %d %d \n desvan: %d %d %d",no2.c_str(),v4,v5,v6,d4,d5,d6);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);

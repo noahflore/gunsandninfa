@@ -10,8 +10,8 @@ void habilidade(){
 	
 	srand(time(NULL));
 	
-	sel= rand() % 10;
-//	sel=1;
+//	sel= rand() % 10;
+	sel=2;
 	if (sel == 1){
 	no1= "fadia submissa";
 		
@@ -1724,46 +1724,46 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			if (sel==1){
 				
 				
-				draw_sprite(buffer,carda,0,0);
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 			}else if (sel==2){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==3){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==4){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==5){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==6){
 				
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 			}else if (sel==7){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==8){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}else if (sel==9){
 				
-				
+				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
 				
 				
 			}

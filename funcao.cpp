@@ -1728,7 +1728,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 			}else if (sel==2){
 				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+				masked_blit(carda,buffer,0,120,b->pos_x + 30,b->pos_y + 30,100,220);
 				
 				
 			}else if (sel==3){

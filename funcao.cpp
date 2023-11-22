@@ -12,44 +12,55 @@ void habilidade(){
 	
 //	sel= rand() % 10;
 	sel=2;
-	if (sel == 1){
-	no1= "fadia submissa";
+	
+	switch (sel){
+			
+		case 1:
+			no1= "fadia submissa";
+			break;
 		
-	}else if (sel == 2){
+		case 2:
 		
-		no1= "homem masculo";
-	}else if (sel == 3){
+			no1= "homem masculo";
+			break;
+		case 3:
 		
-		no1= "alpha";
-	}else if (sel == 4){
+			no1= "alpha";
+			break;
+		case 4:
 		
 		
-		no1="mais fadia";
+			no1="mais fadia";
+			break;
 		
 		
-	}else if(sel == 5){
+		case 5:
 		
-		no1="deus grego";
+			no1="deus grego";
+			break;
 		
-	}else if(sel == 6){
+		case 6:
 		
-		no1="a queda";
+			no1="a queda";
+			break;
 		
-	}else if(sel == 7){
+		case 7:
 		
-		no1="humilhação";
+			no1="humilhação";
+			break;
 		
-	}else if(sel == 8){
+		case 8:
 		
-		no1="fadia rebeliao";
+			no1="fadia rebeliao";
+			break;
 		
-	}else if(sel == 9){
+		case 9:
 		
-		no1="o beta";
+			no1="o beta";
+			break;
+		default:
 		
-	}else{
-		
-		no1="fraco";
+			no1="fraco";
 	}
 	
 	//srand(time(NULL));
@@ -1721,49 +1732,56 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s\n vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 			
-			if (sel==1){
+			
+			switch (sel){
+					
+				case 1:
+				
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
+				case 2:
+
+					masked_blit(carda,buffer,0,35,b->pos_x + 30,b->pos_y + 30,100,74);
+					break;
+				
+				case 3:
+			
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
+				
+				case 4:
+			
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
 				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+				case 5:
 				
-			}else if (sel==2){
-				
-				masked_blit(carda,buffer,0,120,b->pos_x + 30,b->pos_y + 30,100,220);
-				
-				
-			}else if (sel==3){
-				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
 				
-			}else if (sel==4){
+				case 6:
 				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
+				case 7:
 				
-			}else if (sel==5){
-				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
-				
-				
-			}else if (sel==6){
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
 				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+				case 8:
 				
-			}else if (sel==7){
-				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
-				
-				
-			}else if (sel==8){
-				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
 				
-			}else if (sel==9){
+				case 9:
 				
-				masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					break;
 				
 				
 			}

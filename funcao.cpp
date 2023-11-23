@@ -11,7 +11,7 @@ void habilidade(){
 	srand(time(NULL));
 	
 //	sel= rand() % 10;
-	sel=2;
+	sel=3;
 	
 	switch (sel){
 			
@@ -1729,7 +1729,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		draw_sprite(buffer,b->img,b->pos_x,b->pos_y);
 		
 		if ((b->highon) && (b->index==1)){
-			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s\n vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
+			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \j vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 			
 			
@@ -1746,7 +1746,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				case 3:
 			
-					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,77,b->pos_x + 30,b->pos_y + 30,34,110);
 					break;
 				
 				case 4:

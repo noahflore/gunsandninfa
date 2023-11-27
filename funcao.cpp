@@ -1732,26 +1732,26 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \j vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 			
-			
+			sel=5;
 			switch (sel){
 					
 				case 1:
 				
-					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,30);
 					break;
 				case 2:
 
-					masked_blit(carda,buffer,0,35,b->pos_x + 30,b->pos_y + 30,100,74);
+					masked_blit(carda,buffer,0,35,b->pos_x + 30,b->pos_y + 30,100,42);
 					break;
 				
 				case 3:
 			
-					masked_blit(carda,buffer,0,77,b->pos_x + 30,b->pos_y + 30,34,110);
+					masked_blit(carda,buffer,0,77,b->pos_x + 30,b->pos_y + 30,34,30);
 					break;
 				
 				case 4:
 			
-					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,113,b->pos_x + 30,b->pos_y + 30,100,145);
 					break;
 				
 				

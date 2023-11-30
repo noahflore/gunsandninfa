@@ -1774,7 +1774,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				case 8:
 				
-					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,312,b->pos_x + 14,b->pos_y + 30,100,50);
 					break;
 				
 				

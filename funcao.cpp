@@ -1732,7 +1732,7 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \j vanta: %d %d %d\n desvan: %d %d %d",no1.c_str(),v1,v2,v3,d1,d2,d3);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
 			
-			sel=8;
+			//sel=9;
 			switch (sel){
 					
 				case 1:
@@ -1751,13 +1751,13 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				case 4:
 			
-					masked_blit(carda,buffer,0,113,b->pos_x + 30,b->pos_y + 30,100,145);
+					masked_blit(carda,buffer,0,113,b->pos_x + 30,b->pos_y + 30,100,40);
 					break;
 				
 				
 				case 5:
 				
-					masked_blit(carda,buffer,0,151,b->pos_x + 30,b->pos_y + 10,100,500);
+					masked_blit(carda,buffer,0,151,b->pos_x + 30,b->pos_y + 10,100,50);
 					break;
 				
 				
@@ -1774,13 +1774,13 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 				
 				case 8:
 				
-					masked_blit(carda,buffer,0,312,b->pos_x + 14,b->pos_y + 30,100,50);
+					masked_blit(carda,buffer,0,312,b->pos_x + 14,b->pos_y + 30,100,40);
 					break;
 				
 				
 				case 9:
 				
-					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,100);
+					masked_blit(carda,buffer,0,355,b->pos_x + 10,b->pos_y + 30,100,100);
 					break;
 				
 				
@@ -1791,9 +1791,115 @@ Botao *create_botao(BITMAP *img,BITMAP *h_img,int pos_x,int pos_y,int index){
 		}else if ((b->highon) && (b->index==2)){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \n vanta: %d %d %d \n desvan: %d %d %d",no2.c_str(),v4,v5,v6,d4,d5,d6);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+			
+			switch (sel2){
+					
+				case 1:
+				
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,30);
+					break;
+				case 2:
+
+					masked_blit(carda,buffer,0,35,b->pos_x + 30,b->pos_y + 30,100,42);
+					break;
+				
+				case 3:
+			
+					masked_blit(carda,buffer,0,77,b->pos_x + 30,b->pos_y + 30,34,30);
+					break;
+				
+				case 4:
+			
+					masked_blit(carda,buffer,0,113,b->pos_x + 30,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 5:
+				
+					masked_blit(carda,buffer,0,151,b->pos_x + 30,b->pos_y + 10,100,50);
+					break;
+				
+				
+				case 6:
+				
+					masked_blit(carda,buffer,0,232,b->pos_x + 13,b->pos_y + 30,100,40);
+					break;
+				
+				case 7:
+				
+					masked_blit(carda,buffer,0,286,b->pos_x + 15,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 8:
+				
+					masked_blit(carda,buffer,0,312,b->pos_x + 14,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 9:
+				
+					masked_blit(carda,buffer,0,355,b->pos_x + 10,b->pos_y + 30,100,100);
+					break;
+				
+				
+			}
 		}else if ((b->highon) && (b->index==3)){
 			textprintf_centre(buffer,font,b->pos_x+50,b->pos_y+150,makecol(255,255,255),"habili: %s \n vanta: %d %d %d \n desvan: %d %d %d",no3.c_str(),v7,v8,v9,d7,d8,d9);
 			draw_sprite(buffer,b->h_img,b->pos_x,b->pos_y);
+			
+			switch (sel3){
+					
+				case 1:
+				
+					masked_blit(carda,buffer,0,0,b->pos_x + 30,b->pos_y + 30,100,30);
+					break;
+				case 2:
+
+					masked_blit(carda,buffer,0,35,b->pos_x + 30,b->pos_y + 30,100,42);
+					break;
+				
+				case 3:
+			
+					masked_blit(carda,buffer,0,77,b->pos_x + 30,b->pos_y + 30,34,30);
+					break;
+				
+				case 4:
+			
+					masked_blit(carda,buffer,0,113,b->pos_x + 30,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 5:
+				
+					masked_blit(carda,buffer,0,151,b->pos_x + 30,b->pos_y + 10,100,50);
+					break;
+				
+				
+				case 6:
+				
+					masked_blit(carda,buffer,0,232,b->pos_x + 13,b->pos_y + 30,100,40);
+					break;
+				
+				case 7:
+				
+					masked_blit(carda,buffer,0,286,b->pos_x + 15,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 8:
+				
+					masked_blit(carda,buffer,0,312,b->pos_x + 14,b->pos_y + 30,100,40);
+					break;
+				
+				
+				case 9:
+				
+					masked_blit(carda,buffer,0,355,b->pos_x + 10,b->pos_y + 30,100,100);
+					break;
+				
+				
+			}
 		}
 	}
 	void destroy_botao(Botao *b){
